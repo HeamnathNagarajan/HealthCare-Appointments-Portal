@@ -1,4 +1,4 @@
-﻿namespace HealthCare_Appointment_Portals.Utilities
+﻿namespace HealthCare_Appointments_Portals.Utilities
 {
     public class Constants
     {

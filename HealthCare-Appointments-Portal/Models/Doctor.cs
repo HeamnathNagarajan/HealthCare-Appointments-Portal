@@ -1,8 +1,13 @@
-﻿namespace HealthCare_Appointments_Portal.Models
+﻿using HealthCare_Appointments_Portals.Utilities;
+using HealthCare_Appointments_Portal.Enum;
+namespace HealthCare_Appointments_Portal.Models
+
 {
     public class Doctor
     {
         public Guid DoctorId { get; set; } = Guid.NewGuid();
+
+        public int DisplayId { get; set; }
 
         public string FullName { get; set; } = string.Empty;
 

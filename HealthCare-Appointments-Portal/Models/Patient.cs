@@ -7,7 +7,7 @@ namespace HealthCare_Appointments_Portal.Models
     {
 
         public Guid PatientId { get; set; } = Guid.NewGuid();
-
+        public int DisplayId { get; set; }   
         public string FullName { get; set; } = string.Empty;
         
         public DateOnly DateOfBirth { get; set; }

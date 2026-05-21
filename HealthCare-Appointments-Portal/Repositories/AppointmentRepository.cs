@@ -1,7 +1,8 @@
 ﻿using HealthCare_Appointments_Portal.Data;
 using HealthCare_Appointments_Portal.Interfaces;
 using HealthCare_Appointments_Portal.Models;
-namespace HealthCare_Appointment_Portal.Repositories
+
+namespace HealthCare_Appointments_Portal.Repositories
 {
     public class AppointmentRepository : IAppointmentRepository
     {

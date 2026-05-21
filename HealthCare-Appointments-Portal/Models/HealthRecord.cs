@@ -1,10 +1,12 @@
-﻿using HealthCare_Appointment_Portal.Utilities;
+﻿using HealthCare_Appointments_Portals.Utilities;
 
 namespace HealthCare_Appointments_Portal.Models;
 
 public class HealthRecord
 {
     public Guid RecordId { get; set; } = Guid.NewGuid();
+
+    public int DisplayId { get; set; }
 
     public required Patient Patient { get; set; }
 

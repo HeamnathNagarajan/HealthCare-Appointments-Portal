@@ -207,7 +207,7 @@ namespace HealthCare_Appointment_Portal.Tests
             _mockRepository
                 .Setup(r =>
                     r.GetAppointmentById(
-                        It.IsAny<Guid>()))
+                        It.IsAny<int>()))
                 .Returns((Appointment?)null);
 
             // Act & Assert
@@ -215,7 +215,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 AppointmentNotFoundException>(() =>
                     _appointmentService
                     .GetAppointmentById(
-                        Guid.NewGuid()));
+                       99));
         }
 
         // Get All Appointments

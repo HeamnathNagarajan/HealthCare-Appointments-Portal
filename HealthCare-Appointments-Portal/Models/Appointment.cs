@@ -6,9 +6,11 @@ namespace HealthCare_Appointment_Portal.Models;
 
 public class Appointment
 {
+    // Auto Increment Appointment Id
+    private static int _appointmentCounter = 1;
+
     // Unique Appointment Identifier
-    public Guid AppointmentId { get; set; }
-        = Guid.NewGuid();
+    public int AppointmentId { get; set; } = _appointmentCounter++;
 
     // Patient Information
     [Required(

@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using HealthCare_Appointment_Portal.Data;
+﻿using HealthCare_Appointment_Portal.Data;
 using HealthCare_Appointment_Portal.Enums;
+using HealthCare_Appointment_Portal.Exceptions;
 using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
 using HealthCare_Appointment_Portal.Repositories;
 using HealthCare_Appointment_Portal.Services;
+using HealthCare_Appointment_Portal.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HealthCare_Appointment_Portal;
@@ -66,46 +67,55 @@ public class Program
             serviceProvider
             .GetRequiredService<IHealthRecordService>();
 
+        // Resolve DataStore
+        DataStore dataStore =
+            serviceProvider
+            .GetRequiredService<DataStore>();
+
+        // Seed Dummy Data
+        DataSeeder.Seed(dataStore);
+
         bool exit = false;
 
         while (!exit)
         {
             Console.WriteLine(
-                "\n===== HEALTHCARE APPOINTMENT PORTAL =====");
+                ConsoleConstants.ApplicationTitle);
 
             Console.WriteLine(
-                "1. Register Patient");
+                ConsoleConstants.RegisterPatient);
 
             Console.WriteLine(
-                "2. Add Doctor");
+                ConsoleConstants.AddDoctor);
 
             Console.WriteLine(
-                "3. Search Doctors By Specialisation");
+                ConsoleConstants.SearchDoctors);
 
             Console.WriteLine(
-                "4. Book Appointment");
+                ConsoleConstants.BookAppointment);
 
             Console.WriteLine(
-                "5. View Patient Appointments");
+                ConsoleConstants.ViewAppointments);
 
             Console.WriteLine(
-                "6. Confirm / Cancel / Complete Appointment");
+                ConsoleConstants.ManageAppointments);
 
             Console.WriteLine(
-                "7. Add Health Record");
+                ConsoleConstants.AddHealthRecord);
 
             Console.WriteLine(
-                "8. View Patient Health Records");
+                ConsoleConstants.ViewHealthRecords);
 
             Console.WriteLine(
-                "9. Exit");
+                ConsoleConstants.ManagementModules);
 
-            Console.Write(
-                "\nEnter Choice: ");
+            Console.WriteLine(
+                ConsoleConstants.Exit);
 
             int choice =
-                Convert.ToInt32(
-                    Console.ReadLine());
+                UtilityHelper
+                .ReadValidInt(
+                    ConsoleConstants.EnterChoice);
 
             try
             {
@@ -117,34 +127,42 @@ public class Program
                         Patient patient = new();
 
                         patient.FullName =
-                            ReadValidatedProperty(
-                                "Enter Full Name: ",
+                            UtilityHelper
+                            .ReadValidatedProperty(
+                                ConsoleConstants.EnterFullName,
                                 nameof(Patient.FullName),
                                 patient);
 
                         patient.DateOfBirth =
-                            ReadValidDate(
-                                "Enter DOB (yyyy-MM-dd): ");
+                            UtilityHelper
+                            .ReadValidDate(
+                                ConsoleConstants.EnterDob,
+                                nameof(Patient.DateOfBirth),
+                                patient);
 
                         patient.Gender =
-                            ReadValidEnum<Gender>(
-                                "Enter Gender Choice: ");
+                            UtilityHelper
+                            .ReadValidEnum<Gender>(
+                                ConsoleConstants.EnterGenderChoice);
 
                         patient.PhoneNumber =
-                            ReadValidatedProperty(
-                                "Enter Phone Number: ",
+                            UtilityHelper
+                            .ReadValidatedProperty(
+                                ConsoleConstants.EnterPhoneNumber,
                                 nameof(Patient.PhoneNumber),
                                 patient);
 
                         patient.Email =
-                            ReadValidatedProperty(
-                                "Enter Email: ",
+                            UtilityHelper
+                            .ReadValidatedProperty(
+                                ConsoleConstants.EnterEmail,
                                 nameof(Patient.Email),
                                 patient);
 
                         patient.InsuranceId =
-                            ReadValidatedProperty(
-                                "Enter Insurance Id: ",
+                            UtilityHelper
+                            .ReadValidatedProperty(
+                                ConsoleConstants.EnterInsuranceId,
                                 nameof(Patient.InsuranceId),
                                 patient);
 
@@ -152,7 +170,8 @@ public class Program
                             .AddPatient(patient);
 
                         Console.WriteLine(
-                            "\nPatient Registered Successfully.");
+                            ConsoleConstants
+                            .PatientRegisteredSuccessfully);
 
                         Console.WriteLine(
                             patient.GetProfileSummary());
@@ -165,28 +184,31 @@ public class Program
                         Doctor doctor = new();
 
                         doctor.FullName =
-                            ReadValidatedProperty(
-                                "Enter Full Name: ",
+                            UtilityHelper
+                            .ReadValidatedProperty(
+                                ConsoleConstants.EnterFullName,
                                 nameof(Doctor.FullName),
                                 doctor);
 
                         doctor.Specialisation =
-                            ReadValidEnum<Specialisation>(
-                                "Enter Specialisation Choice: ");
+                            UtilityHelper
+                            .ReadValidEnum<Specialisation>(
+                                ConsoleConstants.EnterSpecialisationChoice);
 
                         doctor.YearsOfExperience =
-                            Convert.ToInt32(
-                                ReadInput(
-                                    "Enter Years Of Experience: "));
+                            UtilityHelper
+                            .ReadValidInt(
+                                ConsoleConstants.EnterYearsOfExperience);
 
                         doctor.ConsultationFee =
-                            Convert.ToDecimal(
-                                ReadInput(
-                                    "Enter Consultation Fee: "));
+                            UtilityHelper
+                            .ReadValidDecimal(
+                                ConsoleConstants.EnterConsultationFee);
 
                         doctor.IsActive = true;
 
-                        if (!ValidateModel(doctor))
+                        if (!UtilityHelper
+                            .ValidateModel(doctor))
                         {
                             break;
                         }
@@ -195,40 +217,35 @@ public class Program
                             .AddDoctor(doctor);
 
                         Console.WriteLine(
-                            "\nDoctor Added Successfully.");
+                            ConsoleConstants
+                            .DoctorAddedSuccessfully);
 
                         Console.WriteLine(
                             doctor.GetDoctorSummary());
 
                         break;
 
-                    // Search Doctors By Specialisation
+                    // Search Doctors
                     case 3:
 
-                        Specialisation selectedSpecialisation =
-                            ReadValidEnum<Specialisation>(
-                                "Enter Specialisation Choice: ");
+                        Specialisation specialisation =
+                            UtilityHelper
+                            .ReadValidEnum<Specialisation>(
+                                ConsoleConstants.EnterSpecialisationChoice);
 
                         List<Doctor> doctors =
                             doctorService
                             .GetDoctorsBySpecialisation(
-                                selectedSpecialisation);
+                                specialisation);
 
-                        if (!doctors.Any())
+                        Console.WriteLine(
+                            ConsoleConstants
+                            .AvailableDoctors);
+
+                        foreach (Doctor d in doctors)
                         {
                             Console.WriteLine(
-                                "No Doctors Found.");
-                        }
-                        else
-                        {
-                            Console.WriteLine(
-                                "\nAvailable Doctors:");
-
-                            foreach (Doctor d in doctors)
-                            {
-                                Console.WriteLine(
-                                    d.GetDoctorSummary());
-                            }
+                                d.GetDoctorSummary());
                         }
 
                         break;
@@ -237,27 +254,20 @@ public class Program
                     case 4:
 
                         string patientEmail =
-                            ReadInput(
-                                "Enter Patient Email: ");
+                            UtilityHelper
+                            .ReadInput(
+                                ConsoleConstants
+                                .EnterPatientEmail);
 
                         Patient? existingPatient =
                             patientService
-                            .GetAllPatients()
-                            .FirstOrDefault(p =>
-                                p.Email ==
+                            .GetPatientByEmail(
                                 patientEmail);
 
-                        if (existingPatient == null)
-                        {
-                            Console.WriteLine(
-                                "Patient Not Found.");
-
-                            break;
-                        }
-
                         Specialisation selectedAppointmentSpecialisation =
-                            ReadValidEnum<Specialisation>(
-                                "Enter Specialisation Choice: ");
+                            UtilityHelper
+                            .ReadValidEnum<Specialisation>(
+                                ConsoleConstants.EnterSpecialisationChoice);
 
                         List<Doctor> availableDoctors =
                             doctorService
@@ -267,13 +277,15 @@ public class Program
                         if (!availableDoctors.Any())
                         {
                             Console.WriteLine(
-                                "No Doctors Available.");
+                                ConsoleConstants
+                                .NoDoctorsAvailable);
 
                             break;
                         }
 
                         Console.WriteLine(
-                            "\nAvailable Doctors:");
+                            ConsoleConstants
+                            .AvailableDoctors);
 
                         foreach (Doctor d in availableDoctors)
                         {
@@ -281,30 +293,49 @@ public class Program
                                 d.GetDoctorSummary());
                         }
 
-                        Guid doctorId =
-                            Guid.Parse(
-                                ReadInput(
-                                    "Enter Doctor Id: "));
+                        int doctorId =
+                            UtilityHelper
+                            .ReadValidInt(
+                                ConsoleConstants.EnterDoctorId);
 
                         Doctor? existingDoctor =
                             doctorService
                             .GetDoctorById(
                                 doctorId);
 
+                        // Temporary Appointment Object
+                        Appointment appointmentModel = new()
+                        {
+                            Patient =
+                                existingPatient!,
+
+                            Doctor =
+                                existingDoctor!
+                        };
+
+                        DateOnly scheduledDate =
+                            UtilityHelper
+                            .ReadValidDate(
+                                ConsoleConstants.EnterAppointmentDate,
+                                nameof(Appointment.ScheduledDate),
+                                appointmentModel);
+
+                        TimeOnly timeSlot =
+                            UtilityHelper
+                            .ReadValidTime(
+                                ConsoleConstants.EnterTimeSlot);
+
                         Appointment appointment =
                             appointmentService
                             .BookAppointment(
-                                existingPatient,
+                                existingPatient!,
                                 existingDoctor!,
-
-                                ReadValidDate(
-                                    "Enter Appointment Date (yyyy-MM-dd): "),
-
-                                ReadValidTime(
-                                    "Enter Time Slot (HH:mm): "));
+                                scheduledDate,
+                                timeSlot);
 
                         Console.WriteLine(
-                            "\nAppointment Booked Successfully.");
+                            ConsoleConstants
+                            .AppointmentBookedSuccessfully);
 
                         Console.WriteLine(
                             appointment.GetDetails());
@@ -315,33 +346,27 @@ public class Program
                     case 5:
 
                         string appointmentEmail =
-                            ReadInput(
-                                "Enter Patient Email: ");
+                            UtilityHelper
+                            .ReadInput(
+                                ConsoleConstants
+                                .EnterPatientEmail);
 
                         Patient? appointmentPatient =
                             patientService
-                            .GetAllPatients()
-                            .FirstOrDefault(p =>
-                                p.Email ==
+                            .GetPatientByEmail(
                                 appointmentEmail);
-
-                        if (appointmentPatient == null)
-                        {
-                            Console.WriteLine(
-                                "Patient Not Found.");
-
-                            break;
-                        }
 
                         List<Appointment> appointments =
                             appointmentService
                             .GetAppointmentsByPatient(
-                                appointmentPatient.PatientId);
+                                appointmentPatient!
+                                .PatientId);
 
                         if (!appointments.Any())
                         {
                             Console.WriteLine(
-                                "No Appointments Found.");
+                                ConsoleConstants
+                                .NoAppointmentsFound);
                         }
                         else
                         {
@@ -354,7 +379,7 @@ public class Program
 
                         break;
 
-                    // Confirm / Cancel / Complete Appointment
+                    // Confirm Cancel Complete Appointment
                     case 6:
 
                         List<Appointment> allAppointments =
@@ -364,13 +389,15 @@ public class Program
                         if (!allAppointments.Any())
                         {
                             Console.WriteLine(
-                                "No Appointments Available.");
+                                ConsoleConstants
+                                .NoAppointmentsAvailable);
 
                             break;
                         }
 
                         Console.WriteLine(
-                            "\nAppointments:");
+                            ConsoleConstants
+                            .Appointments);
 
                         foreach (Appointment a in allAppointments)
                         {
@@ -378,24 +405,30 @@ public class Program
                                 a.GetDetails());
                         }
 
-                        Guid appointmentId =
-                            Guid.Parse(
-                                ReadInput(
-                                    "\nEnter Appointment Id: "));
+                        int appointmentId =
+                            int.Parse(
+                                UtilityHelper
+                                .ReadInput(
+                                    ConsoleConstants
+                                    .EnterAppointmentId));
 
                         Console.WriteLine(
-                            "\n1. Confirm Appointment");
+                            ConsoleConstants
+                            .ConfirmAppointment);
 
                         Console.WriteLine(
-                            "2. Cancel Appointment");
+                            ConsoleConstants
+                            .CancelAppointment);
 
                         Console.WriteLine(
-                            "3. Complete Appointment");
+                            ConsoleConstants
+                            .CompleteAppointment);
 
                         int option =
-                            Convert.ToInt32(
-                                ReadInput(
-                                    "Enter Choice: "));
+                            UtilityHelper
+                            .ReadValidInt(
+                                ConsoleConstants
+                                .EnterChoice);
 
                         switch (option)
                         {
@@ -406,15 +439,18 @@ public class Program
                                         appointmentId);
 
                                 Console.WriteLine(
-                                    "Appointment Confirmed.");
+                                    ConsoleConstants
+                                    .AppointmentConfirmedSuccessfully);
 
                                 break;
 
                             case 2:
 
                                 string reason =
-                                    ReadInput(
-                                        "Enter Cancellation Reason: ");
+                                    UtilityHelper
+                                    .ReadInput(
+                                        ConsoleConstants
+                                        .EnterCancellationReason);
 
                                 appointmentService
                                     .CancelAppointment(
@@ -422,7 +458,8 @@ public class Program
                                         reason);
 
                                 Console.WriteLine(
-                                    "Appointment Cancelled.");
+                                    ConsoleConstants
+                                    .AppointmentCancelledSuccessfully);
 
                                 break;
 
@@ -433,14 +470,16 @@ public class Program
                                         appointmentId);
 
                                 Console.WriteLine(
-                                    "Appointment Completed.");
+                                    ConsoleConstants
+                                    .AppointmentCompletedSuccessfully);
 
                                 break;
 
                             default:
 
                                 Console.WriteLine(
-                                    "Invalid Choice.");
+                                    ConsoleConstants
+                                    .InvalidChoice);
 
                                 break;
                         }
@@ -452,22 +491,20 @@ public class Program
 
                         List<Appointment> completedAppointments =
                             appointmentService
-                            .GetAllAppointments()
-                            .Where(a =>
-                                a.Status ==
-                                AppointmentStatus.Completed)
-                            .ToList();
+                            .GetCompletedAppointments();
 
                         if (!completedAppointments.Any())
                         {
                             Console.WriteLine(
-                                "No Completed Appointments Found.");
+                                ConsoleConstants
+                                .NoCompletedAppointmentsFound);
 
                             break;
                         }
 
                         Console.WriteLine(
-                            "\nCompleted Appointments:");
+                            ConsoleConstants
+                            .CompletedAppointments);
 
                         foreach (Appointment a in completedAppointments)
                         {
@@ -475,10 +512,12 @@ public class Program
                                 a.GetDetails());
                         }
 
-                        Guid appointmentRecordId =
-                            Guid.Parse(
-                                ReadInput(
-                                    "\nEnter Appointment Id: "));
+                        int appointmentRecordId =
+                            int.Parse(
+                                UtilityHelper
+                                .ReadInput(
+                                    ConsoleConstants
+                                    .EnterAppointmentId));
 
                         Appointment? appointmentRecord =
                             appointmentService
@@ -487,39 +526,37 @@ public class Program
 
                         if (appointmentRecord != null)
                         {
-                            HealthRecord record = new()
-                            {
-                                Patient =
-                                    appointmentRecord.Patient,
-
-                                Doctor =
-                                    appointmentRecord.Doctor,
-
-                                VisitDate =
-                                    appointmentRecord.ScheduledDate
-                            };
+                            HealthRecord record =
+                                healthRecordService
+                                .CreateRecordFromAppointment(
+                                    appointmentRecord);
 
                             record.Diagnosis =
-                                ReadValidatedProperty(
-                                    "Enter Diagnosis: ",
+                                UtilityHelper
+                                .ReadValidatedProperty(
+                                    ConsoleConstants.EnterDiagnosis,
                                     nameof(HealthRecord.Diagnosis),
                                     record);
 
                             record.Prescription =
-                                ReadValidatedProperty(
-                                    "Enter Prescription: ",
+                                UtilityHelper
+                                .ReadValidatedProperty(
+                                    ConsoleConstants.EnterPrescription,
                                     nameof(HealthRecord.Prescription),
                                     record);
 
                             record.Notes =
-                                ReadInput(
-                                    "Enter Notes: ");
+                                UtilityHelper
+                                .ReadInput(
+                                    ConsoleConstants
+                                    .EnterNotes);
 
                             healthRecordService
                                 .AddRecord(record);
 
                             Console.WriteLine(
-                                "\nHealth Record Added Successfully.");
+                                ConsoleConstants
+                                .HealthRecordAddedSuccessfully);
 
                             Console.WriteLine(
                                 record.GetSummary());
@@ -531,33 +568,27 @@ public class Program
                     case 8:
 
                         string healthEmail =
-                            ReadInput(
-                                "Enter Patient Email: ");
+                            UtilityHelper
+                            .ReadInput(
+                                ConsoleConstants
+                                .EnterPatientEmail);
 
                         Patient? healthPatient =
                             patientService
-                            .GetAllPatients()
-                            .FirstOrDefault(p =>
-                                p.Email ==
+                            .GetPatientByEmail(
                                 healthEmail);
-
-                        if (healthPatient == null)
-                        {
-                            Console.WriteLine(
-                                "Patient Not Found.");
-
-                            break;
-                        }
 
                         List<HealthRecord> records =
                             healthRecordService
                             .GetRecordsByPatient(
-                                healthPatient.PatientId);
+                                healthPatient!
+                                .PatientId);
 
                         if (!records.Any())
                         {
                             Console.WriteLine(
-                                "No Health Records Found.");
+                                ConsoleConstants
+                                .NoHealthRecordsFound);
                         }
                         else
                         {
@@ -570,228 +601,879 @@ public class Program
 
                         break;
 
-                    // Exit Application
+                    // MANAGEMENT MODULES
                     case 9:
+
+                        bool managementExit = false;
+
+                        while (!managementExit)
+                        {
+                            Console.WriteLine(
+                                ConsoleConstants.ManagementModuleTitle);
+
+                            Console.WriteLine(
+                                ConsoleConstants.PatientManagement);
+
+                            Console.WriteLine(
+                                ConsoleConstants.DoctorManagement);
+
+                            Console.WriteLine(
+                                ConsoleConstants.AppointmentManagement);
+
+                            Console.WriteLine(
+                                ConsoleConstants.HealthRecordManagement);
+
+                            Console.WriteLine(
+                                ConsoleConstants.Back);
+
+                            int managementChoice =
+                                UtilityHelper
+                                .ReadValidInt(
+                                    ConsoleConstants.EnterChoice);
+
+                            switch (managementChoice)
+                            {
+                                // PATIENT MANAGEMENT
+                                case 1:
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.PatientManagementTitle);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetPatientById);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.ViewAllPatients);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetPatientByEmail);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.UpdatePatient);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.DeletePatient);
+
+                                    int patientChoice =
+                                        UtilityHelper
+                                        .ReadValidInt(
+                                            ConsoleConstants.EnterChoice);
+
+                                    switch (patientChoice)
+                                    {
+                                        case 1:
+
+                                            int patientId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterPatientId);
+
+                                            Patient selectedPatient =
+                                                patientService
+                                                .GetPatientById(
+                                                    patientId)!;
+
+                                            Console.WriteLine(
+                                                selectedPatient
+                                                .GetProfileSummary());
+
+                                            break;
+
+                                        case 2:
+
+                                            List<Patient> patients =
+                                                patientService
+                                                .GetAllPatients();
+
+                                            foreach (Patient p in patients)
+                                            {
+                                                Console.WriteLine(
+                                                    p.GetProfileSummary());
+                                            }
+
+                                            break;
+
+                                        case 3:
+
+                                            string managementPatientEmail =
+                                                UtilityHelper
+                                                .ReadInput(
+                                                    ConsoleConstants.EnterPatientEmail);
+
+                                            Patient patientByEmail =
+                                                patientService
+                                                .GetPatientByEmail(
+                                                    managementPatientEmail)!;
+
+                                            Console.WriteLine(
+                                                patientByEmail
+                                                .GetProfileSummary());
+
+                                            break;
+
+                                        case 4:
+
+                                            int updatePatientId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterPatientId);
+
+                                            Patient existingUpdatePatient =
+                                                patientService
+                                                .GetPatientById(
+                                                    updatePatientId)!;
+
+                                            Console.WriteLine(ConsoleConstants.CurrentPatientDetails);
+                                            Console.WriteLine(
+                                                existingUpdatePatient.GetProfileSummary());
+
+                                            Patient updatedPatient = new()
+                                            {
+                                                PatientId = existingUpdatePatient.PatientId,
+
+                                                FullName = UtilityHelper.ReadOptionalString(
+                                                    ConsoleConstants.FullNameLabel,
+                                                    existingUpdatePatient.FullName),
+
+                                                DateOfBirth = UtilityHelper.ReadOptionalDate(
+                                                    ConsoleConstants.DateOfBirthLabel,
+                                                    existingUpdatePatient.DateOfBirth),
+
+                                                Gender = UtilityHelper.ReadOptionalEnum<Gender>(
+                                                    ConsoleConstants.GenderLabel,
+                                                    existingUpdatePatient.Gender),
+
+                                                PhoneNumber = UtilityHelper.ReadOptionalString(
+                                                    ConsoleConstants.PhoneNumberLabel,
+                                                    existingUpdatePatient.PhoneNumber),
+
+                                                Email = UtilityHelper.ReadOptionalString(
+                                                    ConsoleConstants.EmailLabel,
+                                                    existingUpdatePatient.Email),
+
+                                                InsuranceId = UtilityHelper.ReadOptionalString(
+                                                    ConsoleConstants.InsuranceIdLabel,
+                                                    existingUpdatePatient.InsuranceId)
+                                            };
+
+                                            patientService
+                                                .UpdatePatient(
+                                                    updatedPatient);
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.PatientUpdatedSuccessfully);
+
+                                            Console.WriteLine(ConsoleConstants.UpdatedPatientDetails);
+                                            Console.WriteLine(
+                                                patientService
+                                                .GetPatientById(updatePatientId)!
+                                                .GetProfileSummary());
+
+                                            break;
+
+                                        case 5:
+
+                                            int deletePatientId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterPatientId);
+
+                                            patientService
+                                                .DeletePatientById(
+                                                    deletePatientId);
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.PatientDeletedSuccessfully);
+
+                                            break;
+
+                                        default:
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.InvalidChoice);
+
+                                            break;
+                                    }
+
+                                    break;
+
+                                // DOCTOR MANAGEMENT
+                                case 2:
+
+                                    Console.WriteLine(
+                                       ConsoleConstants.DoctorManagementTitle);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetDoctorById);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.ViewAllDoctors);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetAvailableDoctors);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.UpdateDoctor);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.DeleteDoctor);
+
+                                    int doctorChoice =
+                                        UtilityHelper
+                                        .ReadValidInt(
+                                            ConsoleConstants.EnterChoice);
+
+                                    switch (doctorChoice)
+                                    {
+                                        case 1:
+
+                                            int managementDoctorId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterDoctorId);
+
+                                            Doctor selectedDoctor =
+                                                doctorService
+                                                .GetDoctorById(
+                                                    managementDoctorId)!;
+
+                                            Console.WriteLine(
+                                                selectedDoctor
+                                                .GetDoctorSummary());
+
+                                            break;
+
+                                        case 2:
+
+                                            List<Doctor> allDoctors =
+                                                doctorService
+                                                .GetAllDoctors();
+
+                                            foreach (Doctor d in allDoctors)
+                                            {
+                                                Console.WriteLine(
+                                                    d.GetDoctorSummary());
+                                            }
+
+                                            break;
+
+                                        case 3:
+
+                                            Specialisation managementSpecialisation =
+                                                UtilityHelper
+                                                .ReadValidEnum<Specialisation>(
+                                                    ConsoleConstants.EnterSpecialisationChoice);
+
+                                            List<Doctor> managementAvailableDoctors =
+                                                doctorService
+                                                .GetAvailableDoctorsBySpecialisation(
+                                                    managementSpecialisation);
+
+                                            foreach (Doctor d in managementAvailableDoctors)
+                                            {
+                                                Console.WriteLine(
+                                                    d.GetDoctorSummary());
+                                            }
+
+                                            break;
+
+                                        case 4:
+
+                                            int updateDoctorId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterDoctorId);
+
+                                            Doctor existingUpdateDoctor =
+                                                doctorService
+                                                .GetDoctorById(
+                                                    updateDoctorId)!;
+
+                                            Console.WriteLine(ConsoleConstants.CurrentDoctorDetails);
+                                            Console.WriteLine(
+                                                existingUpdateDoctor.GetDoctorSummary());
+
+                                            Doctor updatedDoctor = new()
+                                            {
+                                                DoctorId = existingUpdateDoctor.DoctorId,
+
+                                                FullName = UtilityHelper.ReadOptionalString(
+                                                    ConsoleConstants.DoctorNameLabel,
+                                                    existingUpdateDoctor.FullName),
+
+                                                Specialisation = UtilityHelper.ReadOptionalEnum<Specialisation>(
+                                                    ConsoleConstants.SpecialisationLabel,
+                                                    existingUpdateDoctor.Specialisation),
+
+                                                YearsOfExperience = UtilityHelper.ReadOptionalInt(
+                                                    ConsoleConstants.YearsOfExperienceLabel,
+                                                    existingUpdateDoctor.YearsOfExperience),
+
+                                                ConsultationFee = UtilityHelper.ReadOptionalDecimal(
+                                                    ConsoleConstants.ConsultationFeeLabel,
+                                                    existingUpdateDoctor.ConsultationFee),
+
+                                                IsActive = UtilityHelper.ReadOptionalBool(
+                                                   ConsoleConstants.IsActiveLabel,
+                                                    existingUpdateDoctor.IsActive)
+                                            };
+
+                                            doctorService
+                                                .UpdateDoctor(
+                                                    updatedDoctor);
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.DoctorUpdatedSuccessfully);
+
+                                            Console.WriteLine(ConsoleConstants.UpdatedDoctorDetails);
+                                            Console.WriteLine(
+                                                doctorService
+                                                .GetDoctorById(updateDoctorId)!
+                                                .GetDoctorSummary());
+
+                                            break;
+
+                                        case 5:
+
+                                            int deleteDoctorId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterDoctorId);
+
+                                            doctorService
+                                                .DeleteDoctorById(
+                                                    deleteDoctorId);
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.DoctorDeletedSuccessfully);
+
+                                            break;
+
+                                        default:
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.InvalidChoice);
+
+                                            break;
+                                    }
+
+                                    break;
+
+                                // APPOINTMENT MANAGEMENT
+                                case 3:
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.AppointmentManagementTitle);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetAppointmentById);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.ViewAllAppointments);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetAppointmentsByPatient);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetAppointmentsByDoctor);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetUpcomingAppointments);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetCompletedAppointments);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.UpdateAppointment);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.DeleteAppointment);
+
+                                    int appointmentChoice =
+                                        UtilityHelper
+                                        .ReadValidInt(
+                                            ConsoleConstants.EnterChoice);
+
+                                    switch (appointmentChoice)
+                                    {
+                                        case 1:
+
+                                            int managementAppointmentId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterAppointmentId);
+
+                                            Appointment selectedAppointment =
+                                                appointmentService
+                                                .GetAppointmentById(
+                                                    managementAppointmentId)!;
+
+                                            Console.WriteLine(
+                                                selectedAppointment
+                                                .GetDetails());
+
+                                            break;
+
+                                        case 2:
+
+                                            List<Appointment> managementAppointments =
+                                                appointmentService
+                                                .GetAllAppointments();
+
+                                            foreach (Appointment a in managementAppointments)
+                                            {
+                                                Console.WriteLine(
+                                                    a.GetDetails());
+                                            }
+
+                                            break;
+
+                                        case 3:
+
+                                            int appointmentPatientId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterPatientId);
+
+                                            List<Appointment> patientAppointments =
+                                                appointmentService
+                                                .GetAppointmentsByPatient(
+                                                    appointmentPatientId);
+
+                                            foreach (Appointment a in patientAppointments)
+                                            {
+                                                Console.WriteLine(
+                                                    a.GetDetails());
+                                            }
+
+                                            break;
+
+                                        case 4:
+
+                                            int appointmentDoctorId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterDoctorId);
+
+                                            List<Appointment> doctorAppointments =
+                                                appointmentService
+                                                .GetAppointmentsByDoctor(
+                                                    appointmentDoctorId);
+
+                                            foreach (Appointment a in doctorAppointments)
+                                            {
+                                                Console.WriteLine(
+                                                    a.GetDetails());
+                                            }
+
+                                            break;
+
+                                        case 5:
+
+                                            List<Appointment> upcomingAppointments =
+                                                appointmentService
+                                                .GetUpcomingAppointments();
+
+                                            foreach (Appointment a in upcomingAppointments)
+                                            {
+                                                Console.WriteLine(
+                                                    a.GetDetails());
+                                            }
+
+                                            break;
+
+                                        case 6:
+
+                                            List<Appointment> managementCompletedAppointments =
+                                                appointmentService
+                                                .GetCompletedAppointments();
+
+                                            foreach (Appointment a in managementCompletedAppointments)
+                                            {
+                                                Console.WriteLine(
+                                                    a.GetDetails());
+                                            }
+
+                                            break;
+
+                                        case 7:
+
+                                            int updateAppointmentId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterAppointmentId);
+
+                                            Appointment existingUpdateAppointment =
+                                                appointmentService
+                                                .GetAppointmentById(
+                                                    updateAppointmentId)!;
+
+                                            Console.WriteLine(ConsoleConstants.CurrentAppointmentDetails);
+                                            Console.WriteLine(
+                                                existingUpdateAppointment.GetDetails());
+
+                                            Appointment updatedAppointment = new()
+                                            {
+                                                AppointmentId = existingUpdateAppointment.AppointmentId,
+
+                                                Patient = existingUpdateAppointment.Patient,
+
+                                                Doctor = existingUpdateAppointment.Doctor,
+
+                                                ScheduledDate = UtilityHelper.ReadOptionalDate(
+                                                    ConsoleConstants.ScheduledDateLabel,
+                                                    existingUpdateAppointment.ScheduledDate),
+
+                                                TimeSlot = UtilityHelper.ReadOptionalTime(
+                                                    ConsoleConstants.TimeSlotLabel,
+                                                    existingUpdateAppointment.TimeSlot),
+
+                                                Status = UtilityHelper.ReadOptionalEnum<AppointmentStatus>(
+                                                    ConsoleConstants.AppointmentStatusLabel,
+                                                    existingUpdateAppointment.Status),
+
+                                                CancellationReason = UtilityHelper.ReadOptionalString(
+                                                    ConsoleConstants.CancellationReasonLabel,
+                                                    existingUpdateAppointment.CancellationReason ?? string.Empty)
+                                            };
+
+                                            appointmentService
+                                                .UpdateAppointment(
+                                                    updatedAppointment);
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.AppointmentUpdatedSuccessfully);
+
+                                            Console.WriteLine(ConsoleConstants.UpdatedAppointmentDetails);
+                                            Console.WriteLine(
+                                                appointmentService
+                                                .GetAppointmentById(updateAppointmentId)!
+                                                .GetDetails());
+
+                                            break;
+
+                                        case 8:
+
+                                            int deleteAppointmentId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterAppointmentId);
+
+                                            appointmentService
+                                                .DeleteAppointmentById(
+                                                    deleteAppointmentId);
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.AppointmentDeletedSuccessfully);
+
+                                            break;
+
+                                        default:
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.InvalidChoice);
+
+                                            break;
+                                    }
+
+                                    break;
+
+                                // HEALTH RECORD MANAGEMENT
+                                case 4:
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.HealthRecordManagementTitle);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetHealthRecordById);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.ViewAllHealthRecords);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.GetRecordsByDoctor);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.UpdateHealthRecord);
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.DeleteHealthRecord);
+
+                                    int healthChoice =
+                                        UtilityHelper
+                                        .ReadValidInt(
+                                            ConsoleConstants.EnterChoice);
+
+                                    switch (healthChoice)
+                                    {
+                                        case 1:
+
+                                            int recordId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterRecordId);
+
+                                            HealthRecord selectedRecord =
+                                                healthRecordService
+                                                .GetRecordById(
+                                                    recordId)!;
+
+                                            Console.WriteLine(
+                                                selectedRecord
+                                                .GetSummary());
+
+                                            break;
+
+                                        case 2:
+
+                                            List<HealthRecord> allRecords =
+                                                healthRecordService
+                                                .GetAllRecords();
+
+                                            foreach (HealthRecord r in allRecords)
+                                            {
+                                                Console.WriteLine(
+                                                    r.GetSummary());
+                                            }
+
+                                            break;
+
+                                        case 3:
+
+                                            int recordDoctorId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterDoctorId);
+
+                                            List<HealthRecord> doctorRecords =
+                                                healthRecordService
+                                                .GetRecordsByDoctor(
+                                                    recordDoctorId);
+
+                                            foreach (HealthRecord r in doctorRecords)
+                                            {
+                                                Console.WriteLine(
+                                                    r.GetSummary());
+                                            }
+
+                                            break;
+
+                                            case 4:
+
+                                                int updateRecordId =
+                                                    UtilityHelper
+                                                    .ReadValidInt(
+                                                        ConsoleConstants.EnterRecordId);
+
+                                                HealthRecord existingUpdateRecord =
+                                                    healthRecordService
+                                                    .GetRecordById(
+                                                        updateRecordId)!;
+
+                                                Console.WriteLine(
+                                                    ConsoleConstants.CurrentHealthRecordDetails);
+
+                                                Console.WriteLine(
+                                                    existingUpdateRecord
+                                                    .GetSummary());
+
+                                                HealthRecord updatedRecord = new()
+                                                {
+                                                    RecordId =
+                                                        existingUpdateRecord.RecordId,
+
+                                                    Patient =
+                                                        existingUpdateRecord.Patient,
+
+                                                    Doctor =
+                                                        existingUpdateRecord.Doctor,
+
+                                                    Diagnosis =
+                                                        UtilityHelper
+                                                        .ReadOptionalString(
+                                                            ConsoleConstants.DiagnosisLabel,
+                                                            existingUpdateRecord.Diagnosis),
+
+                                                    Prescription =
+                                                        UtilityHelper
+                                                        .ReadOptionalString(
+                                                            ConsoleConstants.PrescriptionLabel,
+                                                            existingUpdateRecord.Prescription),
+
+                                                    Notes =
+                                                        UtilityHelper
+                                                        .ReadOptionalString(
+                                                            ConsoleConstants.NotesLabel,
+                                                            existingUpdateRecord.Notes
+                                                            ?? string.Empty),
+
+                                                    VisitDate =
+                                                        UtilityHelper
+                                                        .ReadOptionalDate(
+                                                            ConsoleConstants.VisitDateLabel,
+                                                            existingUpdateRecord.VisitDate)
+                                                };
+
+                                                healthRecordService
+                                                    .UpdateRecord(
+                                                        updatedRecord);
+
+                                                Console.WriteLine(
+                                                    ConsoleConstants.HealthRecordUpdatedSuccessfully);
+
+                                                Console.WriteLine(
+                                                    ConsoleConstants.UpdatedHealthRecordDetails);
+
+                                                Console.WriteLine(
+                                                    healthRecordService
+                                                    .GetRecordById(
+                                                        updateRecordId)!
+                                                    .GetSummary());
+
+                                        break;
+
+
+                                        case 5:
+
+                                            int deleteRecordId =
+                                                UtilityHelper
+                                                .ReadValidInt(
+                                                    ConsoleConstants.EnterRecordId);
+
+                                            healthRecordService
+                                                .DeleteRecordById(
+                                                    deleteRecordId);
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.HealthRecordDeletedSuccessfully);
+
+                                            break;
+
+                                        default:
+
+                                            Console.WriteLine(
+                                                ConsoleConstants.InvalidChoice);
+
+                                            break;
+                                    }
+
+                                    break;
+
+                                case 5:
+
+                                    managementExit = true;
+
+                                    break;
+
+                                default:
+
+                                    Console.WriteLine(
+                                        ConsoleConstants.InvalidChoice);
+
+                                    break;
+                            }
+                        }
+
+                        break;
+
+                    // Exit
+                    case 10:
 
                         exit = true;
 
                         Console.WriteLine(
-                            "Application Closed.");
+                            ConsoleConstants
+                            .ApplicationClosed);
 
                         break;
 
                     default:
 
                         Console.WriteLine(
-                            "Invalid Choice.");
+                            ConsoleConstants
+                            .InvalidChoice);
 
                         break;
                 }
             }
+            catch (FormatException)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .InvalidInputFormat);
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .InvalidRange);
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .InputCannotBeEmpty);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.OperationFailed}{ex.Message}");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.RecordNotFound}{ex.Message}");
+            }
+            catch (DuplicatePatientException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.DuplicatePatient}{ex.Message}");
+            }
+            catch (DuplicateDoctorException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.DuplicateDoctor}{ex.Message}");
+            }
+            catch (PatientNotFoundException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.PatientError}{ex.Message}");
+            }
+            catch (DoctorNotFoundException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.DoctorError}{ex.Message}");
+            }
+            catch (AppointmentNotFoundException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.AppointmentError}{ex.Message}");
+            }
+            catch (AppointmentConflictException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.AppointmentConflict}{ex.Message}");
+            }
+            catch (DoctorUnavailableException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.DoctorUnavailable}{ex.Message}");
+            }
+            catch (PastDateException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.PastDateError}{ex.Message}");
+            }
+            catch (HealthRecordNotFoundException ex)
+            {
+                Console.WriteLine(
+                    $"{ConsoleConstants.HealthRecordError}{ex.Message}");
+            }
             catch (Exception ex)
             {
                 Console.WriteLine(
-                    $"Error: {ex.Message}");
+                    $"{ConsoleConstants.UnexpectedError}{ex.Message}");
             }
         }
-    }
-
-    // Read Console Input
-    public static string ReadInput(
-        string message)
-    {
-        Console.Write(message);
-
-        return Console.ReadLine()
-            ?? string.Empty;
-    }
-
-    // Read Validated Date
-    public static DateOnly ReadValidDate(
-        string message)
-    {
-        while (true)
-        {
-            string input =
-                ReadInput(message);
-
-            bool isValidDate =
-                DateOnly.TryParseExact(
-                    input,
-                    "yyyy-MM-dd",
-                    out DateOnly date);
-
-            if (isValidDate)
-            {
-                return date;
-            }
-
-            Console.WriteLine(
-                "Invalid Date Format. Please enter in yyyy-MM-dd format.");
-        }
-    }
-
-    // Read Validated Time
-    public static TimeOnly ReadValidTime(
-        string message)
-    {
-        while (true)
-        {
-            string input =
-                ReadInput(message);
-
-            bool isValidTime =
-                TimeOnly.TryParseExact(
-                    input,
-                    "HH:mm",
-                    out TimeOnly time);
-
-            if (isValidTime)
-            {
-                return time;
-            }
-
-            Console.WriteLine(
-                "Invalid Time Format. Please enter in HH:mm format.");
-        }
-    }
-
-    // Read Validated Enum Choice
-    public static T ReadValidEnum<T>(
-        string message)
-        where T : struct, Enum
-    {
-        while (true)
-        {
-            Console.WriteLine(
-                $"\nAvailable {typeof(T).Name}s:");
-
-            T[] values =
-                Enum.GetValues<T>();
-
-            for (int i = 0;
-                i < values.Length;
-                i++)
-            {
-                Console.WriteLine(
-                    $"{i + 1}. {values[i]}");
-            }
-
-            string input =
-                ReadInput(message);
-
-            // Number Choice
-            if (int.TryParse(
-                input,
-                out int choice))
-            {
-                if (choice >= 1 &&
-                    choice <= values.Length)
-                {
-                    return values[
-                        choice - 1];
-                }
-
-                Console.WriteLine(
-                    "Invalid Choice.");
-
-                continue;
-            }
-
-            // Enum Name Choice
-            bool isValidEnum =
-                Enum.TryParse<T>(
-                    input,
-                    true,
-                    out T result);
-
-            if (isValidEnum)
-            {
-                return result;
-            }
-
-            Console.WriteLine(
-                "Invalid Choice.");
-        }
-    }
-
-    // Validate Single Property Using DataAnnotations
-    public static string ReadValidatedProperty<T>(
-        string message,
-        string propertyName,
-        T model)
-    {
-        while (true)
-        {
-            Console.Write(message);
-
-            string input =
-                Console.ReadLine()
-                ?? string.Empty;
-
-            var property =
-                typeof(T).GetProperty(
-                    propertyName);
-
-            property?.SetValue(
-                model,
-                input);
-
-            ValidationContext context =
-                new(model!)
-                {
-                    MemberName =
-                        propertyName
-                };
-
-            List<ValidationResult> results =
-                new();
-
-            bool isValid =
-                Validator.TryValidateProperty(
-                    input,
-                    context,
-                    results);
-
-            if (isValid)
-            {
-                return input;
-            }
-
-            foreach (ValidationResult error in results)
-            {
-                Console.WriteLine(
-                    error.ErrorMessage);
-            }
-        }
-    }
-
-    // Validate Full Model
-    public static bool ValidateModel<T>(
-        T model)
-    {
-        List<ValidationResult> results =
-            new();
-
-        ValidationContext context =
-            new(model!);
-
-        bool isValid =
-            Validator.TryValidateObject(
-                model!,
-                context,
-                results,
-                true);
-
-        if (!isValid)
-        {
-            foreach (ValidationResult error in results)
-            {
-                Console.WriteLine(
-                    error.ErrorMessage);
-            }
-        }
-
-        return isValid;
     }
 }

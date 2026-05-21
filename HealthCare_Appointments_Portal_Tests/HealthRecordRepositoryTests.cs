@@ -76,7 +76,7 @@ namespace HealthCare_Appointment_Portal.Tests
             // Act
             HealthRecord? result =
                 _repository.GetRecordById(
-                    Guid.NewGuid());
+                    32);
 
             // Assert
             Assert.Null(
@@ -287,7 +287,7 @@ namespace HealthCare_Appointment_Portal.Tests
 
             // Act
             _repository.DeleteRecordById(
-                Guid.NewGuid());
+                67);
 
             // Assert
             Assert.Single(

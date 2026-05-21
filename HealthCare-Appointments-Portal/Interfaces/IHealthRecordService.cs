@@ -12,18 +12,18 @@ namespace HealthCare_Appointment_Portal.Interfaces
 
         // Get Health Record By Id
         HealthRecord? GetRecordById(
-            Guid recordId);
+            int recordId);
 
         // Get All Health Records
         List<HealthRecord> GetAllRecords();
 
         // Get Records By Patient
         List<HealthRecord> GetRecordsByPatient(
-            Guid patientId);
+            int patientId);
 
         // Get Records By Doctor
         List<HealthRecord> GetRecordsByDoctor(
-            Guid doctorId);
+            int doctorId);
 
         // Update Existing Health Record
         void UpdateRecord(
@@ -31,6 +31,10 @@ namespace HealthCare_Appointment_Portal.Interfaces
 
         // Delete Health Record By Id
         void DeleteRecordById(
-            Guid recordId);
+            int recordId);
+
+        // Create Health Record From Appointment
+        public HealthRecord CreateRecordFromAppointment(
+            Appointment appointment);
     }
 }

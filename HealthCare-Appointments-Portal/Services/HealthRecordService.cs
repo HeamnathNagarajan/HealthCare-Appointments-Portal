@@ -32,7 +32,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Get Health Record By Id
         public HealthRecord? GetRecordById(
-            Guid recordId)
+            int recordId)
         {
 
             HealthRecord? record =
@@ -60,7 +60,7 @@ namespace HealthCare_Appointment_Portal.Services
         // Get Records By Patient
         public List<HealthRecord>
             GetRecordsByPatient(
-                Guid patientId)
+                int patientId)
         {
 
             return _healthRecordRepository
@@ -76,7 +76,7 @@ namespace HealthCare_Appointment_Portal.Services
         // Get Records By Doctor
         public List<HealthRecord>
             GetRecordsByDoctor(
-                Guid doctorId)
+                int doctorId)
         {
 
             return _healthRecordRepository
@@ -112,7 +112,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Delete Health Record By Id
         public void DeleteRecordById(
-            Guid recordId)
+            int recordId)
         {
 
             HealthRecord? record =
@@ -128,6 +128,23 @@ namespace HealthCare_Appointment_Portal.Services
             _healthRecordRepository
                 .DeleteRecordById(
                     recordId);
+        }
+
+        // Create Health Record From Appointment
+        public HealthRecord CreateRecordFromAppointment(
+            Appointment appointment)
+        {
+            return new HealthRecord
+            {
+                Patient =
+                    appointment.Patient,
+
+                Doctor =
+                    appointment.Doctor,
+
+                VisitDate =
+                    appointment.ScheduledDate
+            };
         }
     }
 }

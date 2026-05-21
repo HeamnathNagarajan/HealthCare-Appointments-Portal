@@ -9,7 +9,7 @@ namespace HealthCare_Appointment_Portal.Interfaces
         void AddPatient(Patient patient);
 
         // Get Patient By Id
-        Patient? GetPatientById(Guid patientId);
+        Patient? GetPatientById(int patientId);
 
         // Get All Patients
         List<Patient> GetAllPatients();
@@ -21,6 +21,6 @@ namespace HealthCare_Appointment_Portal.Interfaces
         void UpdatePatient(Patient updatedPatient);
 
         // Delete Patient By Id
-        void DeletePatientById(Guid patientId);
+        void DeletePatientById(int patientId);
     }
 }

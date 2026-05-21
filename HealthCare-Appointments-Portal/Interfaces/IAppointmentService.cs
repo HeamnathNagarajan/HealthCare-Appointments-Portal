@@ -15,18 +15,18 @@ namespace HealthCare_Appointment_Portal.Interfaces
 
         // Get Appointment By Id
         Appointment? GetAppointmentById(
-            Guid appointmentId);
+            int appointmentId);
 
         // Get All Appointments
         List<Appointment> GetAllAppointments();
 
         // Get Appointments By Patient
         List<Appointment> GetAppointmentsByPatient(
-            Guid patientId);
+            int patientId);
 
         // Get Appointments By Doctor
         List<Appointment> GetAppointmentsByDoctor(
-            Guid doctorId);
+            int doctorId);
 
         // Get Upcoming Appointments
         List<Appointment> GetUpcomingAppointments();
@@ -36,15 +36,15 @@ namespace HealthCare_Appointment_Portal.Interfaces
 
         // Confirm Appointment
         void ConfirmAppointment(
-            Guid appointmentId);
+            int appointmentId);
 
         // Cancel Appointment
         void CancelAppointment(
-            Guid appointmentId,
+            int appointmentId,
             string reason);
 
         // Complete Appointment
-        void CompleteAppointment(Guid appointmentId);
+        void CompleteAppointment(int appointmentId);
 
         // Update Existing Appointment
         void UpdateAppointment(
@@ -52,6 +52,6 @@ namespace HealthCare_Appointment_Portal.Interfaces
 
         // Delete Appointment By Id
         void DeleteAppointmentById(
-            Guid appointmentId);
+            int appointmentId);
     }
 }

@@ -42,7 +42,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Get Doctor By Id
         public Doctor? GetDoctorById(
-            Guid doctorId)
+            int doctorId)
         {
 
             Doctor? doctor =
@@ -72,12 +72,22 @@ namespace HealthCare_Appointment_Portal.Services
                 Specialisation specialisation)
         {
 
-            return _doctorRepository
+            List<Doctor> doctors =
+                _doctorRepository
                 .GetAllDoctors()
                 .Where(d =>
-                    d.Specialisation ==
-                    specialisation)
-                .ToList();
+                d.Specialisation ==
+                specialisation &&
+                d.IsActive)
+             .ToList();
+
+            if (!doctors.Any())
+            {
+                throw new DoctorNotFoundException();
+            }
+
+            return doctors;
+
         }
 
         // Get Available Doctors By Specialisation
@@ -116,7 +126,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Delete Doctor By Id
         public void DeleteDoctorById(
-            Guid doctorId)
+            int doctorId)
         {
 
             Doctor? doctor =

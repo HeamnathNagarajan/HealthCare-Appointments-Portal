@@ -8,12 +8,12 @@ namespace HealthCare_Appointment_Portal.Interfaces
 
         void AddPatient(Patient patient);
 
-        Patient? GetPatientById(Guid patientId);
+        Patient? GetPatientById(int patientId);
 
         List<Patient> GetAllPatients();
 
         void UpdatePatient(Patient updatedPatient);
 
-        void DeletePatientById(Guid patientId);
+        void DeletePatientById(int patientId);
     }
 }

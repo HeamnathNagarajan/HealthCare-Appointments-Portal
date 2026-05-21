@@ -10,10 +10,10 @@ namespace HealthCare_Appointment_Portal.Interfaces
 
         List<HealthRecord> GetAllRecords();
 
-        HealthRecord? GetRecordById(Guid recordId);
+        HealthRecord? GetRecordById(int recordId);
 
         void UpdateRecord(HealthRecord updatedRecord);
 
-        void DeleteRecordById(Guid recordId);
+        void DeleteRecordById(int recordId);
     }
 }

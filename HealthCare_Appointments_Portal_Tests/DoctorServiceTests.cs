@@ -143,14 +143,14 @@ namespace HealthCare_Appointment_Portal.Tests
             _mockRepository
                 .Setup(r =>
                     r.GetDoctorById(
-                        It.IsAny<Guid>()))
+                        It.IsAny<int>()))
                 .Returns((Doctor?)null);
 
             // Act & Assert
             Assert.Throws<
                 DoctorNotFoundException>(() =>
                     _doctorService.GetDoctorById(
-                        Guid.NewGuid()));
+                       56));
         }
 
         // Get All Doctors
@@ -264,7 +264,7 @@ namespace HealthCare_Appointment_Portal.Tests
 
         // Get Doctors By Specialisation Empty
         [Fact]
-        public void GetDoctorsBySpecialisation_NoMatch_ShouldReturnEmpty()
+        public void GetDoctorsBySpecialisation_NoMatch_ShouldThrowException()
         {
             // Arrange
             _mockRepository
@@ -272,15 +272,12 @@ namespace HealthCare_Appointment_Portal.Tests
                     r.GetAllDoctors())
                 .Returns(new List<Doctor>());
 
-            // Act
-            List<Doctor> result =
-                _doctorService
-                .GetDoctorsBySpecialisation(
-                    Specialisation.Cardiology);
-
-            // Assert
-            Assert.Empty(
-                result);
+            // Act & Assert
+            Assert.Throws<
+                DoctorNotFoundException>(() =>
+                    _doctorService
+                    .GetDoctorsBySpecialisation(
+                        Specialisation.Cardiology));
         }
 
         // Get Available Doctors By Specialisation
@@ -466,14 +463,14 @@ namespace HealthCare_Appointment_Portal.Tests
             _mockRepository
                 .Setup(r =>
                     r.GetDoctorById(
-                        It.IsAny<Guid>()))
+                        It.IsAny<int>()))
                 .Returns((Doctor?)null);
 
             // Act & Assert
             Assert.Throws<
                 DoctorNotFoundException>(() =>
                     _doctorService.DeleteDoctorById(
-                        Guid.NewGuid()));
+                        99));
         }
 
         // Helper Method

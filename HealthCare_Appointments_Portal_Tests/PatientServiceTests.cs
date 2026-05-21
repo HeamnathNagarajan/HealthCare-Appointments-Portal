@@ -109,14 +109,14 @@ namespace HealthCare_Appointment_Portal.Tests
             _mockRepository
                 .Setup(r =>
                     r.GetPatientById(
-                        It.IsAny<Guid>()))
+                        It.IsAny<int>()))
                 .Returns((Patient?)null);
 
             // Act & Assert
             Assert.Throws<
                 PatientNotFoundException>(() =>
                     _patientService.GetPatientById(
-                        Guid.NewGuid()));
+                       322));
         }
 
         // Get All Patients
@@ -293,14 +293,14 @@ namespace HealthCare_Appointment_Portal.Tests
             _mockRepository
                 .Setup(r =>
                     r.GetPatientById(
-                        It.IsAny<Guid>()))
+                        It.IsAny<int>()))
                 .Returns((Patient?)null);
 
             // Act & Assert
             Assert.Throws<
                 PatientNotFoundException>(() =>
                     _patientService.DeletePatientById(
-                        Guid.NewGuid()));
+                        322));
         }
 
         // Helper Method

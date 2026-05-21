@@ -38,7 +38,7 @@
             "Years Of Experience must be between 0 and 50.";
 
         public const string InvalidConsultationFee =
-            "Consultation Fee must be greater than 0.";
+            "Consultation Fee must be between 0 and 10000.";
 
         public const string PatientRequired =
             "Patient details are required.";
@@ -63,6 +63,9 @@
 
         public const string PrescriptionRequired =
             "Prescription is required.";
+
+        public const string DateOfBirthCannotBeFuture =
+                  "Date Of Birth cannot be in the future.";
 
         // Summary Formats
 

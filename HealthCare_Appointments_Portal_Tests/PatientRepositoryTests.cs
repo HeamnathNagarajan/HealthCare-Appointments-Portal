@@ -116,7 +116,7 @@ namespace HealthCare_Appointment_Portal.Tests
             // Act
             Patient? result =
                 _repository.GetPatientById(
-                    Guid.NewGuid());
+                    23);
 
             // Assert
             Assert.Null(
@@ -370,7 +370,7 @@ namespace HealthCare_Appointment_Portal.Tests
             Patient updatedPatient = new()
             {
                 PatientId =
-                    Guid.NewGuid(),
+                    1,
 
                 FullName =
                     "Updated"
@@ -462,7 +462,7 @@ namespace HealthCare_Appointment_Portal.Tests
 
             // Act
             _repository.DeletePatientById(
-                Guid.NewGuid());
+                87);
 
             // Assert
             Assert.Single(

@@ -80,7 +80,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Get Appointment By Id
         public Appointment? GetAppointmentById(
-            Guid appointmentId)
+            int appointmentId)
         {
 
             Appointment? appointment =
@@ -109,7 +109,7 @@ namespace HealthCare_Appointment_Portal.Services
         // Get Appointments By Patient
         public List<Appointment>
             GetAppointmentsByPatient(
-                Guid patientId)
+                int patientId)
         {
 
             return _appointmentRepository
@@ -125,7 +125,7 @@ namespace HealthCare_Appointment_Portal.Services
         // Get Appointments By Doctor
         public List<Appointment>
             GetAppointmentsByDoctor(
-                Guid doctorId)
+                int doctorId)
         {
 
             return _appointmentRepository
@@ -172,7 +172,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Confirm Appointment
         public void ConfirmAppointment(
-            Guid appointmentId)
+            int appointmentId)
         {
 
             Appointment? appointment =
@@ -195,7 +195,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Cancel Appointment
         public void CancelAppointment(
-            Guid appointmentId,
+            int appointmentId,
             string reason)
         {
 
@@ -219,7 +219,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Complete Appointment
         public void CompleteAppointment(
-            Guid appointmentId)
+            int appointmentId)
         {
 
             Appointment? appointment =
@@ -264,7 +264,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Delete Appointment By Id
         public void DeleteAppointmentById(
-            Guid appointmentId)
+            int appointmentId)
         {
 
             Appointment? appointment =

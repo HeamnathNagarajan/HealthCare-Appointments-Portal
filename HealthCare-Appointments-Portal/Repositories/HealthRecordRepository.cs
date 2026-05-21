@@ -32,7 +32,7 @@ namespace HealthCare_Appointment_Portal.Repositories
         }
 
         // Get Health Record By Id
-        public HealthRecord? GetRecordById(Guid recordId)
+        public HealthRecord? GetRecordById(int recordId)
         {
 
             return _dataStore.HealthRecords
@@ -79,7 +79,7 @@ namespace HealthCare_Appointment_Portal.Repositories
         }
 
         // Delete Health Record By Id
-        public void DeleteRecordById(Guid recordId)
+        public void DeleteRecordById(int recordId)
         {
 
             HealthRecord? record =

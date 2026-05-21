@@ -5,9 +5,11 @@ namespace HealthCare_Appointment_Portal.Models;
 
 public class HealthRecord
 {
+    // Auto Increment Health Record Id
+    private static int _recordCounter = 1;
+
     // Unique Health Record Identifier
-    public Guid RecordId { get; set; }
-        = Guid.NewGuid();
+    public int RecordId { get; set; } = _recordCounter++;
 
     // Patient Information
     [Required(

@@ -6,9 +6,11 @@ namespace HealthCare_Appointment_Portal.Models
 {
     public class Doctor
     {
+        // Auto Increment Doctor Id
+        private static int _doctorCounter = 1;
+
         // Unique Doctor Identifier
-        public Guid DoctorId { get; set; }
-            = Guid.NewGuid();
+        public int DoctorId { get; set; } = _doctorCounter++;
 
         // Doctor Full Name
         [Required(
@@ -33,7 +35,7 @@ namespace HealthCare_Appointment_Portal.Models
 
         // Consultation Fee
         [Range(
-            1,
+            0,
             10000,
             ErrorMessage = Constants.InvalidConsultationFee)]
         public decimal ConsultationFee { get; set; }

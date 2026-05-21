@@ -11,7 +11,7 @@ namespace HealthCare_Appointment_Portal.Interfaces
         void AddDoctor(Doctor doctor);
 
         // Get Doctor By Id
-        Doctor? GetDoctorById(Guid doctorId);
+        Doctor? GetDoctorById(int doctorId);
 
         // Get All Doctors
         List<Doctor> GetAllDoctors();
@@ -28,6 +28,6 @@ namespace HealthCare_Appointment_Portal.Interfaces
         void UpdateDoctor(Doctor updatedDoctor);
 
         // Delete Doctor By Id
-        void DeleteDoctorById(Guid doctorId);
+        void DeleteDoctorById(int doctorId);
     }
 }

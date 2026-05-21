@@ -80,7 +80,7 @@ namespace HealthCare_Appointment_Portal.Tests
             _mockRepository
                 .Setup(r =>
                     r.GetRecordById(
-                        It.IsAny<Guid>()))
+                        It.IsAny<int>()))
                 .Returns((HealthRecord?)null);
 
             // Act & Assert
@@ -88,7 +88,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 HealthRecordNotFoundException>(() =>
                     _healthRecordService
                     .GetRecordById(
-                        Guid.NewGuid()));
+                        23));
         }
 
         // Get All Records
@@ -194,7 +194,7 @@ namespace HealthCare_Appointment_Portal.Tests
             List<HealthRecord> result =
                 _healthRecordService
                 .GetRecordsByPatient(
-                    Guid.NewGuid());
+                     1);
 
             // Assert
             Assert.Empty(
@@ -257,7 +257,7 @@ namespace HealthCare_Appointment_Portal.Tests
             List<HealthRecord> result =
                 _healthRecordService
                 .GetRecordsByDoctor(
-                    Guid.NewGuid());
+                    1);
 
             // Assert
             Assert.Empty(
@@ -346,7 +346,7 @@ namespace HealthCare_Appointment_Portal.Tests
             _mockRepository
                 .Setup(r =>
                     r.GetRecordById(
-                        It.IsAny<Guid>()))
+                        It.IsAny<int>()))
                 .Returns((HealthRecord?)null);
 
             // Act & Assert
@@ -354,7 +354,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 HealthRecordNotFoundException>(() =>
                     _healthRecordService
                     .DeleteRecordById(
-                        Guid.NewGuid()));
+                        87));
         }
 
         // Helper Method

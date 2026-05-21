@@ -38,7 +38,7 @@ namespace HealthCare_Appointment_Portal.Services
         }
 
         // Get Patient By Id
-        public Patient? GetPatientById(Guid patientId)
+        public Patient? GetPatientById(int patientId)
         {
 
             Patient? patient =
@@ -63,18 +63,19 @@ namespace HealthCare_Appointment_Portal.Services
         }
 
         // Get Patient By Email
-        public Patient? GetPatientByEmail(string email)
+        public Patient GetPatientByEmail(
+            string email)
         {
-
             Patient? patient =
                 _patientRepository
                 .GetAllPatients()
                 .FirstOrDefault(p =>
-                    p.Email == email);
+                    p.Email.Equals(
+                        email,
+                        StringComparison.OrdinalIgnoreCase));
 
             if (patient == null)
             {
-
                 throw new PatientNotFoundException();
             }
 
@@ -103,7 +104,7 @@ namespace HealthCare_Appointment_Portal.Services
 
         // Delete Patient By Id
         public void DeletePatientById(
-            Guid patientId)
+            int patientId)
         {
 
             Patient? patient =

@@ -6,9 +6,11 @@ namespace HealthCare_Appointment_Portal.Models
 {
     public class Patient
     {
+        // Auto Increment Patient Id
+        private static int _patientCounter = 1;
+
         // Unique Patient Identifier
-        public Guid PatientId { get; set; }
-            = Guid.NewGuid();
+        public int PatientId { get; set; } = _patientCounter++;
 
         // Patient Full Name
         [Required(
@@ -22,6 +24,10 @@ namespace HealthCare_Appointment_Portal.Models
         // Patient Date Of Birth
         [Required(
             ErrorMessage = Constants.DateOfBirthRequired)]
+
+        [CustomValidation(
+            typeof(Patient),
+            nameof(ValidateDateOfBirth))]
         public DateOnly DateOfBirth { get; set; }
 
         // Patient Gender
@@ -83,6 +89,23 @@ namespace HealthCare_Appointment_Portal.Models
                 FullName,
                 GetAge(),
                 PhoneNumber);
+        }
+
+        // Validate Date Of Birth
+        public static ValidationResult?
+            ValidateDateOfBirth(
+                DateOnly date,
+                ValidationContext context)
+        {
+            if (date >
+                DateOnly.FromDateTime(
+                    DateTime.Now))
+            {
+                return new ValidationResult(
+                    Constants.DateOfBirthCannotBeFuture);
+            }
+
+            return ValidationResult.Success;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace HealthCare_Appointment_Portal.Repositories
         }
 
         // Get Patient By Id
-        public Patient? GetPatientById(Guid patientId)
+        public Patient? GetPatientById(int patientId)
         {
 
             return _dataStore.Patients
@@ -90,7 +90,7 @@ namespace HealthCare_Appointment_Portal.Repositories
         }
 
         // Delete Patient By Id
-        public void DeletePatientById(Guid patientId)
+        public void DeletePatientById(int patientId)
         {
 
             Patient? patient =

@@ -2,16 +2,18 @@
 
 namespace HealthCare_Appointments_Portal.Interfaces
 {
+
     public interface IPatientRepository
     {
+
         void AddPatient(Patient patient);
 
-        Patient? GetPatientById(Guid patientId);
+        Patient? GetPatientById(int patientId);
 
         List<Patient> GetAllPatients();
 
         void UpdatePatient(Patient updatedPatient);
 
-        void DeletePatientById(Guid patientId);
+        void DeletePatientById(int patientId);
     }
 }

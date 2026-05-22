@@ -1,28 +1,50 @@
-﻿using HealthCare_Appointments_Portal.Models;
-using HealthCare_Appointments_Portal.Utilities;
+﻿using HealthCare_Appointments_Portal.Utilities;
+using System.ComponentModel.DataAnnotations;
 
 namespace HealthCare_Appointments_Portal.Models;
 
 public class HealthRecord
 {
-    public Guid RecordId { get; set; } = Guid.NewGuid();
+    // Auto Increment Health Record Id
+    private static int _recordCounter = 1;
 
+    // Unique Health Record Identifier
+    public int RecordId { get; set; } = _recordCounter++;
+
+    // Patient Information
+    [Required(
+        ErrorMessage = Constants.PatientRequired)]
     public required Patient Patient { get; set; }
 
+    // Doctor Information
+    [Required(
+        ErrorMessage = Constants.DoctorRequired)]
     public required Doctor Doctor { get; set; }
 
+    // Visit Date
+    [Required(
+        ErrorMessage = Constants.VisitDateRequired)]
     public DateOnly VisitDate { get; set; }
 
-    public string Diagnosis { get; set; } = string.Empty;
+    // Diagnosis Details
+    [Required(
+        ErrorMessage = Constants.DiagnosisRequired)]
+    public string Diagnosis { get; set; }
+        = string.Empty;
 
-    public string Prescription { get; set; } = string.Empty;
+    // Prescription Details
+    [Required(
+        ErrorMessage = Constants.PrescriptionRequired)]
+    public string Prescription { get; set; }
+        = string.Empty;
 
-    public string Notes { get; set; } = string.Empty;
+    // Additional Notes
+    public string Notes { get; set; }
+        = string.Empty;
 
-    // Returns HealthRecord summary
+    // Return Health Record Summary
     public string GetSummary()
     {
-
         return string.Format(
             Constants.HealthRecordSummaryFormat,
             VisitDate,
@@ -30,7 +52,6 @@ public class HealthRecord
             Doctor.FullName,
             Diagnosis,
             Prescription,
-            Notes
-            );
+            Notes);
     }
 }

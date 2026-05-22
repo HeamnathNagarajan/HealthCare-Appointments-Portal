@@ -1,55 +1,80 @@
 ﻿using HealthCare_Appointments_Portal.Utilities;
 using HealthCare_Appointments_Portal.Enums;
-using HealthCare_Appointments_Portal.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace HealthCare_Appointments_portal.Models;
+namespace HealthCare_Appointments_Portal.Models;
 
 public class Appointment
 {
+    // Auto Increment Appointment Id
+    private static int _appointmentCounter = 1;
 
-    public Guid AppointmentId { get; set; } = Guid.NewGuid();
+    // Unique Appointment Identifier
+    public int AppointmentId { get; set; } = _appointmentCounter++;
 
+    // Patient Information
+    [Required(
+        ErrorMessage = Constants.PatientRequired)]
     public required Patient Patient { get; set; }
 
+    // Doctor Information
+    [Required(
+        ErrorMessage = Constants.DoctorRequired)]
     public required Doctor Doctor { get; set; }
 
+    // Appointment Scheduled Date
+    [Required(
+        ErrorMessage = Constants.ScheduledDateRequired)]
     public DateOnly ScheduledDate { get; set; }
 
+    // Appointment Time Slot
+    [Required(
+        ErrorMessage = Constants.TimeSlotRequired)]
     public TimeOnly TimeSlot { get; set; }
 
+    // Appointment Status
+    [Required(
+        ErrorMessage = Constants.AppointmentStatusRequired)]
     public AppointmentStatus Status { get; set; }
 
-    public string CancellationReason { get; set; } = string.Empty;
+    // Cancellation Reason
+    public string CancellationReason { get; set; }
+        = string.Empty;
 
+    // Confirm Appointment
     public void Confirm()
     {
-
-        Status = AppointmentStatus.Confirmed;
+        Status =
+            AppointmentStatus.Confirmed;
     }
 
+    // Cancel Appointment
     public void Cancel(string reason)
     {
+        Status =
+            AppointmentStatus.Cancelled;
 
-        Status = AppointmentStatus.Cancelled;
-        CancellationReason = reason;
+        CancellationReason =
+            reason;
     }
 
+    // Complete Appointment
     public void Complete()
     {
-
-        Status = AppointmentStatus.Completed;
+        Status =
+            AppointmentStatus.Completed;
     }
 
+    // Return Appointment Details
     public string GetDetails()
     {
-
         return string.Format(
-              Constants.AppointmentDetailsFormat,
-              AppointmentId,
-              Patient.FullName,
-              Doctor.FullName,
-              ScheduledDate,
-              TimeSlot,
-              Status);
+            Constants.AppointmentDetailsFormat,
+            AppointmentId,
+            Patient.FullName,
+            Doctor.FullName,
+            ScheduledDate,
+            TimeSlot,
+            Status);
     }
 }

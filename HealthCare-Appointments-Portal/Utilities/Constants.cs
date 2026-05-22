@@ -2,7 +2,7 @@
 {
     public class Constants
     {
-
+        // Validation Messages
 
         public const string FullNameRequired =
             "Full Name is required.";
@@ -31,6 +31,44 @@
         public const string InsuranceIdRequired =
             "Insurance Id is required.";
 
+        public const string SpecialisationRequired =
+            "Specialisation is required.";
+
+        public const string InvalidExperienceRange =
+            "Years Of Experience must be between 0 and 50.";
+
+        public const string InvalidConsultationFee =
+            "Consultation Fee must be between 0 and 10000.";
+
+        public const string PatientRequired =
+            "Patient details are required.";
+
+        public const string DoctorRequired =
+            "Doctor details are required.";
+
+        public const string ScheduledDateRequired =
+            "Scheduled Date is required.";
+
+        public const string TimeSlotRequired =
+            "Time Slot is required.";
+
+        public const string AppointmentStatusRequired =
+            "Appointment Status is required.";
+
+        public const string VisitDateRequired =
+            "Visit Date is required.";
+
+        public const string DiagnosisRequired =
+            "Diagnosis is required.";
+
+        public const string PrescriptionRequired =
+            "Prescription is required.";
+
+        public const string DateOfBirthCannotBeFuture =
+                  "Date Of Birth cannot be in the future.";
+
+        // Summary Formats
+
         public const string PatientProfileSummaryFormat =
             "Patient ID: {0} | Name: {1} | Age: {2} | Phone: {3}";
 
@@ -42,5 +80,8 @@
 
         public const string HealthRecordSummaryFormat =
             "Visit Date: {0:dd-MM-yyyy} | Patient: {1} | Doctor: {2} | Diagnosis: {3} | Prescription: {4} | Notes: {5}";
+
+        public const string DoctorProfileSummaryFormat =
+            "Doctor ID: {0} | Name: {1} | Specialisation: {2} | Experience: {3} Years | Fee: Rs{4} | Status: {5}";
     }
 }

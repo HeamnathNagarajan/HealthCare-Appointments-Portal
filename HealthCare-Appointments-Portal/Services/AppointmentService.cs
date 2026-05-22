@@ -1,139 +1,286 @@
-﻿using HealthCare_Appointments_portal.Models;
-using HealthCare_Appointments_Portal.Enums;
+﻿using HealthCare_Appointments_Portal.Enums;
 using HealthCare_Appointments_Portal.Exceptions;
 using HealthCare_Appointments_Portal.Interfaces;
 using HealthCare_Appointments_Portal.Models;
 
 namespace HealthCare_Appointments_Portal.Services
 {
+
     public class AppointmentService : IAppointmentService
     {
-        private readonly IAppointmentRepository _repository;
+
+        private readonly IAppointmentRepository
+            _appointmentRepository;
 
         // Dependency Injection
-        public AppointmentService(IAppointmentRepository repository)
+        public AppointmentService(IAppointmentRepository
+            appointmentRepository)
         {
-            _repository = repository;
+
+            _appointmentRepository =
+                appointmentRepository;
         }
 
-        // Book Appointment
+        // Book New Appointment
         public Appointment BookAppointment(
             Patient patient,
             Doctor doctor,
             DateOnly date,
             TimeOnly slot)
         {
-            if (date < DateOnly.FromDateTime(DateTime.Now))
+
+            if (date <
+                DateOnly.FromDateTime(
+                    DateTime.Now))
             {
+
                 throw new PastDateException();
             }
 
             if (!doctor.IsAvailable(date))
             {
+
                 throw new DoctorUnavailableException();
             }
 
-            bool slotExists = _repository
+            Appointment? existingAppointment =
+                _appointmentRepository
                 .GetAllAppointments()
-                .Any(a =>
-                    a.Doctor.DoctorId == doctor.DoctorId &&
+                .FirstOrDefault(a =>
+                    a.Doctor.DoctorId ==
+                    doctor.DoctorId &&
                     a.ScheduledDate == date &&
                     a.TimeSlot == slot &&
-                    a.Status != AppointmentStatus.Cancelled);
+                    a.Status !=
+                    AppointmentStatus.Cancelled);
 
-            if (slotExists)
+            if (existingAppointment != null)
             {
+
                 throw new AppointmentConflictException();
             }
 
-            Appointment appointment = new()
-            {
-                Patient = patient,
-                Doctor = doctor,
-                ScheduledDate = date,
-                TimeSlot = slot,
-                Status = AppointmentStatus.Pending
-            };
+            Appointment appointment =
+                new Appointment
+                {
 
-            _repository.AddAppointment(appointment);
-            doctor.Appointments.Add(appointment);
+                    Patient = patient,
+                    Doctor = doctor,
+                    ScheduledDate = date,
+                    TimeSlot = slot,
+                    Status =
+                        AppointmentStatus.Pending
+                };
+
+            _appointmentRepository
+                .AddAppointment(appointment);
 
             return appointment;
         }
 
-        // Cancel Appointment
-        public void CancelAppointment(Guid appointmentId, string reason)
-        {
-            Appointment? appointment = _repository.GetAppointmentById(appointmentId);
-
-            if (appointment != null)
-            {
-                appointment.Cancel(reason);
-            }
-        }
-
-        // Get Appointments By Doctor
-        public List<Appointment> GetAppointmentsByDoctor(Guid doctorId)
-        {
-            return _repository
-                .GetAllAppointments()
-                .Where(a => a.Doctor.DoctorId == doctorId)
-                .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.TimeSlot)
-                .ToList();
-        }
-
-        // Get Upcoming Confirmed Appointments
-        public List<Appointment> GetUpcomingAppointments()
-        {
-            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
-
-            return _repository
-                .GetAllAppointments()
-                .Where(a =>
-                    a.Status == AppointmentStatus.Confirmed &&
-                    a.ScheduledDate >= today)
-                .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.TimeSlot)
-                .ToList();
-        }
-
-        // Get Appointments By Patient
-        public List<Appointment> GetAppointmentsByPatient(Guid patientId)
-        {
-            return _repository
-                .GetAllAppointments()
-                .Where(a =>
-                    a.Patient.PatientId == patientId)
-                .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.TimeSlot)
-                .ToList();
-        }
-
-
-        // Confirm Appointment
-        public void ConfirmAppointment(Guid appointmentId)
+        // Get Appointment By Id
+        public Appointment? GetAppointmentById(
+            int appointmentId)
         {
 
             Appointment? appointment =
-                _repository.GetAppointmentById(
+                _appointmentRepository
+                .GetAppointmentById(
                     appointmentId);
 
-            if (appointment != null)
+            if (appointment == null)
             {
 
-                appointment.Confirm();
+                throw new AppointmentNotFoundException();
             }
+
+            return appointment;
         }
 
-        public List<Appointment> GetAllAppointments()
+        // Get All Appointments
+        public List<Appointment>
+            GetAllAppointments()
         {
-            return _repository
+
+            return _appointmentRepository
+                .GetAllAppointments();
+        }
+
+        // Get Appointments By Patient
+        public List<Appointment>
+            GetAppointmentsByPatient(
+                int patientId)
+        {
+
+            return _appointmentRepository
                 .GetAllAppointments()
-                .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.TimeSlot)
+                .Where(a =>
+                    a.Patient.PatientId ==
+                    patientId)
+                .OrderBy(a =>
+                    a.ScheduledDate)
                 .ToList();
         }
 
+        // Get Appointments By Doctor
+        public List<Appointment>
+            GetAppointmentsByDoctor(
+                int doctorId)
+        {
+
+            return _appointmentRepository
+                .GetAllAppointments()
+                .Where(a =>
+                    a.Doctor.DoctorId ==
+                    doctorId)
+                .OrderBy(a =>
+                    a.ScheduledDate)
+                .ToList();
+        }
+
+        // Get Upcoming Appointments
+        public List<Appointment>
+            GetUpcomingAppointments()
+        {
+
+            DateOnly today =
+                DateOnly.FromDateTime(
+                    DateTime.Now);
+
+            return _appointmentRepository
+                .GetAllAppointments()
+                .Where(a =>
+                    a.ScheduledDate >= today &&
+                    a.Status ==
+                    AppointmentStatus.Confirmed)
+                .OrderBy(a =>
+                    a.ScheduledDate)
+                .ToList();
+        }
+
+        // Get Completed Appointments
+        public List<Appointment> GetCompletedAppointments()
+        {
+
+            return _appointmentRepository
+                .GetAllAppointments()
+                .Where(a =>
+                    a.Status ==
+                    AppointmentStatus.Completed)
+                .ToList();
+        }
+
+        // Confirm Appointment
+        public void ConfirmAppointment(
+            int appointmentId)
+        {
+
+            Appointment? appointment =
+                _appointmentRepository
+                .GetAppointmentById(
+                    appointmentId);
+
+            if (appointment == null)
+            {
+
+                throw new AppointmentNotFoundException();
+            }
+
+            appointment.Confirm();
+
+            _appointmentRepository
+                .UpdateAppointment(
+                    appointment);
+        }
+
+        // Cancel Appointment
+        public void CancelAppointment(
+            int appointmentId,
+            string reason)
+        {
+
+            Appointment? appointment =
+                _appointmentRepository
+                .GetAppointmentById(
+                    appointmentId);
+
+            if (appointment == null)
+            {
+
+                throw new AppointmentNotFoundException();
+            }
+
+            appointment.Cancel(reason);
+
+            _appointmentRepository
+                .UpdateAppointment(
+                    appointment);
+        }
+
+        // Complete Appointment
+        public void CompleteAppointment(
+            int appointmentId)
+        {
+
+            Appointment? appointment =
+                _appointmentRepository
+                .GetAppointmentById(
+                    appointmentId);
+
+            if (appointment == null)
+            {
+
+                throw new AppointmentNotFoundException();
+            }
+
+            appointment.Complete();
+
+            _appointmentRepository
+                .UpdateAppointment(
+                    appointment);
+        }
+
+        // Update Existing Appointment
+        public void UpdateAppointment(
+            Appointment updatedAppointment)
+        {
+
+            Appointment? appointment =
+                _appointmentRepository
+                .GetAppointmentById(
+                    updatedAppointment
+                    .AppointmentId);
+
+            if (appointment == null)
+            {
+
+                throw new AppointmentNotFoundException();
+            }
+
+            _appointmentRepository
+                .UpdateAppointment(
+                    updatedAppointment);
+        }
+
+        // Delete Appointment By Id
+        public void DeleteAppointmentById(
+            int appointmentId)
+        {
+
+            Appointment? appointment =
+                _appointmentRepository
+                .GetAppointmentById(
+                    appointmentId);
+
+            if (appointment == null)
+            {
+
+                throw new AppointmentNotFoundException();
+            }
+
+            _appointmentRepository
+                .DeleteAppointmentById(
+                    appointmentId);
+        }
     }
 }

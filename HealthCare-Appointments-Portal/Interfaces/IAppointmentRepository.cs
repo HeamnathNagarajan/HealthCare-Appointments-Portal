@@ -1,17 +1,19 @@
-﻿using HealthCare_Appointments_portal.Models;
+﻿using HealthCare_Appointments_Portal.Models;
 
 namespace HealthCare_Appointments_Portal.Interfaces
 {
+
     public interface IAppointmentRepository
     {
+
         void AddAppointment(Appointment appointment);
 
-        Appointment? GetAppointmentById(Guid appointmentId);
+        Appointment? GetAppointmentById(int appointmentId);
 
         List<Appointment> GetAllAppointments();
 
         void UpdateAppointment(Appointment updatedAppointment);
 
-        void DeleteAppointmentById(Guid appointmentId);
+        void DeleteAppointmentById(int appointmentId);
     }
 }

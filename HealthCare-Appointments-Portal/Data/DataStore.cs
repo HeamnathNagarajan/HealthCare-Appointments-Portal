@@ -1,5 +1,4 @@
-﻿using HealthCare_Appointments_portal.Models;
-using HealthCare_Appointments_Portal.Models;
+﻿using HealthCare_Appointments_Portal.Models;
 
 namespace HealthCare_Appointments_Portal.Data
 {

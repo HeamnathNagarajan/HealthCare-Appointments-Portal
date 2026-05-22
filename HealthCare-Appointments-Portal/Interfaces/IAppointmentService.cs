@@ -1,30 +1,57 @@
-﻿using HealthCare_Appointments_portal.Models;
-using HealthCare_Appointments_Portal.Models;
+﻿using HealthCare_Appointments_Portal.Models;
 
 namespace HealthCare_Appointments_Portal.Interfaces
 {
+
     public interface IAppointmentService
     {
+
+        // Book New Appointment
         Appointment BookAppointment(
             Patient patient,
             Doctor doctor,
             DateOnly date,
             TimeOnly slot);
 
-        void CancelAppointment(
-            Guid appointmentId,
-            string reason);
+        // Get Appointment By Id
+        Appointment? GetAppointmentById(
+            int appointmentId);
 
+        // Get All Appointments
+        List<Appointment> GetAllAppointments();
+
+        // Get Appointments By Patient
         List<Appointment> GetAppointmentsByPatient(
-            Guid patientId);
+            int patientId);
 
+        // Get Appointments By Doctor
         List<Appointment> GetAppointmentsByDoctor(
-            Guid doctorId);
+            int doctorId);
 
+        // Get Upcoming Appointments
         List<Appointment> GetUpcomingAppointments();
 
-        public void ConfirmAppointment(Guid appointmentId);
+        // Get Completed Appointments
+        List<Appointment> GetCompletedAppointments();
 
-        List<Appointment> GetAllAppointments();
+        // Confirm Appointment
+        void ConfirmAppointment(
+            int appointmentId);
+
+        // Cancel Appointment
+        void CancelAppointment(
+            int appointmentId,
+            string reason);
+
+        // Complete Appointment
+        void CompleteAppointment(int appointmentId);
+
+        // Update Existing Appointment
+        void UpdateAppointment(
+            Appointment updatedAppointment);
+
+        // Delete Appointment By Id
+        void DeleteAppointmentById(
+            int appointmentId);
     }
 }

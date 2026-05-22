@@ -2,12 +2,25 @@
 
 namespace HealthCare_Appointments_Portal.Interfaces
 {
+
     public interface IPatientService
     {
-        // Add new patient
+        // Add New Patient
         void AddPatient(Patient patient);
 
-        // Get all patients
+        // Get Patient By Id
+        Patient? GetPatientById(int patientId);
+
+        // Get All Patients
         List<Patient> GetAllPatients();
+
+        // Get Patient By Email
+        Patient? GetPatientByEmail(string email);
+
+        // Update Existing Patient
+        void UpdatePatient(Patient updatedPatient);
+
+        // Delete Patient By Id
+        void DeletePatientById(int patientId);
     }
 }

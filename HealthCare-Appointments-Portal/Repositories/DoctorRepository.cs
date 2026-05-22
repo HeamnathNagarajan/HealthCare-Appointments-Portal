@@ -1,48 +1,62 @@
-﻿using HealthCare_Appointments_Portal.Interfaces;
+﻿using HealthCare_Appointments_Portal.Data;
+using HealthCare_Appointments_Portal.Interfaces;
 using HealthCare_Appointments_Portal.Models;
-using HealthCare_Appointments_Portal.Data;
 
 namespace HealthCare_Appointments_Portal.Repositories
 {
+
     public class DoctorRepository : IDoctorRepository
     {
+
         private readonly DataStore _dataStore;
 
         // Dependency Injection
-        public DoctorRepository(
-            DataStore dataStore)
+        public DoctorRepository(DataStore dataStore)
         {
+
             _dataStore = dataStore;
         }
 
+        // Add New Doctor
         public void AddDoctor(Doctor doctor)
         {
+
             _dataStore.Doctors.Add(doctor);
         }
 
-        public Doctor? GetDoctorById(Guid doctorId)
+        // Get Doctor By Id
+        public Doctor? GetDoctorById(int doctorId)
         {
+
             return _dataStore.Doctors
                 .FirstOrDefault(d =>
                     d.DoctorId == doctorId);
         }
 
+        // Get All Doctors
         public List<Doctor> GetAllDoctors()
         {
-            return _dataStore.Doctors;
+
+            return _dataStore.Doctors
+                .ToList();
         }
 
+        // Update Existing Doctor
         public void UpdateDoctor(Doctor updatedDoctor)
         {
-            Doctor? existingDoctor = _dataStore.Doctors
+
+            Doctor? existingDoctor =
+                _dataStore.Doctors
                 .FirstOrDefault(d =>
-                    d.DoctorId == updatedDoctor.DoctorId);
+                    d.DoctorId ==
+                    updatedDoctor.DoctorId);
 
             if (existingDoctor != null)
             {
 
                 existingDoctor.FullName =
-                    string.IsNullOrWhiteSpace(updatedDoctor.FullName)
+                    string.IsNullOrWhiteSpace(
+                        updatedDoctor.FullName)
                     ? existingDoctor.FullName
                     : updatedDoctor.FullName;
 
@@ -65,10 +79,13 @@ namespace HealthCare_Appointments_Portal.Repositories
                     updatedDoctor.IsActive;
             }
         }
-        public void DeleteDoctorById(Guid doctorId)
+
+        // Delete Doctor By Id
+        public void DeleteDoctorById(int doctorId)
         {
 
-            Doctor? doctor = _dataStore.Doctors
+            Doctor? doctor =
+                _dataStore.Doctors
                 .FirstOrDefault(d =>
                     d.DoctorId == doctorId);
 
@@ -78,6 +95,5 @@ namespace HealthCare_Appointments_Portal.Repositories
                 _dataStore.Doctors.Remove(doctor);
             }
         }
-
     }
 }

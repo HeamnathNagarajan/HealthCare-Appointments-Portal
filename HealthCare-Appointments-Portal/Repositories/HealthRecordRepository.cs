@@ -8,24 +8,31 @@ namespace HealthCare_Appointments_Portal.Repositories
     {
         private readonly DataStore _dataStore;
 
-        public HealthRecordRepository(DataStore data)
+        // Dependency Injection
+        public HealthRecordRepository(DataStore dataStore)
         {
-            _dataStore = data;
+
+            _dataStore = dataStore;
         }
 
+        // Add New Health Record
         public void AddRecord(HealthRecord record)
         {
 
-            _dataStore.HealthRecords.Add(record);
+            _dataStore.HealthRecords
+                .Add(record);
         }
 
+        // Get All Health Records
         public List<HealthRecord> GetAllRecords()
         {
 
-            return _dataStore.HealthRecords;
+            return _dataStore.HealthRecords
+                .ToList();
         }
 
-        public HealthRecord? GetRecordById(Guid recordId)
+        // Get Health Record By Id
+        public HealthRecord? GetRecordById(int recordId)
         {
 
             return _dataStore.HealthRecords
@@ -33,16 +40,19 @@ namespace HealthCare_Appointments_Portal.Repositories
                     r.RecordId == recordId);
         }
 
+        // Update Existing Health Record
         public void UpdateRecord(HealthRecord updatedRecord)
         {
 
             HealthRecord? existingRecord =
                 _dataStore.HealthRecords
                 .FirstOrDefault(r =>
-                    r.RecordId == updatedRecord.RecordId);
+                    r.RecordId ==
+                    updatedRecord.RecordId);
 
             if (existingRecord != null)
             {
+
                 existingRecord.Diagnosis =
                     string.IsNullOrWhiteSpace(
                         updatedRecord.Diagnosis)
@@ -68,7 +78,8 @@ namespace HealthCare_Appointments_Portal.Repositories
             }
         }
 
-        public void DeleteRecordById(Guid recordId)
+        // Delete Health Record By Id
+        public void DeleteRecordById(int recordId)
         {
 
             HealthRecord? record =
@@ -78,7 +89,9 @@ namespace HealthCare_Appointments_Portal.Repositories
 
             if (record != null)
             {
-                _dataStore.HealthRecords.Remove(record);
+
+                _dataStore.HealthRecords
+                    .Remove(record);
             }
         }
     }

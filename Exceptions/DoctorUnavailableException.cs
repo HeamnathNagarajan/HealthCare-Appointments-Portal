@@ -1,0 +1,10 @@
+﻿namespace HealthcareApp.Exceptions
+{
+    public class DoctorUnavailableException : Exception
+    {
+        public DoctorUnavailableException(string message)
+            : base(message)
+        {
+        }
+    }
+}

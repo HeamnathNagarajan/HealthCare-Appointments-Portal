@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Healthcare-Appointments-Portal/Healthcare-Appointments-Portal.csproj" />
+  <Project Path="Healthcare_Appointments_Portal.Tests/Healthcare_Appointments_Portal.Tests.csproj" />
 </Solution>

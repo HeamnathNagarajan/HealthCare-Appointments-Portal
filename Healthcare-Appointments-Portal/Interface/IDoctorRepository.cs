@@ -1,7 +1,19 @@
+using HealthCare_Appointment_Portal.Models;
 
-namespace Healthcare_Appointments_Portal.Interface
+namespace HealthCare_Appointment_Portal.Interfaces
 {
+
     public interface IDoctorRepository
-{
-}
+    {
+
+        void AddDoctor(Doctor doctor);
+
+        Doctor? GetDoctorById(int doctorId);
+
+        List<Doctor> GetAllDoctors();
+
+        void UpdateDoctor(Doctor doctor);
+
+        void DeleteDoctorById(int doctorId);
+    }
 }

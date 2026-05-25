@@ -5,7 +5,6 @@ using HealthCare_Appointment_Portal.Models;
 
 namespace HealthCare_Appointment_Portal.Services
 {
-
     public class AppointmentService : IAppointmentService
     {
 
@@ -29,12 +28,25 @@ namespace HealthCare_Appointment_Portal.Services
             TimeOnly slot)
         {
 
-            if (date <
+            DateOnly currentDate =
                 DateOnly.FromDateTime(
-                    DateTime.Now))
-            {
+                    DateTime.Now);
 
+            TimeOnly currentTime =
+                TimeOnly.FromDateTime(
+                    DateTime.Now);
+
+            // Past Date Check
+            if (date < currentDate)
+            {
                 throw new PastDateException();
+            }
+
+            // Same Day Past Time Check
+            if (date == currentDate &&
+                 slot < currentTime)
+            {
+                throw new PastTimeSlotException();
             }
 
             if (!doctor.IsAvailable(date))
@@ -191,6 +203,13 @@ namespace HealthCare_Appointment_Portal.Services
             _appointmentRepository
                 .UpdateAppointment(
                     appointment);
+
+            // Call Doctor Method
+            string summary =
+                appointment.Doctor
+                .GetScheduleSummary();
+
+            Console.WriteLine(summary);
         }
 
         // Cancel Appointment
@@ -278,9 +297,17 @@ namespace HealthCare_Appointment_Portal.Services
                 throw new AppointmentNotFoundException();
             }
 
+            // Prevent Delete
+            if (appointment.Status ==
+                AppointmentStatus.Pending ||
+                appointment.Status == AppointmentStatus.Confirmed)
+            {
+                throw new AppointmentDeletionException();
+            }
+
             _appointmentRepository
-                .DeleteAppointmentById(
-                    appointmentId);
+            .DeleteAppointmentById(
+                appointmentId);
         }
     }
 }

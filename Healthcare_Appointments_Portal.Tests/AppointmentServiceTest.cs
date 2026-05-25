@@ -29,7 +29,6 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void BookAppointment_ValidData_ShouldCreateAppointment()
         {
-            // Arrange
             Patient patient =
                 CreatePatient();
 
@@ -37,11 +36,9 @@ namespace HealthCare_Appointment_Portal.Tests
                 CreateDoctor();
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllAppointments())
+                .Setup(r => r.GetAllAppointments())
                 .Returns(new List<Appointment>());
 
-            // Act
             Appointment result =
                 _appointmentService
                 .BookAppointment(
@@ -51,57 +48,57 @@ namespace HealthCare_Appointment_Portal.Tests
                         DateTime.Now.AddDays(1)),
                     new TimeOnly(10, 0));
 
-            // Assert
-            Assert.NotNull(
-                result);
+            Assert.NotNull(result);
 
             Assert.Equal(
                 AppointmentStatus.Pending,
                 result.Status);
 
-            _mockRepository.Verify(r =>
-                r.AddAppointment(
+            _mockRepository.Verify(
+                r => r.AddAppointment(
                     It.IsAny<Appointment>()),
                 Times.Once);
         }
 
-        // Book Appointment Past Date
+        // Past Date
         [Fact]
         public void BookAppointment_PastDate_ShouldThrowException()
         {
-            // Arrange
-            Patient patient =
-                CreatePatient();
-
-            Doctor doctor =
-                CreateDoctor();
-
-            // Act & Assert
-            Assert.Throws<
-                PastDateException>(() =>
-                    _appointmentService
-                    .BookAppointment(
-                        patient,
-                        doctor,
-                        DateOnly.FromDateTime(
-                            DateTime.Now.AddDays(-1)),
-                        new TimeOnly(10, 0)));
+            Assert.Throws<PastDateException>(() =>
+                _appointmentService
+                .BookAppointment(
+                    CreatePatient(),
+                    CreateDoctor(),
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(-1)),
+                    new TimeOnly(10, 0)));
         }
 
-        // Book Appointment Doctor Unavailable
+        // Past Time
+        [Fact]
+        public void BookAppointment_PastTime_ShouldThrowException()
+        {
+            Assert.Throws<PastTimeSlotException>(() =>
+                _appointmentService
+                .BookAppointment(
+                    CreatePatient(),
+                    CreateDoctor(),
+                    DateOnly.FromDateTime(DateTime.Now),
+                    TimeOnly.FromDateTime(
+                        DateTime.Now.AddHours(-1))));
+        }
+
+        // Doctor Unavailable
         [Fact]
         public void BookAppointment_DoctorUnavailable_ShouldThrowException()
         {
-            // Arrange
             Patient patient =
                 CreatePatient();
 
             Doctor doctor =
                 CreateDoctor();
 
-            for (int i = 0;
-                i < 10;
-                i++)
+            for (int i = 0; i < 10; i++)
             {
                 doctor.Appointments.Add(
                     new Appointment
@@ -118,31 +115,28 @@ namespace HealthCare_Appointment_Portal.Tests
                     });
             }
 
-            // Act & Assert
-            Assert.Throws<
-                DoctorUnavailableException>(() =>
-                    _appointmentService
-                    .BookAppointment(
-                        patient,
-                        doctor,
-                        DateOnly.FromDateTime(
-                            DateTime.Now.AddDays(1)),
-                        new TimeOnly(10, 0)));
+            Assert.Throws<DoctorUnavailableException>(() =>
+                _appointmentService
+                .BookAppointment(
+                    patient,
+                    doctor,
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(1)),
+                    new TimeOnly(10, 0)));
         }
 
-        // Book Appointment Conflict
+        // Conflict
         [Fact]
         public void BookAppointment_Conflict_ShouldThrowException()
         {
-            // Arrange
             Patient patient =
                 CreatePatient();
 
             Doctor doctor =
                 CreateDoctor();
 
-            Appointment existingAppointment =
-                new()
+            Appointment appointment =
+                new Appointment
                 {
                     Patient = patient,
                     Doctor = doctor,
@@ -156,29 +150,61 @@ namespace HealthCare_Appointment_Portal.Tests
                 };
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllAppointments())
-                .Returns(
-                [
-                    existingAppointment
-                ]);
+                .Setup(r => r.GetAllAppointments())
+                .Returns([appointment]);
 
-            // Act & Assert
-            Assert.Throws<
-                AppointmentConflictException>(() =>
-                    _appointmentService
-                    .BookAppointment(
-                        patient,
-                        doctor,
-                        existingAppointment.ScheduledDate,
-                        existingAppointment.TimeSlot));
+            Assert.Throws<AppointmentConflictException>(() =>
+                _appointmentService
+                .BookAppointment(
+                    patient,
+                    doctor,
+                    appointment.ScheduledDate,
+                    appointment.TimeSlot));
         }
 
-        // Get Appointment By Existing Id
+        // Cancelled Appointment Allow
         [Fact]
-        public void GetAppointmentById_ExistingId_ShouldReturnAppointment()
+        public void BookAppointment_CancelledAppointment_ShouldAllowBooking()
         {
-            // Arrange
+            Patient patient =
+                CreatePatient();
+
+            Doctor doctor =
+                CreateDoctor();
+
+            Appointment cancelled =
+                new Appointment
+                {
+                    Patient = patient,
+                    Doctor = doctor,
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now.AddDays(1)),
+                    TimeSlot =
+                        new TimeOnly(10, 0),
+                    Status =
+                        AppointmentStatus.Cancelled
+                };
+
+            _mockRepository
+                .Setup(r => r.GetAllAppointments())
+                .Returns([cancelled]);
+
+            Appointment result =
+                _appointmentService
+                .BookAppointment(
+                    patient,
+                    doctor,
+                    cancelled.ScheduledDate,
+                    cancelled.TimeSlot);
+
+            Assert.NotNull(result);
+        }
+
+        // Get Appointment
+        [Fact]
+        public void GetAppointmentById_ShouldReturnAppointment()
+        {
             Appointment appointment =
                 CreateAppointment();
 
@@ -188,41 +214,33 @@ namespace HealthCare_Appointment_Portal.Tests
                         appointment.AppointmentId))
                 .Returns(appointment);
 
-            // Act
             Appointment? result =
                 _appointmentService
                 .GetAppointmentById(
                     appointment.AppointmentId);
 
-            // Assert
-            Assert.NotNull(
-                result);
+            Assert.NotNull(result);
         }
 
-        // Get Appointment By Invalid Id
+        // Invalid Appointment
         [Fact]
-        public void GetAppointmentById_InvalidId_ShouldThrowException()
+        public void GetAppointmentById_Invalid_ShouldThrowException()
         {
-            // Arrange
             _mockRepository
                 .Setup(r =>
                     r.GetAppointmentById(
                         It.IsAny<int>()))
                 .Returns((Appointment?)null);
 
-            // Act & Assert
-            Assert.Throws<
-                AppointmentNotFoundException>(() =>
-                    _appointmentService
-                    .GetAppointmentById(
-                       99));
+            Assert.Throws<AppointmentNotFoundException>(() =>
+                _appointmentService
+                .GetAppointmentById(100));
         }
 
-        // Get All Appointments
+        // Get All
         [Fact]
         public void GetAllAppointments_ShouldReturnAppointments()
         {
-            // Arrange
             List<Appointment> appointments =
             [
                 CreateAppointment(),
@@ -230,26 +248,20 @@ namespace HealthCare_Appointment_Portal.Tests
             ];
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllAppointments())
+                .Setup(r => r.GetAllAppointments())
                 .Returns(appointments);
 
-            // Act
             List<Appointment> result =
                 _appointmentService
                 .GetAllAppointments();
 
-            // Assert
-            Assert.Equal(
-                2,
-                result.Count);
+            Assert.Equal(2, result.Count);
         }
 
-        // Get Appointments By Patient
+        // Patient Appointments Ordered
         [Fact]
-        public void GetAppointmentsByPatient_ShouldReturnPatientAppointments()
+        public void GetAppointmentsByPatient_ShouldReturnOrderedAppointments()
         {
-            // Arrange
             Patient patient =
                 CreatePatient();
 
@@ -260,8 +272,19 @@ namespace HealthCare_Appointment_Portal.Tests
                     Patient = patient,
                     Doctor = CreateDoctor(),
                     ScheduledDate =
-                        DateOnly.FromDateTime(
-                            DateTime.Now.AddDays(1)),
+                        new DateOnly(2026,12,30),
+                    TimeSlot =
+                        new TimeOnly(10,0),
+                    Status =
+                        AppointmentStatus.Pending
+                },
+
+                new Appointment
+                {
+                    Patient = patient,
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                        new DateOnly(2026,1,1),
                     TimeSlot =
                         new TimeOnly(10,0),
                     Status =
@@ -270,26 +293,23 @@ namespace HealthCare_Appointment_Portal.Tests
             ];
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllAppointments())
+                .Setup(r => r.GetAllAppointments())
                 .Returns(appointments);
 
-            // Act
             List<Appointment> result =
                 _appointmentService
                 .GetAppointmentsByPatient(
                     patient.PatientId);
 
-            // Assert
-            Assert.Single(
-                result);
+            Assert.Equal(
+                new DateOnly(2026, 1, 1),
+                result[0].ScheduledDate);
         }
 
-        // Get Appointments By Doctor
+        // Doctor Appointments Ordered
         [Fact]
-        public void GetAppointmentsByDoctor_ShouldReturnDoctorAppointments()
+        public void GetAppointmentsByDoctor_ShouldReturnOrderedAppointments()
         {
-            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
@@ -300,8 +320,19 @@ namespace HealthCare_Appointment_Portal.Tests
                     Patient = CreatePatient(),
                     Doctor = doctor,
                     ScheduledDate =
-                        DateOnly.FromDateTime(
-                            DateTime.Now.AddDays(1)),
+                        new DateOnly(2026,12,30),
+                    TimeSlot =
+                        new TimeOnly(10,0),
+                    Status =
+                        AppointmentStatus.Pending
+                },
+
+                new Appointment
+                {
+                    Patient = CreatePatient(),
+                    Doctor = doctor,
+                    ScheduledDate =
+                        new DateOnly(2026,1,1),
                     TimeSlot =
                         new TimeOnly(10,0),
                     Status =
@@ -310,26 +341,23 @@ namespace HealthCare_Appointment_Portal.Tests
             ];
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllAppointments())
+                .Setup(r => r.GetAllAppointments())
                 .Returns(appointments);
 
-            // Act
             List<Appointment> result =
                 _appointmentService
                 .GetAppointmentsByDoctor(
                     doctor.DoctorId);
 
-            // Assert
-            Assert.Single(
-                result);
+            Assert.Equal(
+                new DateOnly(2026, 1, 1),
+                result[0].ScheduledDate);
         }
 
-        // Get Upcoming Appointments
+        // Upcoming
         [Fact]
-        public void GetUpcomingAppointments_ShouldReturnConfirmedAppointments()
+        public void GetUpcomingAppointments_ShouldReturnConfirmed()
         {
-            // Arrange
             List<Appointment> appointments =
             [
                 new Appointment
@@ -347,25 +375,51 @@ namespace HealthCare_Appointment_Portal.Tests
             ];
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllAppointments())
+                .Setup(r => r.GetAllAppointments())
                 .Returns(appointments);
 
-            // Act
             List<Appointment> result =
                 _appointmentService
                 .GetUpcomingAppointments();
 
-            // Assert
-            Assert.Single(
-                result);
+            Assert.Single(result);
         }
 
-        // Get Completed Appointments
+        // Ignore Past Upcoming
         [Fact]
-        public void GetCompletedAppointments_ShouldReturnCompletedAppointments()
+        public void GetUpcomingAppointments_Past_ShouldIgnore()
         {
-            // Arrange
+            List<Appointment> appointments =
+            [
+                new Appointment
+                {
+                    Patient = CreatePatient(),
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now.AddDays(-1)),
+                    TimeSlot =
+                        new TimeOnly(10,0),
+                    Status =
+                        AppointmentStatus.Confirmed
+                }
+            ];
+
+            _mockRepository
+                .Setup(r => r.GetAllAppointments())
+                .Returns(appointments);
+
+            List<Appointment> result =
+                _appointmentService
+                .GetUpcomingAppointments();
+
+            Assert.Empty(result);
+        }
+
+        // Completed
+        [Fact]
+        public void GetCompletedAppointments_ShouldReturnCompleted()
+        {
             List<Appointment> appointments =
             [
                 new Appointment
@@ -383,25 +437,20 @@ namespace HealthCare_Appointment_Portal.Tests
             ];
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllAppointments())
+                .Setup(r => r.GetAllAppointments())
                 .Returns(appointments);
 
-            // Act
             List<Appointment> result =
                 _appointmentService
                 .GetCompletedAppointments();
 
-            // Assert
-            Assert.Single(
-                result);
+            Assert.Single(result);
         }
 
         // Confirm Appointment
         [Fact]
-        public void ConfirmAppointment_ExistingAppointment_ShouldUpdateStatus()
+        public void ConfirmAppointment_ShouldConfirm()
         {
-            // Arrange
             Appointment appointment =
                 CreateAppointment();
 
@@ -411,27 +460,24 @@ namespace HealthCare_Appointment_Portal.Tests
                         appointment.AppointmentId))
                 .Returns(appointment);
 
-            // Act
             _appointmentService
                 .ConfirmAppointment(
                     appointment.AppointmentId);
 
-            // Assert
             Assert.Equal(
                 AppointmentStatus.Confirmed,
                 appointment.Status);
 
-            _mockRepository.Verify(r =>
-                r.UpdateAppointment(
+            _mockRepository.Verify(
+                r => r.UpdateAppointment(
                     appointment),
                 Times.Once);
         }
 
         // Cancel Appointment
         [Fact]
-        public void CancelAppointment_ExistingAppointment_ShouldCancelAppointment()
+        public void CancelAppointment_ShouldCancel()
         {
-            // Arrange
             Appointment appointment =
                 CreateAppointment();
 
@@ -441,78 +487,25 @@ namespace HealthCare_Appointment_Portal.Tests
                         appointment.AppointmentId))
                 .Returns(appointment);
 
-            // Act
             _appointmentService
                 .CancelAppointment(
                     appointment.AppointmentId,
-                    "Patient Request");
+                    "Reason");
 
-            // Assert
             Assert.Equal(
                 AppointmentStatus.Cancelled,
                 appointment.Status);
 
-            Assert.Equal(
-                "Patient Request",
-                appointment.CancellationReason);
-        }
-
-        // Complete Appointment
-        [Fact]
-        public void CompleteAppointment_ExistingAppointment_ShouldCompleteAppointment()
-        {
-            // Arrange
-            Appointment appointment =
-                CreateAppointment();
-
-            _mockRepository
-                .Setup(r =>
-                    r.GetAppointmentById(
-                        appointment.AppointmentId))
-                .Returns(appointment);
-
-            // Act
-            _appointmentService
-                .CompleteAppointment(
-                    appointment.AppointmentId);
-
-            // Assert
-            Assert.Equal(
-                AppointmentStatus.Completed,
-                appointment.Status);
-        }
-
-        // Update Existing Appointment
-        [Fact]
-        public void UpdateAppointment_ExistingAppointment_ShouldUpdateAppointment()
-        {
-            // Arrange
-            Appointment appointment =
-                CreateAppointment();
-
-            _mockRepository
-                .Setup(r =>
-                    r.GetAppointmentById(
-                        appointment.AppointmentId))
-                .Returns(appointment);
-
-            // Act
-            _appointmentService
-                .UpdateAppointment(
-                    appointment);
-
-            // Assert
-            _mockRepository.Verify(r =>
-                r.UpdateAppointment(
+            _mockRepository.Verify(
+                r => r.UpdateAppointment(
                     appointment),
                 Times.Once);
         }
 
-        // Delete Existing Appointment
+        // Complete Appointment
         [Fact]
-        public void DeleteAppointmentById_ExistingId_ShouldDeleteAppointment()
+        public void CompleteAppointment_ShouldComplete()
         {
-            // Arrange
             Appointment appointment =
                 CreateAppointment();
 
@@ -522,23 +515,145 @@ namespace HealthCare_Appointment_Portal.Tests
                         appointment.AppointmentId))
                 .Returns(appointment);
 
-            // Act
+            _appointmentService
+                .CompleteAppointment(
+                    appointment.AppointmentId);
+
+            Assert.Equal(
+                AppointmentStatus.Completed,
+                appointment.Status);
+
+            _mockRepository.Verify(
+                r => r.UpdateAppointment(
+                    appointment),
+                Times.Once);
+        }
+
+        // Update Appointment
+        [Fact]
+        public void UpdateAppointment_ShouldUpdate()
+        {
+            Appointment appointment =
+                CreateAppointment();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            _appointmentService
+                .UpdateAppointment(
+                    appointment);
+
+            _mockRepository.Verify(
+                r => r.UpdateAppointment(
+                    appointment),
+                Times.Once);
+        }
+
+        // Delete Pending
+        [Fact]
+        public void DeleteAppointment_Pending_ShouldThrow()
+        {
+            Appointment appointment =
+                CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Pending;
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            Assert.Throws<AppointmentDeletionException>(() =>
+                _appointmentService
+                .DeleteAppointmentById(
+                    appointment.AppointmentId));
+        }
+
+        // Delete Confirmed
+        [Fact]
+        public void DeleteAppointment_Confirmed_ShouldThrow()
+        {
+            Appointment appointment =
+                CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Confirmed;
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            Assert.Throws<AppointmentDeletionException>(() =>
+                _appointmentService
+                .DeleteAppointmentById(
+                    appointment.AppointmentId));
+        }
+
+        // Delete Completed
+        [Fact]
+        public void DeleteAppointment_Completed_ShouldDelete()
+        {
+            Appointment appointment =
+                CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Completed;
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
             _appointmentService
                 .DeleteAppointmentById(
                     appointment.AppointmentId);
 
-            // Assert
-            _mockRepository.Verify(r =>
-                r.DeleteAppointmentById(
+            _mockRepository.Verify(
+                r => r.DeleteAppointmentById(
                     appointment.AppointmentId),
                 Times.Once);
         }
 
-        // Helper Methods
+        // Delete Cancelled
+        [Fact]
+        public void DeleteAppointment_Cancelled_ShouldDelete()
+        {
+            Appointment appointment =
+                CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Cancelled;
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            _appointmentService
+                .DeleteAppointmentById(
+                    appointment.AppointmentId);
+
+            _mockRepository.Verify(
+                r => r.DeleteAppointmentById(
+                    appointment.AppointmentId),
+                Times.Once);
+        }
+
+        // Helpers
         private static Patient CreatePatient()
         {
             return new Patient
             {
+                PatientId = 1,
                 FullName = "Ragu",
                 DateOfBirth =
                     new DateOnly(2001, 4, 22),
@@ -553,6 +668,7 @@ namespace HealthCare_Appointment_Portal.Tests
         {
             return new Doctor
             {
+                DoctorId = 1,
                 FullName = "Dr Ragu",
                 Specialisation =
                     Specialisation.Cardiology,
@@ -566,6 +682,7 @@ namespace HealthCare_Appointment_Portal.Tests
         {
             return new Appointment
             {
+                AppointmentId = 1,
                 Patient = CreatePatient(),
                 Doctor = CreateDoctor(),
                 ScheduledDate =
@@ -577,5 +694,586 @@ namespace HealthCare_Appointment_Portal.Tests
                     AppointmentStatus.Pending
             };
         }
+        // Confirm Appointment Invalid Id
+        [Fact]
+        public void ConfirmAppointment_InvalidId_ShouldThrowException()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        It.IsAny<int>()))
+                .Returns((Appointment?)null);
+
+            // Act & Assert
+            Assert.Throws<
+                AppointmentNotFoundException>(() =>
+                    _appointmentService
+                    .ConfirmAppointment(999));
+        }
+
+        // Cancel Appointment Invalid Id
+        [Fact]
+        public void CancelAppointment_InvalidId_ShouldThrowException()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        It.IsAny<int>()))
+                .Returns((Appointment?)null);
+
+            // Act & Assert
+            Assert.Throws<
+                AppointmentNotFoundException>(() =>
+                    _appointmentService
+                    .CancelAppointment(
+                        999,
+                        "Reason"));
+        }
+
+        // Complete Appointment Invalid Id
+        [Fact]
+        public void CompleteAppointment_InvalidId_ShouldThrowException()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        It.IsAny<int>()))
+                .Returns((Appointment?)null);
+
+            // Act & Assert
+            Assert.Throws<
+                AppointmentNotFoundException>(() =>
+                    _appointmentService
+                    .CompleteAppointment(999));
+        }
+
+        // Update Appointment Invalid Id
+        [Fact]
+        public void UpdateAppointment_InvalidId_ShouldThrowException()
+        {
+            // Arrange
+            Appointment appointment =
+                CreateAppointment();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns((Appointment?)null);
+
+            // Act & Assert
+            Assert.Throws<
+                AppointmentNotFoundException>(() =>
+                    _appointmentService
+                    .UpdateAppointment(
+                        appointment));
+        }
+
+        // Get Appointments By Patient Empty
+        [Fact]
+        public void GetAppointmentsByPatient_Empty_ShouldReturnEmpty()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(new List<Appointment>());
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetAppointmentsByPatient(1);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        // Get Appointments By Doctor Empty
+        [Fact]
+        public void GetAppointmentsByDoctor_Empty_ShouldReturnEmpty()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(new List<Appointment>());
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetAppointmentsByDoctor(1);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        // Upcoming Empty
+        [Fact]
+        public void GetUpcomingAppointments_Empty_ShouldReturnEmpty()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(new List<Appointment>());
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetUpcomingAppointments();
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        // Get Completed Empty
+        [Fact]
+        public void GetCompletedAppointments_Empty_ShouldReturnEmpty()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(new List<Appointment>());
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetCompletedAppointments();
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        // Book Appointment Same Day Future Time
+        [Fact]
+        public void BookAppointment_SameDayFutureTime_ShouldBookAppointment()
+        {
+            // Arrange
+            Patient patient =
+                CreatePatient();
+
+            Doctor doctor =
+                CreateDoctor();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(new List<Appointment>());
+
+            TimeOnly futureTime =
+                TimeOnly.FromDateTime(
+                    DateTime.Now.AddHours(2));
+
+            // Act
+            Appointment result =
+                _appointmentService
+                .BookAppointment(
+                    patient,
+                    doctor,
+                    DateOnly.FromDateTime(DateTime.Now),
+                    futureTime);
+
+            // Assert
+            Assert.NotNull(result);
+
+            Assert.Equal(
+                AppointmentStatus.Pending,
+                result.Status);
+        }
+
+        // Get Upcoming ShouldIgnoreCancelled
+        [Fact]
+        public void GetUpcomingAppointments_Cancelled_ShouldIgnore()
+        {
+            // Arrange
+            List<Appointment> appointments =
+            [
+                new Appointment
+        {
+            Patient = CreatePatient(),
+            Doctor = CreateDoctor(),
+            ScheduledDate =
+                DateOnly.FromDateTime(
+                    DateTime.Now.AddDays(1)),
+            TimeSlot =
+                new TimeOnly(10,0),
+            Status =
+                AppointmentStatus.Cancelled
+        }
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(appointments);
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetUpcomingAppointments();
+
+            // Assert
+            Assert.Empty(result);
+        }
+        [Fact]
+        public void DeleteAppointment_InvalidId_ShouldThrowException()
+        {
+            // Arrange
+            _mockRepository
+            .Setup(r =>
+            r.GetAppointmentById(
+            It.IsAny<int>()))
+            .Returns((Appointment?)null);
+
+            // Act & Assert
+            Assert.Throws<
+                 AppointmentNotFoundException>(() =>
+                 _appointmentService
+                 .DeleteAppointmentById(999));
+
+        }
+
+        [Fact]
+        public void GetAppointmentsByPatient_ShouldFilterCorrectPatient()
+        {
+            // Arrange
+            Patient patient1 = CreatePatient();
+
+            Patient patient2 =
+            new Patient
+            {
+                PatientId = 2,
+                FullName = "Kumar",
+                DateOfBirth =
+                new DateOnly(2000, 1, 1),
+                Gender = Gender.Male,
+                PhoneNumber = "9999999999",
+                Email = "kumar@gmail.com",
+                InsuranceId = "INS102"
+            };
+
+            List<Appointment> appointments =
+            [
+                new Appointment
+                {
+                    Patient = patient1,
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                         DateOnly.FromDateTime(
+                         DateTime.Now.AddDays(1)),
+                    TimeSlot =
+                        new TimeOnly(10,0),
+                    Status =
+                        AppointmentStatus.Pending
+                 },
+
+                new Appointment
+                {
+                    Patient = patient2,
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(2)),
+                    TimeSlot =
+                        new TimeOnly(11,0),
+                    Status =
+                        AppointmentStatus.Pending
+                }
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(appointments);
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetAppointmentsByPatient(
+                    patient1.PatientId);
+
+            // Assert
+            Assert.Single(result);
+
+        }
+
+        [Fact]
+        public void GetAppointmentsByDoctor_ShouldFilterCorrectDoctor()
+        {
+            // Arrange
+            Doctor doctor1 = CreateDoctor();
+
+            Doctor doctor2 =
+            new Doctor
+            {
+                DoctorId = 2,
+                FullName = "Dr Kumar",
+                Specialisation =
+                    Specialisation.Neurology,
+                YearsOfExperience = 7,
+                ConsultationFee = 1500,
+                IsActive = true
+            };
+
+            List<Appointment> appointments =
+            [
+                new Appointment
+                {
+                   Patient = CreatePatient(),
+                   Doctor = doctor1,
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(1)),
+                    TimeSlot =
+                        new TimeOnly(10,0),
+                    Status =
+                        AppointmentStatus.Pending
+                },
+
+                new Appointment
+                {
+                    Patient = CreatePatient(),
+                    Doctor = doctor2,
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(2)),
+                    TimeSlot =
+                        new TimeOnly(11,0),
+                    Status =
+                        AppointmentStatus.Pending
+                }
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(appointments);
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetAppointmentsByDoctor(
+                    doctor1.DoctorId);
+
+            // Assert
+            Assert.Single(result);
+
+        }
+
+        [Fact]
+        public void GetUpcomingAppointments_ShouldIgnorePending()
+        {
+            // Arrange
+            List<Appointment> appointments =
+            [
+                new Appointment
+                {
+                    Patient = CreatePatient(),
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(1)),
+                    TimeSlot =
+                        new TimeOnly(10,0),
+                    Status =
+                        AppointmentStatus.Pending
+                }
+             ];
+
+            _mockRepository
+            .Setup(r =>
+             r.GetAllAppointments())
+            .Returns(appointments);
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetUpcomingAppointments();
+
+            // Assert
+            Assert.Empty(result);
+
+        }
+        // Get Appointment By Id Exact Verification
+        [Fact]
+        public void GetAppointmentById_ShouldCallRepositoryOnce()
+        {
+            // Arrange
+            Appointment appointment = CreateAppointment();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            // Act
+            Appointment? result =
+                _appointmentService
+                .GetAppointmentById(
+                    appointment.AppointmentId);
+
+            // Assert
+            Assert.Equal(
+                appointment.AppointmentId,
+                result!.AppointmentId);
+
+            _mockRepository.Verify(
+                r => r.GetAppointmentById(
+                    appointment.AppointmentId),
+                Times.Once);
+        }
+
+        // Get All Appointments Empty
+        [Fact]
+        public void GetAllAppointments_Empty_ShouldReturnEmpty()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r => r.GetAllAppointments())
+                .Returns(new List<Appointment>());
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetAllAppointments();
+
+            // Assert
+            Assert.NotNull(result);
+
+            Assert.Empty(result);
+        }
+
+        // Get Upcoming Appointments Ordered
+        [Fact]
+        public void GetUpcomingAppointments_ShouldReturnOrderedAppointments()
+        {
+            // Arrange
+            List<Appointment> appointments =
+            [
+                new Appointment
+        {
+            Patient = CreatePatient(),
+            Doctor = CreateDoctor(),
+            ScheduledDate =
+                DateOnly.FromDateTime(
+                    DateTime.Now.AddDays(5)),
+            TimeSlot =
+                new TimeOnly(10,0),
+            Status =
+                AppointmentStatus.Confirmed
+        },
+
+        new Appointment
+        {
+            Patient = CreatePatient(),
+            Doctor = CreateDoctor(),
+            ScheduledDate =
+                DateOnly.FromDateTime(
+                    DateTime.Now.AddDays(1)),
+            TimeSlot =
+                new TimeOnly(11,0),
+            Status =
+                AppointmentStatus.Confirmed
+        }
+            ];
+
+            _mockRepository
+                .Setup(r => r.GetAllAppointments())
+                .Returns(appointments);
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetUpcomingAppointments();
+
+            // Assert
+            Assert.Equal(2, result.Count);
+
+            Assert.True(
+                result[0].ScheduledDate <
+                result[1].ScheduledDate);
+        }
+
+        // Get Appointments By Patient No Matching Patient
+        [Fact]
+        public void GetAppointmentsByPatient_NoMatchingPatient_ShouldReturnEmpty()
+        {
+            // Arrange
+            List<Appointment> appointments =
+            [
+                new Appointment
+        {
+            Patient = new Patient
+            {
+                PatientId = 99,
+                FullName = "Other"
+            },
+            Doctor = CreateDoctor(),
+            ScheduledDate =
+                DateOnly.FromDateTime(
+                    DateTime.Now.AddDays(1)),
+            TimeSlot =
+                new TimeOnly(10,0),
+            Status =
+                AppointmentStatus.Pending
+        }
+            ];
+
+            _mockRepository
+                .Setup(r => r.GetAllAppointments())
+                .Returns(appointments);
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetAppointmentsByPatient(1);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        // Get Appointments By Doctor No Matching Doctor
+        [Fact]
+        public void GetAppointmentsByDoctor_NoMatchingDoctor_ShouldReturnEmpty()
+        {
+            // Arrange
+            List<Appointment> appointments =
+            [
+                new Appointment
+        {
+            Patient = CreatePatient(),
+            Doctor = new Doctor
+            {
+                DoctorId = 99,
+                FullName = "Other Doctor"
+            },
+            ScheduledDate =
+                DateOnly.FromDateTime(
+                    DateTime.Now.AddDays(1)),
+            TimeSlot =
+                new TimeOnly(10,0),
+            Status =
+                AppointmentStatus.Pending
+        }
+            ];
+
+            _mockRepository
+                .Setup(r => r.GetAllAppointments())
+                .Returns(appointments);
+
+            // Act
+            List<Appointment> result =
+                _appointmentService
+                .GetAppointmentsByDoctor(1);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
     }
 }

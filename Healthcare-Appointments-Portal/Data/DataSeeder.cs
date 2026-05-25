@@ -12,51 +12,51 @@ namespace HealthCare_Appointment_Portal.Data
             Patient patient1 = new()
             {
                 PatientId = 1,
-                FullName = "Arun Kumar",
-                DateOfBirth = new DateOnly(1998, 5, 12),
-                Gender = Gender.Male,
+                FullName = "vyshnavi",
+                DateOfBirth = new DateOnly(2003, 5, 21),
+                Gender = Gender.Female,
                 PhoneNumber = "9876543210",
-                Email = "arun@gmail.com",
+                Email = "vyshnavi@gmail.com",
                 InsuranceId = "INS1001"
             };
 
             Patient patient2 = new()
             {
                 PatientId = 2,
-                FullName = "Priya Sharma",
+                FullName = "ramu",
                 DateOfBirth = new DateOnly(1995, 8, 22),
-                Gender = Gender.Female,
+                Gender = Gender.Male,
                 PhoneNumber = "9876543222",
-                Email = "priya@gmail.com",
+                Email = "ramu@gmail.com",
                 InsuranceId = "INS1002"
             };
 
             Patient patient3 = new()
             {
                 PatientId = 3,
-                FullName = "Rahul Verma",
+                FullName = "hima",
                 DateOfBirth = new DateOnly(2000, 1, 15),
-                Gender = Gender.Male,
+                Gender = Gender.Female,
                 PhoneNumber = "9876543333",
-                Email = "rahul@gmail.com",
+                Email = "hima@gmail.com",
                 InsuranceId = "INS1003"
             };
 
             Patient patient4 = new()
             {
                 PatientId = 4,
-                FullName = "Sneha Reddy",
+                FullName = "vijay",
                 DateOfBirth = new DateOnly(1997, 4, 18),
-                Gender = Gender.Female,
+                Gender = Gender.Male,
                 PhoneNumber = "9876544444",
-                Email = "sneha@gmail.com",
+                Email = "vijay@gmail.com",
                 InsuranceId = "INS1004"
             };
 
             Patient patient5 = new()
             {
                 PatientId = 5,
-                FullName = "Vikram Singh",
+                FullName = "vikram",
                 DateOfBirth = new DateOnly(1992, 9, 9),
                 Gender = Gender.Male,
                 PhoneNumber = "9876545555",
@@ -67,11 +67,11 @@ namespace HealthCare_Appointment_Portal.Data
             Patient patient6 = new()
             {
                 PatientId = 6,
-                FullName = "Anjali Mehta",
+                FullName = "vasu",
                 DateOfBirth = new DateOnly(1999, 7, 30),
                 Gender = Gender.Female,
                 PhoneNumber = "9876546666",
-                Email = "anjali@gmail.com",
+                Email = "vasu@gmail.com",
                 InsuranceId = "INS1006"
             };
 
@@ -101,7 +101,7 @@ namespace HealthCare_Appointment_Portal.Data
             Doctor doctor1 = new()
             {
                 DoctorId = 1,
-                FullName = "Dr. Rajesh",
+                FullName = "Dr. Lekhana",
                 Specialisation = Specialisation.Cardiology,
                 YearsOfExperience = 10,
                 ConsultationFee = 800,
@@ -141,7 +141,7 @@ namespace HealthCare_Appointment_Portal.Data
             Doctor doctor5 = new()
             {
                 DoctorId = 5,
-                FullName = "Dr. Sanjay",
+                FullName = "Dr. Dhana",
                 Specialisation = Specialisation.Orthopedics,
                 YearsOfExperience = 9,
                 ConsultationFee = 750,
@@ -151,7 +151,7 @@ namespace HealthCare_Appointment_Portal.Data
             Doctor doctor6 = new()
             {
                 DoctorId = 6,
-                FullName = "Dr. Divya",
+                FullName = "Dr. Aishu",
                 Specialisation = Specialisation.Dermatology,
                 YearsOfExperience = 4,
                 ConsultationFee = 550,

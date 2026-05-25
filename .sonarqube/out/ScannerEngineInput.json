@@ -1,0 +1,136 @@
+{
+  "scannerProperties": [
+    {
+      "key": "sonar.scanner.app",
+      "value": "ScannerMSBuild"
+    },
+    {
+      "key": "sonar.scanner.appVersion",
+      "value": "11.2.1"
+    },
+    {
+      "key": "sonar.scanner.bootstrapStartTime",
+      "value": "1779444934000"
+    },
+    {
+      "key": "sonar.projectKey",
+      "value": "HealthCare"
+    },
+    {
+      "key": "sonar.working.directory",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.sonarqube\\out\\.sonar"
+    },
+    {
+      "key": "sonar.projectBaseDir",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal"
+    },
+    {
+      "key": "sonar.pullrequest.cache.basepath",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal"
+    },
+    {
+      "key": "sonar.sources",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.vs\\VSWorkspaceState.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.vs\\Healthcare-Appointments-Portal.slnx\\v18\\DocumentLayout.backup.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.vs\\Healthcare-Appointments-Portal.slnx\\v18\\DocumentLayout.json"
+    },
+    {
+      "key": "sonar.tests",
+      "value": ""
+    },
+    {
+      "key": "sonar.modules",
+      "value": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557,AD7B6287-C1C5-CD07-AB22-B802B68D1740"
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.projectKey",
+      "value": "HealthCare:2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557"
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.projectName",
+      "value": "Healthcare-Appointments-Portal"
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.projectBaseDir",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal"
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.working.directory",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.sonarqube\\out\\.sonar\\mod0"
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.sourceEncoding",
+      "value": "utf-8"
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.tests",
+      "value": ""
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.sources",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Data\\DataSeeder.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Data\\DataStore.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Enums\\AppointmentStatus.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Enums\\Gender.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Enums\\Specialisation.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\AppointmentConflictException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\AppointmentNotFoundException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\DoctorNotFoundException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\DoctorUnavailableException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\DuplicateDoctorException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\DuplicatePatientException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\HealthRecordNotFoundException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\InvalidAppointmentStatusException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\PastDateException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Exceptions\\PatientNotFoundException.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Interface\\IAppointmentRepository.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Interface\\IAppointmentService.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Interface\\IDoctorRepository.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Interface\\IDoctorService.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Interface\\IHealthRecordRepository.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Interface\\IHealthRecordService.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Interface\\IPatientRepository.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Interface\\IPatientService.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Models\\Appointment.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Models\\Doctor.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Models\\HealthRecord.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Models\\Patient.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Program.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Repositories\\AppointmentRepository.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Repositories\\DoctorRepository.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Repositories\\HealthRecordRepository.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Repositories\\PatientRepository.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Services\\AppointmentService.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Services\\DoctorService.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Services\\HealthRecordService.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Services\\PatientService.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Utilities\\ConsoleConstants.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Utilities\\Constants.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare-Appointments-Portal\\Utilities\\UtilityHelper.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\HealthCare-Appointments-Portal\\obj\\Healthcare-Appointments-Portal.csproj.nuget.dgspec.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\HealthCare-Appointments-Portal\\obj\\project.assets.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\HealthCare-Appointments-Portal\\bin\\Debug\\net10.0\\Healthcare-Appointments-Portal.deps.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\HealthCare-Appointments-Portal\\bin\\Debug\\net10.0\\Healthcare-Appointments-Portal.runtimeconfig.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\HealthCare-Appointments-Portal\\obj\\Debug\\net10.0\\Healthcare-Appointments-Portal.sourcelink.json"
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.cs.analyzer.projectOutPaths",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.sonarqube\\out\\0"
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.cs.roslyn.reportFilePaths",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.sonarqube\\out\\0\\Issues.json"
+    },
+    {
+      "key": "2011BB9B-C39F-8AB9-19B9-3E7CFAD7F557.sonar.cs.scanner.telemetry",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.sonarqube\\out\\0\\Telemetry.json"
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.projectKey",
+      "value": "HealthCare:AD7B6287-C1C5-CD07-AB22-B802B68D1740"
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.projectName",
+      "value": "Healthcare_Appointments_Portal.Tests"
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.projectBaseDir",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests"
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.working.directory",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.sonarqube\\out\\.sonar\\mod1"
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.sourceEncoding",
+      "value": "utf-8"
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.sources",
+      "value": ""
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.tests",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\obj\\Healthcare_Appointments_Portal.Tests.csproj.nuget.dgspec.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\obj\\project.assets.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\bin\\Debug\\net10.0\\Healthcare-Appointments-Portal.deps.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\bin\\Debug\\net10.0\\Healthcare-Appointments-Portal.runtimeconfig.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\bin\\Debug\\net10.0\\Healthcare_Appointments_Portal.Tests.deps.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\bin\\Debug\\net10.0\\Healthcare_Appointments_Portal.Tests.runtimeconfig.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\obj\\Debug\\net10.0\\Healthcare_Appointments_Portal.Tests.sourcelink.json,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\AppointmentRepositoryTest.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\AppointmentServiceTest.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\DoctorRepositoryTest.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\DoctorServiceTest.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\HealthRecordServiceTest.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\HealthRecordTest.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\PatientRepositoryTest.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\PatientServiceTest.cs,C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\Healthcare_Appointments_Portal.Tests\\UnitTest1.cs"
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.cs.analyzer.projectOutPaths",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.sonarqube\\out\\1"
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.cs.roslyn.reportFilePaths",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.sonarqube\\out\\1\\Issues.json"
+    },
+    {
+      "key": "AD7B6287-C1C5-CD07-AB22-B802B68D1740.sonar.cs.scanner.telemetry",
+      "value": "C:\\Users\\310481\\source\\repos\\HealthCare-Appointments-Portal\\.sonarqube\\out\\1\\Telemetry.json"
+    },
+    {
+      "key": "sonar.token",
+      "value": "***"
+    },
+    {
+      "key": "sonar.host.url",
+      "value": "http://localhost:9000"
+    },
+    {
+      "key": "sonar.visualstudio.enable",
+      "value": "false"
+    }
+  ]
+}

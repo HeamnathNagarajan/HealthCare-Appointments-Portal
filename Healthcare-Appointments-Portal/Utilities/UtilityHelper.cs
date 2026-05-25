@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace HealthCare_Appointment_Portal.Utilities
 {
@@ -29,6 +30,8 @@ namespace HealthCare_Appointment_Portal.Utilities
                     DateOnly.TryParseExact(
                         input,
                         "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out DateOnly date);
 
                 if (!isValidDate)
@@ -69,7 +72,7 @@ namespace HealthCare_Appointment_Portal.Utilities
                 }
 
                 Console.WriteLine(
-                    results.First()
+                    results[0]
                     .ErrorMessage);
             }
         }
@@ -87,6 +90,8 @@ namespace HealthCare_Appointment_Portal.Utilities
                     TimeOnly.TryParseExact(
                         input,
                         "HH:mm",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out TimeOnly time);
 
                 if (isValidTime)
@@ -143,7 +148,7 @@ namespace HealthCare_Appointment_Portal.Utilities
                 }
 
                 Console.WriteLine(
-                    results.First()
+                    results[0]
                     .ErrorMessage);
             }
         }
@@ -267,7 +272,6 @@ namespace HealthCare_Appointment_Portal.Utilities
             }
         }
 
-
         // OPTIONAL UPDATE HELPER METHODS
         // Press Enter = keep existing value
         // Enter new value = update value
@@ -351,7 +355,7 @@ namespace HealthCare_Appointment_Portal.Utilities
                     oldValue);
 
                 Console.WriteLine(
-                    results.First()
+                    results[0]
                     .ErrorMessage);
             }
         }
@@ -424,6 +428,7 @@ namespace HealthCare_Appointment_Portal.Utilities
             }
         }
 
+
         // Read Optional Date
         public static DateOnly ReadOptionalDate(
             string label,
@@ -447,6 +452,8 @@ namespace HealthCare_Appointment_Portal.Utilities
                     DateOnly.TryParseExact(
                         input,
                         "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out DateOnly value);
 
                 if (isValid)
@@ -484,6 +491,8 @@ namespace HealthCare_Appointment_Portal.Utilities
                     DateOnly.TryParseExact(
                         input,
                         "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out DateOnly date);
 
                 if (!isValidDate)
@@ -531,7 +540,7 @@ namespace HealthCare_Appointment_Portal.Utilities
                     oldValue);
 
                 Console.WriteLine(
-                    results.First()
+                    results[0]
                     .ErrorMessage);
             }
         }
@@ -559,6 +568,8 @@ namespace HealthCare_Appointment_Portal.Utilities
                     TimeOnly.TryParseExact(
                         input,
                         "HH:mm",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out TimeOnly value);
 
                 if (isValid)

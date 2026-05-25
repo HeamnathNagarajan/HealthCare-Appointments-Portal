@@ -1,6 +1,6 @@
 ﻿namespace HealthCare_Appointment_Portal.Utilities
 {
-    public class Constants
+    public static class Constants
     {
         // Validation Messages
 
@@ -66,6 +66,11 @@
 
         public const string DateOfBirthCannotBeFuture =
                   "Date Of Birth cannot be in the future.";
+
+        // Cancellation Reasons
+        public const string DoctorRemovedFromSystem = "Doctor removed from system.";
+
+        public const string PatientRemovedFromSystem = "Patient removed from system.";
 
         // Summary Formats
 

@@ -1,6 +1,8 @@
 ﻿using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
 using HealthCare_Appointment_Portal.Exceptions;
+using HealthCare_Appointment_Portal.Enums;
+using HealthCare_Appointment_Portal.Utilities;
 
 namespace HealthCare_Appointment_Portal.Services
 {
@@ -10,12 +12,16 @@ namespace HealthCare_Appointment_Portal.Services
 
         private readonly IPatientRepository _patientRepository;
 
+        private readonly IAppointmentRepository _appointmentRepository;
+
         // Dependency Injection
         public PatientService(
-            IPatientRepository patientRepository)
+            IPatientRepository patientRepository,
+            IAppointmentRepository appointmentRepository)
         {
 
             _patientRepository = patientRepository;
+            _appointmentRepository = appointmentRepository;
         }
 
         // Add New Patient
@@ -116,6 +122,42 @@ namespace HealthCare_Appointment_Portal.Services
 
                 throw new PatientNotFoundException();
             }
+
+            List<Appointment> patientAppointments =
+                _appointmentRepository
+                .GetAllAppointments()
+                .Where(a =>
+                a.Patient.PatientId ==
+                patientId).
+                ToList();
+
+            // Check Confirmed Appointments
+            bool hasConfirmedAppointments =
+                patientAppointments 
+                .Any(a =>
+                a.Status ==
+                AppointmentStatus.Confirmed);
+
+            if (hasConfirmedAppointments) 
+            {
+
+                throw new PatientDeletionException(); 
+            }
+
+            List<Appointment> pendingAppointments =
+                patientAppointments
+                .Where(a =>
+                a.Status == 
+                AppointmentStatus.Pending)
+                .ToList();
+
+            foreach (Appointment appointment in pendingAppointments) 
+            {
+
+                appointment.Cancel(Constants.PatientRemovedFromSystem);
+                _appointmentRepository.UpdateAppointment(appointment);
+            }
+
 
             _patientRepository
                 .DeletePatientById(patientId);

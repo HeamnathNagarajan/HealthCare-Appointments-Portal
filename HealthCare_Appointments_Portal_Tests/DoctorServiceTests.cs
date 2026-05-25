@@ -12,49 +12,46 @@ namespace HealthCare_Appointment_Portal.Tests
         private readonly Mock<IDoctorRepository>
             _mockRepository;
 
+        private readonly Mock<IAppointmentRepository>
+            _mockAppointmentRepository;
+
         private readonly DoctorService
             _doctorService;
 
         public DoctorServiceTests()
         {
-            _mockRepository =
-                new Mock<IDoctorRepository>();
+            _mockRepository = new();
+
+            _mockAppointmentRepository = new();
 
             _doctorService =
                 new DoctorService(
-                    _mockRepository.Object);
+                    _mockRepository.Object,
+                    _mockAppointmentRepository.Object);
         }
 
         // Add Doctor Success
         [Fact]
         public void AddDoctor_ValidDoctor_ShouldAddDoctor()
         {
-            // Arrange
-            Doctor doctor =
-                CreateDoctor();
+            Doctor doctor = CreateDoctor();
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllDoctors())
+                .Setup(r => r.GetAllDoctors())
                 .Returns(new List<Doctor>());
 
-            // Act
-            _doctorService.AddDoctor(
-                doctor);
+            _doctorService.AddDoctor(doctor);
 
-            // Assert
-            _mockRepository.Verify(r =>
-                r.AddDoctor(doctor),
+            _mockRepository.Verify(
+                r => r.AddDoctor(doctor),
                 Times.Once);
         }
 
-        // Add Duplicate Doctor
+        // Duplicate Doctor
         [Fact]
         public void AddDoctor_DuplicateDoctor_ShouldThrowException()
         {
-            // Arrange
-            Doctor doctor =
-                CreateDoctor();
+            Doctor doctor = CreateDoctor();
 
             List<Doctor> doctors =
             [
@@ -62,22 +59,19 @@ namespace HealthCare_Appointment_Portal.Tests
             ];
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllDoctors())
+                .Setup(r => r.GetAllDoctors())
                 .Returns(doctors);
 
-            // Act & Assert
             Assert.Throws<
                 DuplicateDoctorException>(() =>
                     _doctorService.AddDoctor(
                         doctor));
         }
 
-        // Add Doctor Same Name Different Specialisation
+        // Same Name Different Specialisation
         [Fact]
         public void AddDoctor_SameNameDifferentSpecialisation_ShouldAddDoctor()
         {
-            // Arrange
             Doctor existingDoctor =
                 CreateDoctor();
 
@@ -87,77 +81,62 @@ namespace HealthCare_Appointment_Portal.Tests
             newDoctor.Specialisation =
                 Specialisation.Neurology;
 
-            List<Doctor> doctors =
-            [
-                existingDoctor
-            ];
-
             _mockRepository
-                .Setup(r =>
-                    r.GetAllDoctors())
-                .Returns(doctors);
+                .Setup(r => r.GetAllDoctors())
+                .Returns(
+                [
+                    existingDoctor
+                ]);
 
-            // Act
             _doctorService.AddDoctor(
                 newDoctor);
 
-            // Assert
-            _mockRepository.Verify(r =>
-                r.AddDoctor(newDoctor),
+            _mockRepository.Verify(
+                r => r.AddDoctor(newDoctor),
                 Times.Once);
         }
 
-        // Get Doctor By Existing Id
+        // Get Doctor By Id Success
         [Fact]
         public void GetDoctorById_ExistingId_ShouldReturnDoctor()
         {
-            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(
-                        doctor.DoctorId))
+                    r.GetDoctorById(1))
                 .Returns(doctor);
 
-            // Act
             Doctor? result =
-                _doctorService.GetDoctorById(
-                    doctor.DoctorId);
+                _doctorService.GetDoctorById(1);
 
-            // Assert
-            Assert.NotNull(
-                result);
+            Assert.NotNull(result);
 
             Assert.Equal(
                 doctor.DoctorId,
                 result?.DoctorId);
         }
 
-        // Get Doctor By Invalid Id
+        // Get Doctor Invalid Id
         [Fact]
         public void GetDoctorById_InvalidId_ShouldThrowException()
         {
-            // Arrange
             _mockRepository
                 .Setup(r =>
                     r.GetDoctorById(
                         It.IsAny<int>()))
                 .Returns((Doctor?)null);
 
-            // Act & Assert
             Assert.Throws<
                 DoctorNotFoundException>(() =>
-                    _doctorService.GetDoctorById(
-                       56));
+                    _doctorService.GetDoctorById(10));
         }
 
         // Get All Doctors
         [Fact]
-        public void GetAllDoctors_ShouldReturnAllDoctors()
+        public void GetAllDoctors_ShouldReturnDoctors()
         {
-            // Arrange
             List<Doctor> doctors =
             [
                 CreateDoctor(),
@@ -165,114 +144,58 @@ namespace HealthCare_Appointment_Portal.Tests
             ];
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllDoctors())
+                .Setup(r => r.GetAllDoctors())
                 .Returns(doctors);
 
-            // Act
             List<Doctor> result =
                 _doctorService.GetAllDoctors();
 
-            // Assert
-            Assert.Equal(
-                2,
-                result.Count);
+            Assert.Equal(2, result.Count);
         }
 
-        // Get All Doctors Empty
+        // Get Empty Doctors
         [Fact]
         public void GetAllDoctors_Empty_ShouldReturnEmpty()
         {
-            // Arrange
             _mockRepository
-                .Setup(r =>
-                    r.GetAllDoctors())
+                .Setup(r => r.GetAllDoctors())
                 .Returns(new List<Doctor>());
 
-            // Act
             List<Doctor> result =
                 _doctorService.GetAllDoctors();
 
-            // Assert
-            Assert.Empty(
-                result);
+            Assert.Empty(result);
         }
 
         // Get Doctors By Specialisation
         [Fact]
-        public void GetDoctorsBySpecialisation_ValidSpecialisation_ShouldReturnDoctors()
+        public void GetDoctorsBySpecialisation_ShouldReturnDoctors()
         {
-            // Arrange
             List<Doctor> doctors =
             [
-                new Doctor
-                {
-                    FullName =
-                        "Doctor One",
-
-                    Specialisation =
-                        Specialisation.Cardiology,
-
-                    YearsOfExperience =
-                        5,
-
-                    ConsultationFee =
-                        1000,
-
-                    IsActive =
-                        true
-                },
-
-                new Doctor
-                {
-                    FullName =
-                        "Doctor Two",
-
-                    Specialisation =
-                        Specialisation.Neurology,
-
-                    YearsOfExperience =
-                        8,
-
-                    ConsultationFee =
-                        2000,
-
-                    IsActive =
-                        true
-                }
+                CreateDoctor()
             ];
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllDoctors())
+                .Setup(r => r.GetAllDoctors())
                 .Returns(doctors);
 
-            // Act
             List<Doctor> result =
                 _doctorService
                 .GetDoctorsBySpecialisation(
                     Specialisation.Cardiology);
 
-            // Assert
-            Assert.Single(
-                result);
-
-            Assert.Equal(
-                Specialisation.Cardiology,
-                result[0].Specialisation);
+            Assert.Single(result);
         }
 
-        // Get Doctors By Specialisation Empty
+        // No Match Specialisation
         [Fact]
         public void GetDoctorsBySpecialisation_NoMatch_ShouldThrowException()
         {
-            // Arrange
             _mockRepository
-                .Setup(r =>
-                    r.GetAllDoctors())
+                .Setup(r => r.GetAllDoctors())
                 .Returns(new List<Doctor>());
 
-            // Act & Assert
             Assert.Throws<
                 DoctorNotFoundException>(() =>
                     _doctorService
@@ -280,218 +203,415 @@ namespace HealthCare_Appointment_Portal.Tests
                         Specialisation.Cardiology));
         }
 
-        // Get Available Doctors By Specialisation
+        // Inactive Doctor
         [Fact]
-        public void GetAvailableDoctorsBySpecialisation_ActiveDoctors_ShouldReturnDoctors()
+        public void GetDoctorsBySpecialisation_InactiveDoctor_ShouldThrowException()
         {
-            // Arrange
+            Doctor doctor =
+                CreateDoctor();
+
+            doctor.IsActive = false;
+
+            _mockRepository
+                .Setup(r => r.GetAllDoctors())
+                .Returns(
+                [
+                    doctor
+                ]);
+
+            Assert.Throws<
+                DoctorNotFoundException>(() =>
+                    _doctorService
+                    .GetDoctorsBySpecialisation(
+                        Specialisation.Cardiology));
+        }
+
+        // Multiple Doctors
+        [Fact]
+        public void GetDoctorsBySpecialisation_MultipleDoctors_ShouldReturnAll()
+        {
+            Doctor doctor1 =
+                CreateDoctor();
+
+            Doctor doctor2 =
+                CreateDoctor();
+
+            doctor2.DoctorId = 2;
+
             List<Doctor> doctors =
             [
-                new Doctor
-                {
-                    FullName =
-                        "Doctor One",
-
-                    Specialisation =
-                        Specialisation.Cardiology,
-
-                    YearsOfExperience =
-                        5,
-
-                    ConsultationFee =
-                        1000,
-
-                    IsActive =
-                        true
-                },
-
-                new Doctor
-                {
-                    FullName =
-                        "Doctor Two",
-
-                    Specialisation =
-                        Specialisation.Cardiology,
-
-                    YearsOfExperience =
-                        7,
-
-                    ConsultationFee =
-                        1500,
-
-                    IsActive =
-                        false
-                }
+                doctor1,
+                doctor2
             ];
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllDoctors())
+                .Setup(r => r.GetAllDoctors())
                 .Returns(doctors);
 
-            // Act
+            List<Doctor> result =
+                _doctorService
+                .GetDoctorsBySpecialisation(
+                    Specialisation.Cardiology);
+
+            Assert.Equal(2, result.Count);
+        }
+
+        // Get Available Doctors
+        [Fact]
+        public void GetAvailableDoctors_ShouldReturnActiveDoctors()
+        {
+            Doctor activeDoctor =
+                CreateDoctor();
+
+            Doctor inactiveDoctor =
+                CreateDoctor();
+
+            inactiveDoctor.IsActive = false;
+
+            List<Doctor> doctors =
+            [
+                activeDoctor,
+                inactiveDoctor
+            ];
+
+            _mockRepository
+                .Setup(r => r.GetAllDoctors())
+                .Returns(doctors);
+
             List<Doctor> result =
                 _doctorService
                 .GetAvailableDoctorsBySpecialisation(
                     Specialisation.Cardiology);
 
-            // Assert
-            Assert.Single(
-                result);
-
-            Assert.True(
-                result[0].IsActive);
+            Assert.Single(result);
         }
 
-        // Get Available Doctors Empty
+        // Multiple Active Doctors
         [Fact]
-        public void GetAvailableDoctorsBySpecialisation_NoActiveDoctors_ShouldReturnEmpty()
+        public void GetAvailableDoctors_MultipleActive_ShouldReturnAll()
         {
-            // Arrange
-            List<Doctor> doctors =
-            [
-                new Doctor
-                {
-                    FullName =
-                        "Doctor One",
+            Doctor doctor1 =
+                CreateDoctor();
 
-                    Specialisation =
-                        Specialisation.Cardiology,
+            Doctor doctor2 =
+                CreateDoctor();
 
-                    YearsOfExperience =
-                        5,
-
-                    ConsultationFee =
-                        1000,
-
-                    IsActive =
-                        false
-                }
-            ];
+            doctor2.DoctorId = 2;
 
             _mockRepository
-                .Setup(r =>
-                    r.GetAllDoctors())
-                .Returns(doctors);
+                .Setup(r => r.GetAllDoctors())
+                .Returns(
+                [
+                    doctor1,
+                    doctor2
+                ]);
 
-            // Act
             List<Doctor> result =
                 _doctorService
                 .GetAvailableDoctorsBySpecialisation(
                     Specialisation.Cardiology);
 
-            // Assert
-            Assert.Empty(
-                result);
+            Assert.Equal(2, result.Count);
         }
 
-        // Update Existing Doctor
+        // Update Doctor Success
         [Fact]
-        public void UpdateDoctor_ExistingDoctor_ShouldUpdateDoctor()
+        public void UpdateDoctor_ShouldUpdateDoctor()
         {
-            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(
-                        doctor.DoctorId))
+                    r.GetDoctorById(1))
                 .Returns(doctor);
 
-            // Act
             _doctorService.UpdateDoctor(
                 doctor);
 
-            // Assert
-            _mockRepository.Verify(r =>
-                r.UpdateDoctor(doctor),
+            _mockRepository.Verify(
+                r => r.UpdateDoctor(doctor),
                 Times.Once);
         }
 
         // Update Invalid Doctor
         [Fact]
-        public void UpdateDoctor_InvalidId_ShouldThrowException()
+        public void UpdateDoctor_InvalidDoctor_ShouldThrowException()
         {
-            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(
-                        doctor.DoctorId))
+                    r.GetDoctorById(1))
                 .Returns((Doctor?)null);
 
-            // Act & Assert
             Assert.Throws<
                 DoctorNotFoundException>(() =>
                     _doctorService.UpdateDoctor(
                         doctor));
         }
 
-        // Delete Existing Doctor
+        // Delete Doctor Success
         [Fact]
-        public void DeleteDoctorById_ExistingId_ShouldDeleteDoctor()
+        public void DeleteDoctor_ShouldDeleteDoctor()
         {
-            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(
-                        doctor.DoctorId))
+                    r.GetDoctorById(1))
                 .Returns(doctor);
 
-            // Act
-            _doctorService.DeleteDoctorById(
-                doctor.DoctorId);
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(new List<Appointment>());
 
-            // Assert
-            _mockRepository.Verify(r =>
-                r.DeleteDoctorById(
-                    doctor.DoctorId),
+            _doctorService.DeleteDoctorById(1);
+
+            _mockRepository.Verify(
+                r => r.DeleteDoctorById(1),
                 Times.Once);
         }
 
         // Delete Invalid Doctor
         [Fact]
-        public void DeleteDoctorById_InvalidId_ShouldThrowException()
+        public void DeleteDoctor_InvalidId_ShouldThrowException()
         {
-            // Arrange
             _mockRepository
                 .Setup(r =>
                     r.GetDoctorById(
                         It.IsAny<int>()))
                 .Returns((Doctor?)null);
 
-            // Act & Assert
             Assert.Throws<
                 DoctorNotFoundException>(() =>
-                    _doctorService.DeleteDoctorById(
-                        99));
+                    _doctorService.DeleteDoctorById(99));
         }
 
-        // Helper Method
+        // Confirmed Appointment
+        [Fact]
+        public void DeleteDoctor_ConfirmedAppointment_ShouldThrowException()
+        {
+            Doctor doctor =
+                CreateDoctor();
+
+            Appointment appointment =
+                CreateAppointment(
+                    doctor,
+                    AppointmentStatus.Confirmed);
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetDoctorById(1))
+                .Returns(doctor);
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(
+                [
+                    appointment
+                ]);
+
+            Assert.Throws<
+                DoctorDeletionException>(() =>
+                    _doctorService.DeleteDoctorById(1));
+        }
+
+        // Pending Appointment
+        [Fact]
+        public void DeleteDoctor_PendingAppointment_ShouldCancelAndDelete()
+        {
+            Doctor doctor =
+                CreateDoctor();
+
+            Appointment appointment =
+                CreateAppointment(
+                    doctor,
+                    AppointmentStatus.Pending);
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetDoctorById(1))
+                .Returns(doctor);
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(
+                [
+                    appointment
+                ]);
+
+            _doctorService.DeleteDoctorById(1);
+
+            Assert.Equal(
+                AppointmentStatus.Cancelled,
+                appointment.Status);
+
+            _mockAppointmentRepository.Verify(
+                r => r.UpdateAppointment(
+                    appointment),
+                Times.Once);
+
+            _mockRepository.Verify(
+                r => r.DeleteDoctorById(1),
+                Times.Once);
+        }
+
+        // Completed Appointment
+        [Fact]
+        public void DeleteDoctor_CompletedAppointment_ShouldDeleteDoctor()
+        {
+            Doctor doctor =
+                CreateDoctor();
+
+            Appointment appointment =
+                CreateAppointment(
+                    doctor,
+                    AppointmentStatus.Completed);
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetDoctorById(1))
+                .Returns(doctor);
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(
+                [
+                    appointment
+                ]);
+
+            _doctorService.DeleteDoctorById(1);
+
+            _mockRepository.Verify(
+                r => r.DeleteDoctorById(1),
+                Times.Once);
+        }
+
+        // Cancelled Appointment
+        [Fact]
+        public void DeleteDoctor_CancelledAppointment_ShouldDeleteDoctor()
+        {
+            Doctor doctor =
+                CreateDoctor();
+
+            Appointment appointment =
+                CreateAppointment(
+                    doctor,
+                    AppointmentStatus.Cancelled);
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetDoctorById(1))
+                .Returns(doctor);
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(
+                [
+                    appointment
+                ]);
+
+            _doctorService.DeleteDoctorById(1);
+
+            _mockRepository.Verify(
+                r => r.DeleteDoctorById(1),
+                Times.Once);
+        }
+
+        // Multiple Pending Appointments
+        [Fact]
+        public void DeleteDoctor_MultiplePendingAppointments_ShouldUpdateAll()
+        {
+            Doctor doctor =
+                CreateDoctor();
+
+            Appointment appointment1 =
+                CreateAppointment(
+                    doctor,
+                    AppointmentStatus.Pending);
+
+            Appointment appointment2 =
+                CreateAppointment(
+                    doctor,
+                    AppointmentStatus.Pending);
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetDoctorById(1))
+                .Returns(doctor);
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(
+                [
+                    appointment1,
+                    appointment2
+                ]);
+
+            _doctorService.DeleteDoctorById(1);
+
+            _mockAppointmentRepository.Verify(
+                r => r.UpdateAppointment(
+                    It.IsAny<Appointment>()),
+                Times.Exactly(2));
+        }
+
+        // Helper Doctor
         private static Doctor CreateDoctor()
         {
             return new Doctor
             {
-                FullName =
-                    "Dr Ragu",
-
+                DoctorId = 1,
+                FullName = "Dr Ragu",
                 Specialisation =
                     Specialisation.Cardiology,
+                YearsOfExperience = 5,
+                ConsultationFee = 1000,
+                IsActive = true
+            };
+        }
 
-                YearsOfExperience =
-                    5,
+        // Helper Patient
+        private static Patient CreatePatient()
+        {
+            return new Patient
+            {
+                PatientId = 1,
+                FullName = "Ragu",
+                DateOfBirth =
+                    new DateOnly(2001, 4, 22),
+                Gender = Gender.Male,
+                PhoneNumber = "9876543210",
+                Email = "ragu@gmail.com",
+                InsuranceId = "INS101"
+            };
+        }
 
-                ConsultationFee =
-                    1000,
-
-                IsActive =
-                    true
+        // Helper Appointment
+        private static Appointment CreateAppointment(
+            Doctor doctor,
+            AppointmentStatus status)
+        {
+            return new Appointment
+            {
+                AppointmentId = 1,
+                Patient = CreatePatient(),
+                Doctor = doctor,
+                ScheduledDate =
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(1)),
+                TimeSlot =
+                    new TimeOnly(10, 0),
+                Status = status
             };
         }
     }

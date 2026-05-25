@@ -16,7 +16,7 @@ namespace HealthCare_Appointment_Portal.Models
         [Required(
             ErrorMessage = Constants.FullNameRequired)]
         [RegularExpression(
-            @"^[a-zA-Z\s]+$",
+            @"^[a-zA-Z.\s]+$",
             ErrorMessage = Constants.InvalidFullNameFormat)]
         public string FullName { get; set; }
             = string.Empty;

@@ -18,7 +18,7 @@ namespace HealthcareApp.Services.Implementations
             if (string.IsNullOrWhiteSpace(patient.FullName))
                 throw new ArgumentException("Patient full name is required.");
 
-            if (patient.DateOfBirth.Date > SystemTime.Now.Date)
+            if (patient.DateOfBirth > SystemTime.Now)
                 throw new ArgumentException("Date of birth cannot be in the future.");
 
             if (string.IsNullOrWhiteSpace(patient.PhoneNumber))

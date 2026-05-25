@@ -1,5 +1,4 @@
-﻿using HealthcareApp.Dtos;
-using HealthcareApp.Enums;
+﻿using HealthcareApp.Enums;
 using HealthcareApp.Exceptions;
 using HealthcareApp.Models;
 using HealthcareApp.Repositories;
@@ -45,8 +44,8 @@ namespace HealthcareApp.Services.Implementations
             }
 
             bool recordAlreadyExists = _healthRecordRepository
-                .GetByAppointmentId(appointmentId)
-                .Any();
+                 .GetByAppointmentId(appointmentId)
+                 .Count > 0;
 
             if (recordAlreadyExists)
             {
@@ -56,8 +55,8 @@ namespace HealthcareApp.Services.Implementations
 
             var record = new HealthRecord
             {
-                PatientId = appointment.PatientId,
-                DoctorId = appointment.DoctorId,
+                Patient = appointment.Patient,
+                Doctor = appointment.Doctor,
                 AppointmentId = appointment.AppointmentId,
                 VisitDate = appointment.ScheduledDate,
                 Diagnosis = diagnosis,
@@ -79,7 +78,7 @@ namespace HealthcareApp.Services.Implementations
                 .OrderByDescending(r => r.VisitDate)
                 .ToList();
 
-            if (!records.Any())
+            if (records.Count == 0)
             {
                 throw new NoHealthRecordsFoundException(
                     $"No health records found for patient ID: {patientId}.");
@@ -90,12 +89,13 @@ namespace HealthcareApp.Services.Implementations
 
         public List<HealthRecord> GetRecordsByDoctor(int doctorId)
         {
+            _doctorRepository.GetById(doctorId);
             var records = _healthRecordRepository
                 .GetByDoctorId(doctorId)
                 .OrderByDescending(r => r.VisitDate)
                 .ToList();
 
-            if (!records.Any())
+            if (records.Count==0)
             {
                 throw new NoHealthRecordsFoundException(
                     $"No health records found for doctor ID: {doctorId}.");
@@ -113,48 +113,13 @@ namespace HealthcareApp.Services.Implementations
                 .OrderByDescending(r => r.VisitDate)
                 .ToList();
 
-            if (!records.Any())
+            if (records.Count == 0)
             {
                 throw new NoHealthRecordsFoundException(
                     $"No health records found for appointment ID: {appointmentId}.");
             }
 
             return records;
-        }
-        private HealthRecordDto BuildHealthRecordDto(HealthRecord record)
-        {
-            var patient = _patientRepository.GetById(record.PatientId);
-            var doctor = _doctorRepository.GetById(record.DoctorId);
-
-            return new HealthRecordDto
-            {
-                RecordId = record.RecordId,
-                PatientName = patient.FullName,
-                DoctorName = doctor.FullName,
-                VisitDate = record.VisitDate,
-                Diagnosis = record.Diagnosis,
-                Prescription = record.Prescription,
-                Notes = record.Notes
-            };
-        }
-        public List<HealthRecordDto> GetRecordSummariesByPatient(int patientId)
-        {
-            _patientRepository.GetById(patientId);
-
-            var records = _healthRecordRepository
-                .GetByPatientId(patientId)
-                .OrderByDescending(r => r.VisitDate)
-                .ToList();
-
-            if (!records.Any())
-            {
-                throw new NoHealthRecordsFoundException(
-                    $"No health records found for patient ID: {patientId}");
-            }
-
-            return records
-                .Select(BuildHealthRecordDto)
-                .ToList();
         }
     }
 }

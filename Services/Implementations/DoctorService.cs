@@ -15,23 +15,7 @@ namespace HealthcareApp.Services.Implementations
 
         public Doctor AddDoctor(Doctor doctor)
         {
-            if (doctor == null)
-                throw new ArgumentException("Doctor details are required.");
-
-            if (string.IsNullOrWhiteSpace(doctor.FullName))
-                throw new ArgumentException("Doctor full name is required.");
-
-            if (doctor.YearsOfExperience < 0)
-                throw new ArgumentException("Years of experience cannot be negative.");
-
-            if (doctor.ConsultationFee < 0)
-                throw new ArgumentException("Consultation fee cannot be negative.");
-
-            if (doctor.OffDays == null || doctor.OffDays.Count != 2)
-                throw new ArgumentException("Doctor must have exactly two off-duty days.");
-
-            if (doctor.OffDays.Distinct().Count() != 2)
-                throw new ArgumentException("Doctor off-duty days must be different.");
+            ValidateDoctor(doctor);
 
             doctor.IsActive = true;
 
@@ -60,11 +44,18 @@ namespace HealthcareApp.Services.Implementations
 
         public Doctor UpdateDoctor(Doctor doctor)
         {
+            ValidateDoctor(doctor);
+            ValidateDoctorId(doctor.DoctorId);
+
+            _doctorRepository.Update(doctor);
+
+            return doctor;
+        }
+
+        private static void ValidateDoctor(Doctor doctor)
+        {
             if (doctor == null)
                 throw new ArgumentException("Doctor details are required.");
-
-            if (doctor.DoctorId <= 0)
-                throw new ArgumentException("Valid Doctor ID is required.");
 
             if (string.IsNullOrWhiteSpace(doctor.FullName))
                 throw new ArgumentException("Doctor full name is required.");
@@ -80,10 +71,12 @@ namespace HealthcareApp.Services.Implementations
 
             if (doctor.OffDays.Distinct().Count() != 2)
                 throw new ArgumentException("Doctor off-duty days must be different.");
+        }
 
-            _doctorRepository.Update(doctor);
-
-            return doctor;
+        private static void ValidateDoctorId(int doctorId)
+        {
+            if (doctorId <= 0)
+                throw new ArgumentException("Valid Doctor ID is required.");
         }
     }
 }

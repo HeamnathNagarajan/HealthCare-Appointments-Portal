@@ -4,27 +4,24 @@ using System.Text;
 
 namespace HealthcareApp.Models
 {
-    public class HealthRecord : BaseEntity
+    public class HealthRecord 
     {
-        public int RecordId
-        {
-            get => Id;
-            set => Id = value;
-        }
+        public int RecordId { get; set; }
+        
 
-        public int PatientId { get; set; }
+        public required Patient Patient { get; set; }
 
-        public int DoctorId { get; set; }
+        public required Doctor Doctor { get; set; }
 
         public int AppointmentId { get; set; }
 
-        public DateTime VisitDate { get; set; }
+        public DateOnly VisitDate { get; set; }
 
         public string Diagnosis { get; set; }
 
         public string Prescription { get; set; }
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         // -------- Methods --------
 

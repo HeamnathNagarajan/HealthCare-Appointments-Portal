@@ -7,27 +7,23 @@ using System.Text;
 
 namespace HealthcareApp.Models
 {
-    public class Patient : BaseEntity
+    public class Patient 
     {
-        public int PatientId
-        {
-            get => Id;
-            set => Id = value;
-        }
+        public int PatientId { get; set; }
+    
+        public required string FullName { get; set; }
 
-        public string FullName { get; set; }
-
-        public DateTime DateOfBirth { get; set; }
+        public DateOnly DateOfBirth { get; set; }
 
         public Gender Gender { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public required string PhoneNumber { get; set; }
 
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
-        public string InsuranceId { get; set; }
+        public required string InsuranceId { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateOnly CreatedDate { get; set; }
 
         // -------- Methods --------
 

@@ -3,7 +3,6 @@ using HealthcareApp.Exceptions;
 using HealthcareApp.Models;
 using HealthcareApp.Repositories;
 using HealthcareApp.Utilities;
-using HealthcareApp.Dtos;
 
 namespace HealthcareApp.Services.Implementations
 {
@@ -23,54 +22,44 @@ namespace HealthcareApp.Services.Implementations
             _doctorRepository = doctorRepository;
         }
 
-        public Appointment BookAppointment(int patientId, int doctorId, DateTime date, TimeSpan slotStartTime)
+        // ✅ UPDATED: No time slots
+        public Appointment BookAppointment(int patientId, int doctorId, DateOnly date)
         {
             var now = SystemTime.Now;
 
-            if (date.Date < now.Date)
+            if (date < now)
                 throw new PastDateException("Cannot book an appointment in the past.");
-
-            if (!TimeSlots.DailySlotStartTimes.Contains(slotStartTime))
-                throw new ArgumentException("Invalid time slot selected.");
-
-            DateTime appointmentStartDateTime = GetSlotStartDateTime(date, slotStartTime);
-
-            if (appointmentStartDateTime <= now)
-                throw new PastDateException("Cannot book an appointment for a time that has already passed.");
 
             var patient = _patientRepository.GetById(patientId);
             var doctor = _doctorRepository.GetById(doctorId);
 
-            if (!doctor.IsAvailable(date))
-                throw new DoctorUnavailableException("Doctor is not available on the selected date.");
+            // ✅ Get doctor's appointments
+            var doctorAppointments = _appointmentRepository.GetByDoctorId(doctorId);
 
-            bool patientAlreadyHasAppointmentWithDoctorThatDay = _appointmentRepository.GetAll().Any(a =>
-                a.PatientId == patientId &&
-                a.DoctorId == doctorId &&
-                a.ScheduledDate.Date == date.Date &&
+            // ✅ Use updated availability logic
+            if (!doctor.IsAvailable(date, doctorAppointments))
+            {
+                throw new DoctorUnavailableException(
+                    "Doctor is not available on the selected date.");
+            }
+
+            // ✅ Patient cannot double-book same doctor same day
+            bool alreadyBooked = doctorAppointments.Any(a =>
+                a.Patient.PatientId == patientId &&
+                a.ScheduledDate == date &&
                 a.Status != AppointmentStatus.Cancelled);
 
-            if (patientAlreadyHasAppointmentWithDoctorThatDay)
+            if (alreadyBooked)
             {
                 throw new AppointmentConflictException(
                     "Patient already has an appointment with this doctor on the selected date.");
             }
 
-            bool slotTaken = _appointmentRepository.GetAll().Any(a =>
-                a.DoctorId == doctorId &&
-                a.ScheduledDate.Date == date.Date &&
-                a.SlotStartTime == slotStartTime &&
-                a.Status != AppointmentStatus.Cancelled);
-
-            if (slotTaken)
-                throw new AppointmentConflictException("Selected time slot is already booked for this doctor.");
-
             var appointment = new Appointment
             {
-                PatientId = patient.PatientId,
-                DoctorId = doctor.DoctorId,
-                ScheduledDate = date.Date,
-                SlotStartTime = slotStartTime,
+                Patient = patient,
+                Doctor = doctor,
+                ScheduledDate = date,
                 Status = AppointmentStatus.Pending
             };
 
@@ -122,7 +111,6 @@ namespace HealthcareApp.Services.Implementations
             return _appointmentRepository
                 .GetByPatientId(patientId)
                 .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.SlotStartTime)
                 .ToList();
         }
 
@@ -133,7 +121,6 @@ namespace HealthcareApp.Services.Implementations
             return _appointmentRepository
                 .GetByDoctorId(doctorId)
                 .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.SlotStartTime)
                 .ToList();
         }
 
@@ -145,44 +132,9 @@ namespace HealthcareApp.Services.Implementations
                 .GetAll()
                 .Where(a =>
                     a.Status == AppointmentStatus.Confirmed &&
-                    GetSlotStartDateTime(a.ScheduledDate, a.SlotStartTime) > now)
+                    a.ScheduledDate >= now)
                 .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.SlotStartTime)
                 .ToList();
-        }
-
-        public List<TimeSpan> GetAvailableSlotsForDoctor(int doctorId, DateTime date)
-        {
-            var now = SystemTime.Now;
-
-            if (date.Date < now.Date)
-                throw new PastDateException("Cannot view available slots for a past date.");
-
-            var doctor = _doctorRepository.GetById(doctorId);
-
-            if (!doctor.IsAvailable(date))
-                return new List<TimeSpan>();
-
-            var bookedSlots = _appointmentRepository
-                .GetByDoctorId(doctorId)
-                .Where(a =>
-                    a.ScheduledDate.Date == date.Date &&
-                    a.Status != AppointmentStatus.Cancelled)
-                .Select(a => a.SlotStartTime)
-                .ToList();
-
-            var availableSlots = TimeSlots.DailySlotStartTimes
-                .Except(bookedSlots)
-                .ToList();
-
-            if (date.Date == now.Date)
-            {
-                availableSlots = availableSlots
-                    .Where(slotStartTime => GetSlotStartDateTime(date, slotStartTime) > now)
-                    .ToList();
-            }
-
-            return availableSlots;
         }
 
         public List<Appointment> GetPendingAppointmentsByPatient(int patientId)
@@ -193,7 +145,6 @@ namespace HealthcareApp.Services.Implementations
                 .GetByPatientId(patientId)
                 .Where(a => a.Status == AppointmentStatus.Pending)
                 .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.SlotStartTime)
                 .ToList();
         }
 
@@ -201,82 +152,15 @@ namespace HealthcareApp.Services.Implementations
         {
             _doctorRepository.GetById(doctorId);
 
-            DateTime today = SystemTime.Now.Date;
+            DateOnly today = SystemTime.Now;
 
             return _appointmentRepository
                 .GetByDoctorId(doctorId)
                 .Where(a =>
                     a.Status == AppointmentStatus.Confirmed &&
-                    a.ScheduledDate.Date == today)
-                .OrderBy(a => a.SlotStartTime)
-                .ToList();
-        }
-
-        private DateTime GetSlotStartDateTime(DateTime date, TimeSpan slotStartTime)
-        {
-            return date.Date.Add(slotStartTime);
-        }
-        private AppointmentDto BuildAppointmentDto(Appointment appointment)
-        {
-            var patient = _patientRepository.GetById(appointment.PatientId);
-            var doctor = _doctorRepository.GetById(appointment.DoctorId);
-
-            return new AppointmentDto
-            {
-                AppointmentId = appointment.AppointmentId,
-                PatientName = patient.FullName,
-                DoctorName = doctor.FullName,
-                ScheduledDate = appointment.ScheduledDate,
-                TimeSlot = appointment.TimeSlot,
-                Status = appointment.Status,
-                CancellationReason = appointment.CancellationReason
-            };
-        }
-        public List<AppointmentDto> GetAppointmentSummariesByPatient(int patientId)
-        {
-            _patientRepository.GetById(patientId);
-
-            return _appointmentRepository
-                .GetByPatientId(patientId)
+                    a.ScheduledDate == today)
                 .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.SlotStartTime)
-                .Select(BuildAppointmentDto)
                 .ToList();
         }
-        public List<AppointmentDto> GetPendingAppointmentSummariesByPatient(int patientId)
-        {
-            _patientRepository.GetById(patientId);
-
-            return _appointmentRepository
-                .GetByPatientId(patientId)
-                .Where(a => a.Status == AppointmentStatus.Pending)
-                .OrderBy(a => a.ScheduledDate)
-                .ThenBy(a => a.SlotStartTime)
-                .Select(BuildAppointmentDto)
-                .ToList();
-        }
-        public List<AppointmentDto> GetTodayConfirmedAppointmentSummariesByDoctor(int doctorId)
-        {
-            _doctorRepository.GetById(doctorId);
-
-            DateTime today = SystemTime.Now.Date;
-
-            return _appointmentRepository
-                .GetByDoctorId(doctorId)
-                .Where(a =>
-                    a.Status == AppointmentStatus.Confirmed &&
-                    a.ScheduledDate.Date == today)
-                .OrderBy(a => a.SlotStartTime)
-                .Select(BuildAppointmentDto)
-                .ToList();
-        }
-        public AppointmentDto GetAppointmentSummaryById(int appointmentId)
-        {
-            var appointment = _appointmentRepository.GetById(appointmentId);
-
-            return BuildAppointmentDto(appointment);
-        }
-
-
     }
 }

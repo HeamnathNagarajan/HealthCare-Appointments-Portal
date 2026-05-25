@@ -2,7 +2,6 @@
 using HealthcareApp.Enums;
 using HealthcareApp.Exceptions;
 using HealthcareApp.Models;
-using HealthcareApp.Repositories;
 
 namespace HealthcareApp.Repositories
 {
@@ -15,9 +14,9 @@ namespace HealthcareApp.Repositories
         {
             _appointments = dataStore.Appointments;
 
-            _nextId = _appointments.Any()
-                ? _appointments.Max(a => a.AppointmentId) + 1
-                : 1;
+            _nextId = _appointments.Count == 0
+                ? 1
+                : _appointments.Max(a => a.AppointmentId) + 1;
         }
 
         public void Add(Appointment appointment)
@@ -44,14 +43,14 @@ namespace HealthcareApp.Repositories
         public List<Appointment> GetByPatientId(int patientId)
         {
             return _appointments
-                .Where(a => a.PatientId == patientId)
+                .Where(a => a.Patient.PatientId == patientId)
                 .ToList();
         }
 
         public List<Appointment> GetByDoctorId(int doctorId)
         {
             return _appointments
-                .Where(a => a.DoctorId == doctorId)
+                .Where(a => a.Doctor.DoctorId == doctorId)
                 .ToList();
         }
 
@@ -66,10 +65,9 @@ namespace HealthcareApp.Repositories
         {
             var existingAppointment = GetById(appointment.AppointmentId);
 
-            existingAppointment.PatientId = appointment.PatientId;
-            existingAppointment.DoctorId = appointment.DoctorId;
+            existingAppointment.Patient = appointment.Patient;
+            existingAppointment.Doctor = appointment.Doctor;
             existingAppointment.ScheduledDate = appointment.ScheduledDate;
-            existingAppointment.SlotStartTime = appointment.SlotStartTime;
             existingAppointment.Status = appointment.Status;
             existingAppointment.CancellationReason = appointment.CancellationReason;
         }

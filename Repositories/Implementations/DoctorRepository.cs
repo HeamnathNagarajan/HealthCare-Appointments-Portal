@@ -2,7 +2,6 @@
 using HealthcareApp.Enums;
 using HealthcareApp.Exceptions;
 using HealthcareApp.Models;
-using HealthcareApp.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,9 +17,9 @@ namespace HealthcareApp.Repositories.Implementations
         {
             _doctors = dataStore.Doctors;
 
-            _nextId = _doctors.Any()
-                ? _doctors.Max(d => d.DoctorId) + 1
-                : 1;
+            _nextId = _doctors.Count == 0
+                ? 1
+                : _doctors.Max(d => d.DoctorId) + 1;
         }
 
         public void Add(Doctor doctor)

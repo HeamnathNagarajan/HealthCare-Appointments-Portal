@@ -12,9 +12,9 @@ namespace HealthcareApp.Repositories
         {
             _records = dataStore.HealthRecords;
 
-            _nextId = _records.Any()
-                ? _records.Max(r => r.RecordId) + 1
-                : 1;
+            _nextId = _records.Count==0
+                ? 1:
+                _records.Max(r => r.RecordId) + 1;
         }
 
         public void Add(HealthRecord record)
@@ -31,14 +31,14 @@ namespace HealthcareApp.Repositories
         public List<HealthRecord> GetByPatientId(int patientId)
         {
             return _records
-                .Where(r => r.PatientId == patientId)
+                .Where(r => r.Patient.PatientId == patientId)
                 .ToList();
         }
 
         public List<HealthRecord> GetByDoctorId(int doctorId)
         {
             return _records
-                .Where(r => r.DoctorId == doctorId)
+                .Where(r => r.Doctor.DoctorId == doctorId)
                 .ToList();
         }
 

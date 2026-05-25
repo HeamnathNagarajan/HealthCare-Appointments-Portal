@@ -1,16 +1,13 @@
 ﻿using HealthcareApp.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HealthcareApp.Models
 {
-    public class Doctor : BaseEntity
+    public class Doctor
     {
-        public int DoctorId
-        {
-            get => Id;
-            set => Id = value;
-        }
+        public int DoctorId { get; set; }
 
         public string FullName { get; set; }
 
@@ -24,12 +21,22 @@ namespace HealthcareApp.Models
 
         public List<DayOfWeek> OffDays { get; set; } = new List<DayOfWeek>();
 
-        public bool IsAvailable(DateTime date)
+        public bool IsAvailable(DateOnly date, List<Appointment> appointments)
         {
+            // 1. Active check
             if (!IsActive)
                 return false;
 
-            return !OffDays.Contains(date.DayOfWeek);
+            // 2. Off-day check
+            if (OffDays.Contains(date.DayOfWeek))
+                return false;
+
+            // 3. Daily limit check (max 10)
+            int appointmentCount = appointments.Count(a =>
+                a.ScheduledDate == date &&
+                a.Status != AppointmentStatus.Cancelled);
+
+            return appointmentCount < 10;
         }
 
         public string GetDoctorSummary()

@@ -4,25 +4,15 @@ using System;
 
 namespace HealthcareApp.Models
 {
-    public class Appointment : BaseEntity
+    public class Appointment 
     {
-        public int AppointmentId
-        {
-            get => Id;
-            set => Id = value;
-        }
+        public int AppointmentId { get; set; }
+         
+        public required Patient Patient { get; set; }
 
-        public int PatientId { get; set; }
+        public required Doctor Doctor { get; set; }
 
-        public int DoctorId { get; set; }
-
-        public DateTime ScheduledDate { get; set; }
-
-        public TimeSpan SlotStartTime { get; set; }
-
-        public TimeSpan SlotEndTime => SlotStartTime.Add(TimeSpan.FromHours(1));
-
-        public string TimeSlot => $"{SlotStartTime:hh\\:mm}-{SlotEndTime:hh\\:mm}";
+        public DateOnly ScheduledDate { get; set; }
 
         public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
 
@@ -59,8 +49,8 @@ namespace HealthcareApp.Models
         public string GetDetails()
         {
             string details =
-                $"Appointment ID: {AppointmentId} | Patient ID: {PatientId} | Doctor ID: {DoctorId} | " +
-                $"Date: {ScheduledDate:yyyy-MM-dd} | Slot: {TimeSlot} | Status: {Status}";
+                $"Appointment ID: {AppointmentId} | Patient Name: {Patient.FullName} | Doctor Name: {Doctor.FullName} | " +
+                $"Date: {ScheduledDate:yyyy-MM-dd} | Status: {Status}";
 
             if (Status == AppointmentStatus.Cancelled)
             {

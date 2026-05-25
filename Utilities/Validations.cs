@@ -67,26 +67,26 @@ namespace HealthcareApp.Utilities
             return value;
         }
 
-        public static DateTime ReadDate(string prompt)
+        public static DateOnly ReadDate(string prompt)
         {
             Console.Write(prompt);
-            bool isValid = DateTime.TryParse(Console.ReadLine(), out DateTime date);
+            bool isValid = DateOnly.TryParse(Console.ReadLine(), out DateOnly date);
 
             while (!isValid)
             {
                 Console.WriteLine("Invalid date format.");
                 Console.Write("Enter again: ");
-                isValid = DateTime.TryParse(Console.ReadLine(), out date);
+                isValid = DateOnly.TryParse(Console.ReadLine(), out date);
             }
 
-            return date.Date;
+            return date;
         }
 
-        public static DateTime ReadDateOfBirth()
+        public static DateOnly ReadDateOfBirth()
         {
-            DateTime dob = ReadDate("Enter date of birth (yyyy-MM-dd): ");
+            DateOnly dob = ReadDate("Enter date of birth (yyyy-MM-dd): ");
 
-            while (dob >= SystemTime.Now.Date)
+            while (dob >= SystemTime.Now)
             {
                 Console.WriteLine("Date of birth must be before the current system date.");
                 dob = ReadDate("Enter date of birth again (yyyy-MM-dd): ");
@@ -104,13 +104,13 @@ namespace HealthcareApp.Utilities
             return dob;
         }
 
-        public static int CalculateAge(DateTime dateOfBirth)
+        public static int CalculateAge(DateOnly dateOfBirth)
         {
-            DateTime currentDate = SystemTime.Now;
+            DateOnly currentDate = SystemTime.Now;
 
             int age = currentDate.Year - dateOfBirth.Year;
 
-            if (dateOfBirth.Date > currentDate.AddYears(-age).Date)
+            if (dateOfBirth > currentDate.AddYears(-age))
                 age--;
 
             return age;

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using HealthcareApp.Dtos;
 
 namespace HealthcareApp.Services
 {
@@ -16,7 +15,6 @@ namespace HealthcareApp.Services
         List<HealthRecord> GetRecordsByDoctor(int doctorId);
 
         List<HealthRecord> GetRecordsByAppointment(int appointmentId);
-        List<HealthRecordDto> GetRecordSummariesByPatient(int patientId);
     }
 
 }

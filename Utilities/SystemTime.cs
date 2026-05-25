@@ -6,24 +6,24 @@ namespace HealthcareApp.Utilities
 {
     public static class SystemTime
     {
-        private static DateTime? _customDateTime;
+        private static DateOnly? _customDate;
 
-        public static DateTime Now
+        public static DateOnly Now
         {
             get
             {
-                return _customDateTime ?? DateTime.Now;
+                return _customDate ?? DateOnly.FromDateTime(DateTime.Now);
             }
         }
 
-        public static void SetCustomTime(DateTime customDateTime)
+        public static void SetCustomTime(DateOnly customDate)
         {
-            _customDateTime = customDateTime;
+            _customDate = customDate;
         }
 
         public static void Reset()
         {
-            _customDateTime = null;
+            _customDate = null;
         }
     }
 

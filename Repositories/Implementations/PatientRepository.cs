@@ -16,9 +16,10 @@ namespace HealthcareApp.Repositories.Implementations
         {
             _patients = dataStore.Patients;
 
-            _nextId = _patients.Any()
-                ? _patients.Max(p => p.PatientId) + 1
-                : 1;
+            _nextId = _patients.Count == 0
+                ? 1:
+                _patients.Max(p => p.PatientId) + 1;
+             
         }
 
         public void Add(Patient patient)

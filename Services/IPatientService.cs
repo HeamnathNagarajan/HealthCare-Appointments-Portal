@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace HealthcareApp.Services
-{
+{ 
 
     public interface IPatientService
     {

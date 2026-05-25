@@ -32,37 +32,37 @@ namespace HealthCare_Appointments_Portal.Repositories
             return _dataStore.Doctors;
         }
 
-        public void UpdateDoctor(Doctor updatedDoctor)
+        public void UpdateDoctor(Doctor doctor)
         {
             Doctor? existingDoctor = _dataStore.Doctors
                 .FirstOrDefault(d =>
-                    d.DoctorId == updatedDoctor.DoctorId);
+                    d.DoctorId == doctor.DoctorId);
 
             if (existingDoctor != null)
             {
 
                 existingDoctor.FullName =
-                    string.IsNullOrWhiteSpace(updatedDoctor.FullName)
+                    string.IsNullOrWhiteSpace(doctor.FullName)
                     ? existingDoctor.FullName
-                    : updatedDoctor.FullName;
+                    : doctor.FullName;
 
                 existingDoctor.Specialisation =
-                    updatedDoctor.Specialisation == default
+                    doctor.Specialisation == default
                     ? existingDoctor.Specialisation
-                    : updatedDoctor.Specialisation;
+                    : doctor.Specialisation;
 
                 existingDoctor.YearsOfExperience =
-                    updatedDoctor.YearsOfExperience == 0
+                    doctor.YearsOfExperience == 0
                     ? existingDoctor.YearsOfExperience
-                    : updatedDoctor.YearsOfExperience;
+                    : doctor.YearsOfExperience;
 
                 existingDoctor.ConsultationFee =
-                    updatedDoctor.ConsultationFee == 0
+                    doctor.ConsultationFee == 0
                     ? existingDoctor.ConsultationFee
-                    : updatedDoctor.ConsultationFee;
+                    : doctor.ConsultationFee;
 
                 existingDoctor.IsActive =
-                    updatedDoctor.IsActive;
+                    doctor.IsActive;
             }
         }
         public void DeleteDoctorById(Guid doctorId)

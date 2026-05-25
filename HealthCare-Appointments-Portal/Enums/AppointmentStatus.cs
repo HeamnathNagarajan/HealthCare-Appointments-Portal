@@ -1,4 +1,4 @@
-﻿namespace HealthCare_Appointments_Portal.Enum
+﻿namespace HealthCare_Appointments_Portal.Enums
 {
     public enum AppointmentStatus
     {

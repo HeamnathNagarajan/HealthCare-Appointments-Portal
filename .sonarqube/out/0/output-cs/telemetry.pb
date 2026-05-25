@@ -1,0 +1,1 @@
+˜R€C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.csproj¢net10.0òCSharp14

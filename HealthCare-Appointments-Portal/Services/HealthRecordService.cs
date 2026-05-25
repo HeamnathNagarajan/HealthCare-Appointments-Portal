@@ -16,8 +16,7 @@ namespace HealthCare_Appointments_Portal.Services
         // Add Record
         public void AddRecord(HealthRecord record)
         {
-            if (record == null)
-                throw new ArgumentNullException(nameof(record));
+            ArgumentNullException.ThrowIfNull(record); 
 
             _repository.AddRecord(record);
         }

@@ -15,8 +15,7 @@ namespace HealthCare_Appointments_Portal.Services
         // Add Doctor
         public void AddDoctor(Doctor doctor)
         {
-            if (doctor == null)
-                throw new ArgumentNullException(nameof(doctor));
+            ArgumentNullException.ThrowIfNull(doctor); 
 
             _repository.AddDoctor(doctor);
         }
@@ -36,8 +35,7 @@ namespace HealthCare_Appointments_Portal.Services
         // Update Doctor
         public void UpdateDoctor(Doctor doctor)
         {
-            if (doctor == null)
-                throw new ArgumentNullException(nameof(doctor));
+            ArgumentNullException.ThrowIfNull(doctor); // ✅ FIX
 
             _repository.UpdateDoctor(doctor);
         }

@@ -1,108 +1,112 @@
-﻿public enum Specialisation
+﻿namespace HealthCare_Appointments_Portal.Enums
 {
-    GeneralMedicine,
-    FamilyMedicine,
-    InternalMedicine,
-    EmergencyMedicine,
+    public enum Specialisation
+    {
+        GeneralMedicine,
+        FamilyMedicine,
+        InternalMedicine,
+        EmergencyMedicine,
 
-    Cardiology,
-    CardiothoracicSurgery,
-    VascularSurgery,
+        Cardiology,
+        CardiothoracicSurgery,
+        VascularSurgery,
 
-    Neurology,
-    Neurosurgery,
+        Neurology,
+        Neurosurgery,
 
-    Dermatology,
+        Dermatology,
 
-    Orthopedics,
-    Rheumatology,
-    SportsMedicine,
+        Orthopedics,
+        Rheumatology,
+        SportsMedicine,
 
-    Pediatrics,
-    PediatricSurgery,
+        Pediatrics,
+        PediatricSurgery,
 
-    Gynecology,
-    Obstetrics,
-    ReproductiveMedicine,
+        Gynecology,
+        Obstetrics,
+        ReproductiveMedicine,
 
-    Oncology,
-    RadiationOncology,
-    Hematology,
+        Oncology,
+        RadiationOncology,
+        Hematology,
 
-    Psychiatry,
-    Psychology,
+        Psychiatry,
+        Psychology,
 
-    Ophthalmology,
+        Ophthalmology,
 
-    ENT,
+        ENT,
 
-    Pulmonology,
-    CriticalCareMedicine,
+        Pulmonology,
+        CriticalCareMedicine,
 
-    Gastroenterology,
-    Hepatology,
+        Gastroenterology,
+        Hepatology,
 
-    Nephrology,
+        Nephrology,
 
-    Urology,
+        Urology,
 
-    Endocrinology,
+        Endocrinology,
 
-    Radiology,
-    InterventionalRadiology,
+        Radiology,
+        InterventionalRadiology,
 
-    Anesthesiology,
+        Anesthesiology,
 
-    Pathology,
-    Microbiology,
+        Pathology,
+        Microbiology,
 
-    Immunology,
-    AllergyMedicine,
+        Immunology,
+        AllergyMedicine,
 
-    InfectiousDisease,
+        InfectiousDisease,
 
-    Dentistry,
-    OralSurgery,
-    Orthodontics,
+        Dentistry,
+        OralSurgery,
+        Orthodontics,
 
-    PlasticSurgery,
-    CosmeticSurgery,
+        PlasticSurgery,
+        CosmeticSurgery,
 
-    GeneralSurgery,
-    TraumaSurgery,
+        GeneralSurgery,
+        TraumaSurgery,
 
-    NuclearMedicine,
+        NuclearMedicine,
 
-    Geriatrics,
+        Geriatrics,
 
-    PalliativeCare,
+        PalliativeCare,
 
-    PhysicalMedicineAndRehabilitation,
-    Physiotherapy,
+        PhysicalMedicineAndRehabilitation,
+        Physiotherapy,
 
-    OccupationalTherapy,
+        OccupationalTherapy,
 
-    NutritionAndDietetics,
+        NutritionAndDietetics,
 
-    SleepMedicine,
+        SleepMedicine,
 
-    PainManagement,
+        PainManagement,
 
-    PreventiveMedicine,
+        PreventiveMedicine,
 
-    PublicHealth,
+        PublicHealth,
 
-    GeneticMedicine,
+        GeneticMedicine,
 
-    ForensicMedicine,
+        ForensicMedicine,
 
-    Chiropractic,
+        Chiropractic,
 
-    Audiology,
+        Audiology,
 
-    SpeechTherapy,
+        SpeechTherapy,
 
-    Neonatology,
+        Neonatology,
 
-    Diabetology
+        Diabetology
+    }
 }
+

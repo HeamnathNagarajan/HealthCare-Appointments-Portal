@@ -1,46 +1,46 @@
-﻿using HealthCare_Appointments_Portals.Utilities;
-using HealthCare_Appointments_Portal.Enum;
-namespace HealthCare_Appointments_Portal.Models
+﻿    using HealthCare_Appointments_Portals.Utilities;
+    using HealthCare_Appointments_Portal.Enums;
+    namespace HealthCare_Appointments_Portal.Models
 
-{
-    public class Doctor
     {
-        public Guid DoctorId { get; set; } = Guid.NewGuid();
-
-        public int DisplayId { get; set; }
-
-        public string FullName { get; set; } = string.Empty;
-
-        public Specialisation Specialisation { get; set; }
-
-        public int YearsOfExperience { get; set; }
-
-        public decimal ConsultationFee { get; set; }
-
-        public bool IsActive { get; set; }
-
-        public List<Appointment> Appointments { get; set; } = new List<Appointment>();
-
-        public bool IsAvailable(DateOnly date)
+        public class Doctor
         {
-            int appointmentCount = Appointments.Count(a =>
-            a.ScheduledDate == date &&
-            a.Status != AppointmentStatus.Cancelled);
+            public Guid DoctorId { get; set; } = Guid.NewGuid();
 
-            return appointmentCount < 10;
-        }
+            public int DisplayId { get; set; }
 
-        public string GetScheduleSummary()
-        {
-            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
-            int upcomingAppointments = Appointments.Count(a =>
-                a.Status == AppointmentStatus.Confirmed &&
-                a.ScheduledDate >= today);
+            public string FullName { get; set; } = string.Empty;
 
-            return string.Format(
-                Constants.DoctorScheduleSummaryFormat,
-                FullName,
-                upcomingAppointments);
+            public Specialisation Specialisation { get; set; }
+
+            public int YearsOfExperience { get; set; }
+
+            public decimal ConsultationFee { get; set; }
+
+            public bool IsActive { get; set; }
+
+            public List<Appointment> Appointments { get; set; } = new List<Appointment>();
+
+            public bool IsAvailable(DateOnly date)
+            {
+                int appointmentCount = Appointments.Count(a =>
+                a.ScheduledDate == date &&
+                a.Status != AppointmentStatus.Cancelled);
+
+                return appointmentCount < 10;
+            }
+
+            public string GetScheduleSummary()
+            {
+                DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+                int upcomingAppointments = Appointments.Count(a =>
+                    a.Status == AppointmentStatus.Confirmed &&
+                    a.ScheduledDate >= today);
+
+                return string.Format(
+                    Constants.DoctorScheduleSummaryFormat,
+                    FullName,
+                    upcomingAppointments);
+            }
         }
     }
-}

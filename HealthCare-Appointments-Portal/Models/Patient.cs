@@ -21,9 +21,6 @@ namespace HealthCare_Appointments_Portal.Models
         public string Email { get; set; } = string.Empty;
         
         public string InsuranceId { get; set; } = string.Empty;
-        
-        public DateTime CreatedDate { get; private set; }
-
 
         // Calculate Age
         public int GetAge() 

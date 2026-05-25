@@ -14,34 +14,25 @@ namespace HealthCare_Appointments_Portal.Services
         {
             _repository = repository;
         }
-
-        // Add Patient
         public void AddPatient(Patient patient)
-        {
-            if (patient == null)
-                throw new ArgumentNullException(nameof(patient));
+        { 
+            ArgumentNullException.ThrowIfNull(patient);
 
             var existingPatients = _repository.GetAllPatients();
 
+            // EMAIL CHECK
             bool isDuplicate = existingPatients.Any(p =>
-                (!string.IsNullOrWhiteSpace(p.Email) &&
-                 !string.IsNullOrWhiteSpace(patient.Email) &&
-                 p.Email.Trim().Equals(patient.Email.Trim(), StringComparison.OrdinalIgnoreCase)) ||
-
-                (!string.IsNullOrWhiteSpace(p.PhoneNumber) &&
-                 !string.IsNullOrWhiteSpace(patient.PhoneNumber) &&
-                 p.PhoneNumber.Trim() == patient.PhoneNumber.Trim()) ||
-
-                (!string.IsNullOrWhiteSpace(p.FullName) &&
-                 !string.IsNullOrWhiteSpace(patient.FullName) &&
-                 p.FullName.Trim().Equals(patient.FullName.Trim(), StringComparison.OrdinalIgnoreCase)
-                 && p.DateOfBirth == patient.DateOfBirth)
-            );
+                !string.IsNullOrWhiteSpace(p.Email) &&
+                !string.IsNullOrWhiteSpace(patient.Email) &&
+                p.Email.Trim().Equals(patient.Email.Trim(), StringComparison.OrdinalIgnoreCase));
 
             if (isDuplicate)
             {
                 throw new DuplicatePatientException();
             }
+
+            // Normalize email before saving
+            patient.Email = patient.Email.Trim().ToLower();
 
             _repository.AddPatient(patient);
         }
@@ -57,7 +48,5 @@ namespace HealthCare_Appointments_Portal.Services
         {
             return _repository.GetAllPatients();
         }
-
-        //Duplicate check
     }
 }

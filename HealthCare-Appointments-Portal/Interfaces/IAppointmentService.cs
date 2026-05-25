@@ -21,6 +21,9 @@ namespace HealthCare_Appointments_Portal.Interfaces
             Guid doctorId);
 
         List<Appointment> GetUpcomingAppointments();
+
+        List<Appointment> GetCompletedAppointments();
+
     }
 }
 

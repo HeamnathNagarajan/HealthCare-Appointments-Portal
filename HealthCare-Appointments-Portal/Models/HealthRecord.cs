@@ -12,6 +12,9 @@ public class HealthRecord
 
     public required Doctor Doctor { get; set; }
 
+    public Appointment? Appointment { get; set; }
+
+    //Visit date 
     public DateOnly VisitDate { get; set; }
 
     public string Diagnosis { get; set; } = string.Empty;
@@ -20,10 +23,12 @@ public class HealthRecord
 
     public string Notes { get; set; } = string.Empty;
 
-    // Returns HealthRecord summary
+    //Created timestamp 
+    public DateTime CreatedOn { get; set; } = DateTime.Now;
+
+    //Summary method
     public string GetSummary()
     {
-
         return string.Format(
             Constants.HealthRecordSummaryFormat,
             VisitDate,
@@ -32,7 +37,6 @@ public class HealthRecord
             Diagnosis,
             Prescription,
             Notes
-            );
+        );
     }
 }
-

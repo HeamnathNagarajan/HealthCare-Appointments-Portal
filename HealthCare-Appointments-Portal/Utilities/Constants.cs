@@ -1,6 +1,6 @@
 ﻿namespace HealthCare_Appointments_Portals.Utilities
 {
-    public class Constants
+    public static class Constants
     {
 
         public const string InvalidPhoneNumberFormat = "Invalid phone number format";

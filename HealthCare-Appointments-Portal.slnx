@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="../Healthcare/HealthCare_Appointment_Portal.Tests/HealthCare_Appointments_Portal.Tests.csproj" />
+  <Project Path="HealthCare-Appointments-Portal.tests/HealthCare-Appointments-Portal.tests.csproj" Id="103c27e8-10e7-4c4f-9b3a-a706b91eadc8" />
   <Project Path="HealthCare-Appointments-Portal/HealthCare-Appointments-Portal.csproj" />
 </Solution>

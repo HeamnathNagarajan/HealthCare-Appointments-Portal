@@ -1,5 +1,5 @@
 ﻿using HealthCare_Appointments_Portal.Models;
-using HealthCare_Appointments_Portal.Enum;
+using HealthCare_Appointments_Portal.Enums;
 using HealthCare_Appointments_Portal.Interfaces;
 using HealthCare_Appointments_Portal.Exceptions;
 
@@ -90,7 +90,8 @@ namespace HealthCare_Appointments_Portal.Services
             return _repository
                 .GetAllAppointments()
                 .Where(a =>
-                    a.Status == AppointmentStatus.Confirmed &&
+                    (a.Status == AppointmentStatus.Pending ||
+                     a.Status == AppointmentStatus.Confirmed) &&
                     a.ScheduledDate >= today)
                 .OrderBy(a => a.ScheduledDate)
                 .ThenBy(a => a.TimeSlot)
@@ -108,5 +109,18 @@ namespace HealthCare_Appointments_Portal.Services
                 .ThenBy(a => a.TimeSlot)
                 .ToList();
         }
+
+        // Get Completed Appointments
+        public List<Appointment> GetCompletedAppointments()
+        {
+            return _repository
+                .GetAllAppointments()
+                .Where(a => a.Status == AppointmentStatus.Completed)
+                .OrderBy(a => a.ScheduledDate)
+                .ThenBy(a => a.TimeSlot)
+                .ToList();
+        }
+
     }
 }
+    

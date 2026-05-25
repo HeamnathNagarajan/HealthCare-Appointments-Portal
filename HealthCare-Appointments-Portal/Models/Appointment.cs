@@ -1,5 +1,5 @@
 ﻿using HealthCare_Appointments_Portals.Utilities;
-using HealthCare_Appointments_Portal.Enum;
+using HealthCare_Appointments_Portal.Enums;
 namespace HealthCare_Appointments_Portal.Models;
 
 public class Appointment

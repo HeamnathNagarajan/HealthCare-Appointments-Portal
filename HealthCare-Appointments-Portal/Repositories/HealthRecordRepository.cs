@@ -6,10 +6,10 @@ namespace HealthCare_Appointments_Portal.Repositories
 {
     public class HealthRecordRepository: IHealthRecordRepository
     {
-        private DataStore _dataStore;
+        private readonly DataStore _dataStore;
         public HealthRecordRepository(DataStore data)
         {
-            this._dataStore = data;
+            _dataStore = data;
         }
         public void AddRecord(HealthRecord record)
         {

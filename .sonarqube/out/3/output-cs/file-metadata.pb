@@ -1,0 +1,13 @@
+³
+§C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\obj\Debug\net10.0\HealthCare-Appointments-Portal.tests.AssemblyInfo.csutf-8®
+¢C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\obj\Debug\net10.0\.NETCoreApp,Version=v10.0.AssemblyAttributes.csutf-8µ
+©C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\obj\Debug\net10.0\HealthCare-Appointments-Portal.tests.GlobalUsings.g.csutf-8w
+lC:\Users\287684\.nuget\packages\microsoft.net.test.sdk\18.5.1\build\net8.0\Microsoft.NET.Test.Sdk.Program.csutf-8‡
+~C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\AppointmentRepositoryTests.csutf-8
+vC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\DoctorServiceTests.csutf-8…
+|C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\HealthRecordServiceTests.csutf-8ˆ
+C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\HealthRecordRepositoryTests.csutf-8„
+{C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\AppointmentServiceTests.csutf-8‚
+yC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\DoctorRepositoryTests.csutf-8€
+wC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\PatientServiceTests.csutf-8ƒ
+zC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal.tests\PatientRepositoryTests.csutf-8

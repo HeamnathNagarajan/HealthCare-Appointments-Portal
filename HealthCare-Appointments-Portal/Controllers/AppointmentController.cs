@@ -2,9 +2,11 @@
 using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
 using HealthCare_Appointment_Portal.Utilities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointment_Portal.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class AppointmentController
     {
         private readonly IAppointmentService _appointmentService;

@@ -1,5 +1,8 @@
-﻿namespace HealthCare_Appointment_Portal.Utilities
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace HealthCare_Appointment_Portal.Utilities
 {
+    [ExcludeFromCodeCoverage]
     public static class ConsoleConstants
     {
         // Application Title

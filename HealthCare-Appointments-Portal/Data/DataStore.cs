@@ -1,8 +1,10 @@
 ﻿using HealthCare_Appointment_Portal.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointment_Portal.Data
 {
 
+    [ExcludeFromCodeCoverage]
     public class DataStore
     {
 

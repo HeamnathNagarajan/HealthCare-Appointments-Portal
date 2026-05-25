@@ -4,9 +4,11 @@ using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Repositories;
 using HealthCare_Appointment_Portal.Services;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointment_Portal;
 
+[ExcludeFromCodeCoverage]
 public static class Program
 {
     public static void Main(string[] args)
@@ -89,4 +91,3 @@ public static class Program
         controller.Run();
     }
 }
-

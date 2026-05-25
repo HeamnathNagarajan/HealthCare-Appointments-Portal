@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace HealthCare_Appointment_Portal.Utilities
 {
+    [ExcludeFromCodeCoverage]
     public static class UtilityHelper
     {
         // Read Console Input

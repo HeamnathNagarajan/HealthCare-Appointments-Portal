@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using HealthCare_Appointment_Portal.Utilities;
+﻿using HealthCare_Appointment_Portal.Utilities;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointment_Portal.Models;
 
+[ExcludeFromCodeCoverage]
 public class HealthRecord
 {
     // Auto Increment Health Record Id

@@ -8,7 +8,7 @@ namespace HealthcareApp.Services
 
     public interface IHealthRecordService
     {
-        HealthRecord AddRecord(int appointmentId, string diagnosis, string prescription, string notes);
+        HealthRecord AddRecord(int appointmentId, string diagnosis, string prescription, string? notes);
 
         List<HealthRecord> GetRecordsByPatient(int patientId);
 

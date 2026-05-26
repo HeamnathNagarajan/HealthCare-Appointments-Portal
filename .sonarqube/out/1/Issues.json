@@ -141,6 +141,27 @@
           }
         },
         {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/PatientServiceTests.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 25,
+                  "endLine": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
           "ruleId": "CA1860",
           "level": "note",
           "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
@@ -162,27 +183,6 @@
             "customProperties": {
               "DiagnosticPropertyKey": "Count"
             }
-          }
-        },
-        {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/PatientServiceTests.cs",
-                "region": {
-                  "startLine": 25,
-                  "startColumn": 25,
-                  "endLine": 25,
-                  "endColumn": 43
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
           }
         },
         {
@@ -272,6 +272,27 @@
         {
           "ruleId": "CA1822",
           "level": "note",
+          "message": "Member 'CreateValidDoctor' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/AppointmentServiceTests.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 24,
+                  "endLine": 50,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
           "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
           "locations": [
             {
@@ -303,27 +324,6 @@
                   "startColumn": 24,
                   "endLine": 64,
                   "endColumn": 44
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'CreateValidDoctor' does not access instance data and can be marked as static",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/AppointmentServiceTests.cs",
-                "region": {
-                  "startLine": 50,
-                  "startColumn": 24,
-                  "endLine": 50,
-                  "endColumn": 41
                 }
               }
             }

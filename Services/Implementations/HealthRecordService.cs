@@ -24,7 +24,7 @@ namespace HealthcareApp.Services.Implementations
                 _doctorRepository = doctorRepository;
             }
 
-        public HealthRecord AddRecord(int appointmentId, string diagnosis, string prescription, string notes)
+        public HealthRecord AddRecord(int appointmentId, string diagnosis, string prescription, string? notes)
         {
             if (string.IsNullOrWhiteSpace(diagnosis))
                 throw new InvalidHealthRecordException("Diagnosis is required.");

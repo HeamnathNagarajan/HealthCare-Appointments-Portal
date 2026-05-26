@@ -6,6 +6,8 @@ namespace HealthcareApp.Data
 {
     public class DataStore
     {
+        private int _nextPatientId = 1;
+
         public List<Patient> Patients { get; set; } = new();
         public List<Doctor> Doctors { get; set; } = new();
         public List<Appointment> Appointments { get; set; } = new();
@@ -26,7 +28,6 @@ namespace HealthcareApp.Data
             Patients = new List<Patient>
             {
                 CreatePatient(
-                    patientId: 1,
                     fullName: "Arun Kumar",
                     dateOfBirth: today.AddYears(-34).AddMonths(-2),
                     gender: Gender.Male,
@@ -36,7 +37,6 @@ namespace HealthcareApp.Data
                     createdDate: today.AddDays(-30)
                 ),
                 CreatePatient(
-                    patientId: 2,
                     fullName: "Meera Nair",
                     dateOfBirth: today.AddYears(-38).AddMonths(-1),
                     gender: Gender.Female,
@@ -46,7 +46,6 @@ namespace HealthcareApp.Data
                     createdDate: today.AddDays(-25)
                 ),
                 CreatePatient(
-                    patientId: 3,
                     fullName: "Rohan Mathew",
                     dateOfBirth: today.AddYears(-25).AddMonths(-4),
                     gender: Gender.Male,
@@ -56,7 +55,6 @@ namespace HealthcareApp.Data
                     createdDate: today.AddDays(-20)
                 ),
                 CreatePatient(
-                    patientId: 4,
                     fullName: "Anjali Menon",
                     dateOfBirth: today.AddYears(-31).AddMonths(-3),
                     gender: Gender.Female,
@@ -66,7 +64,6 @@ namespace HealthcareApp.Data
                     createdDate: today.AddDays(-15)
                 ),
                 CreatePatient(
-                    patientId: 5,
                     fullName: "Kiran Joseph",
                     dateOfBirth: today.AddYears(-46).AddMonths(-5),
                     gender: Gender.Male,
@@ -76,7 +73,6 @@ namespace HealthcareApp.Data
                     createdDate: today.AddDays(-10)
                 ),
                 CreatePatient(
-                    patientId: 6,
                     fullName: "Sara Thomas",
                     dateOfBirth: today.AddYears(-12).AddMonths(-1),
                     gender: Gender.Female,
@@ -333,8 +329,7 @@ namespace HealthcareApp.Data
             };
         }
 
-        private static Patient CreatePatient(
-            int patientId,
+        private Patient CreatePatient(
             string fullName,
             DateOnly dateOfBirth,
             Gender gender,
@@ -345,7 +340,7 @@ namespace HealthcareApp.Data
         {
             return new Patient
             {
-                PatientId = patientId,
+                PatientId = GetNextPatientId(),
                 FullName = fullName,
                 DateOfBirth = dateOfBirth,
                 Gender = gender,
@@ -354,6 +349,11 @@ namespace HealthcareApp.Data
                 InsuranceId = insuranceId,
                 CreatedDate = createdDate
             };
+        }
+
+        private int GetNextPatientId()
+        {
+            return _nextPatientId++;
         }
 
         private static Doctor CreateDoctor(

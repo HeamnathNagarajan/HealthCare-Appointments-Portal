@@ -4,6 +4,7 @@ using HealthcareApp.Models;
 using HealthcareApp.Repositories;
 using HealthcareApp.Repositories.Implementations;
 using HealthcareApp.Services;
+using HealthcareApp.Utilities;
 
 namespace HealthcareApp.Services.Implementations
 {
@@ -87,6 +88,11 @@ namespace HealthcareApp.Services.Implementations
                     doctor.OffDays = new List<DateOnly>();
                 }
 
+                if (offDay <= SystemTime.Now)
+                {
+                    throw new PastDateException("Selected date must be in the future");
+                }
+
                 if (doctor.OffDays.Contains(offDay))
                 {
                     throw new ArgumentException("This date is already marked as an off day.");
@@ -94,9 +100,9 @@ namespace HealthcareApp.Services.Implementations
 
                 bool hasConfirmedAppointments = _appointmentRepository
                     .GetByDoctorId(doctorId)
-                    .Count(appointment =>
+                    .Any(appointment =>
                         appointment.ScheduledDate == offDay &&
-                        appointment.Status == AppointmentStatus.Confirmed) > 0;
+                        appointment.Status == AppointmentStatus.Confirmed);
 
                 if (hasConfirmedAppointments)
                 {

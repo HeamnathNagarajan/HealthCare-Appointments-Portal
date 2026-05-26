@@ -10,7 +10,7 @@
     },
     {
       "key": "sonar.scanner.bootstrapStartTime",
-      "value": "1779790011000"
+      "value": "1779798596000"
     },
     {
       "key": "sonar.projectKey",
@@ -127,6 +127,10 @@
     {
       "key": "sonar.coverage.exclusions",
       "value": "**/Program.cs,**/Controllers/**,**/Data/**,**/Enums/**,**/Models/**,**/Utilities/**,**/Exceptions/**"
+    },
+    {
+      "key": "sonar.cpd.exclusions",
+      "value": "**/Data/**"
     },
     {
       "key": "sonar.host.url",

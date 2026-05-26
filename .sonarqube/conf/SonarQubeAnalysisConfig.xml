@@ -153,6 +153,7 @@
   </ServerSettings>
   <LocalSettings>
     <Property Name="sonar.coverage.exclusions">**/Program.cs,**/Controllers/**,**/Data/**,**/Enums/**,**/Models/**,**/Utilities/**,**/Exceptions/**</Property>
+    <Property Name="sonar.cpd.exclusions">**/Data/**</Property>
     <Property Name="sonar.host.url">http://localhost:9000</Property>
     <Property Name="sonar.cs.vscoveragexml.reportsPaths">coverage.xml</Property>
     <Property Name="sonar.exclusions">coverage.xml</Property>

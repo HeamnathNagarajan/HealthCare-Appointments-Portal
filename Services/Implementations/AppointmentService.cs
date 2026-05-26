@@ -53,10 +53,10 @@ namespace HealthcareApp.Services.Implementations
                     "Doctor is fully booked on the selected date.");
             }
 
-            bool alreadyBooked = doctorAppointments.Count(a =>
+            bool alreadyBooked = doctorAppointments.Any(a =>
                 a.Patient.PatientId == patientId &&
                 a.ScheduledDate == date &&
-                a.Status != AppointmentStatus.Cancelled) > 0;
+                a.Status != AppointmentStatus.Cancelled);
 
             if (alreadyBooked)
             {

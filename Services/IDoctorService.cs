@@ -20,9 +20,9 @@ namespace HealthcareApp.Services
         Doctor UpdateDoctor(Doctor doctor);
         List<DateOnly> GetOffDays(int doctorId);
 
-        Doctor AddOffDay(int doctorId, DateOnly date);
+        Doctor AddOffDay(int doctorId, DateOnly offDay);
 
-        Doctor RemoveOffDay(int doctorId, DateOnly date);
+        Doctor RemoveOffDay(int doctorId, DateOnly offDay);
     }
 
 

@@ -5,6 +5,7 @@ using HealthcareApp.Repositories;
 using HealthcareApp.Repositories.Implementations;
 using HealthcareApp.Services;
 using HealthcareApp.Services.Implementations;
+using HealthcareApp.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
@@ -27,7 +28,6 @@ services.AddSingleton<PatientController>();
 services.AddSingleton<DoctorController>();
 services.AddSingleton<AppointmentController>();
 services.AddSingleton<HealthRecordController>();
-services.AddSingleton<SystemTimeController>();
 
 using var provider = services.BuildServiceProvider();
 
@@ -35,11 +35,52 @@ var patientController = provider.GetRequiredService<PatientController>();
 var doctorController = provider.GetRequiredService<DoctorController>();
 var appointmentController = provider.GetRequiredService<AppointmentController>();
 var healthRecordController = provider.GetRequiredService<HealthRecordController>();
-var systemTimeController = provider.GetRequiredService<SystemTimeController>();
 
 bool exit = false;
 
+Action[] menuActions =
+{
+    patientController.RegisterPatient,
+    doctorController.AddDoctor,
+    doctorController.SearchDoctorsBySpecialisation,
+    appointmentController.BookAppointment,
+    appointmentController.ViewAppointmentsForPatient,
+    appointmentController.ConfirmOrCancelAppointment,
+    healthRecordController.CompleteAppointmentAndAddRecord,
+    healthRecordController.ViewHealthHistory,
+    SystemTimeController.ManageSystemTime,
+    doctorController.ManageDoctorOffDays,
+    ExitApplication
+};
+
 while (!exit)
+{
+    DisplayMenu();
+
+    int choice = Validations.ReadIntInRange(
+        "Choose an option: ",
+        "Menu option",
+        1,
+        menuActions.Length
+    );
+
+    try
+    {
+        menuActions[choice-1]();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(GetErrorMessage(ex));
+    }
+}
+
+void ExitApplication()
+{
+    exit = true;
+    Console.WriteLine("Exiting application...");
+}
+
+static void DisplayMenu()
 {
     Console.WriteLine("\n========== Healthcare Appointment Portal ==========");
     Console.WriteLine("1. Register a new patient");
@@ -53,115 +94,24 @@ while (!exit)
     Console.WriteLine("9. Manage system time");
     Console.WriteLine("10. Manage Doctor Off Days");
     Console.WriteLine("11. Exit");
-    Console.Write("Choose an option: ");
-
-    bool isValidChoice = int.TryParse(Console.ReadLine(), out int choice);
-
-    if (!isValidChoice)
-    {
-        Console.WriteLine("Invalid input. Please enter a number.");
-        continue;
-    }
-
-    try
-    {
-        switch (choice)
-        {
-            case 1:
-                patientController.RegisterPatient();
-                break;
-
-            case 2:
-                doctorController.AddDoctor();
-                break;
-
-            case 3:
-                doctorController.SearchDoctorsBySpecialisation();
-                break;
-
-            case 4:
-                appointmentController.BookAppointment();
-                break;
-
-            case 5:
-                appointmentController.ViewAppointmentsForPatient();
-                break;
-
-            case 6:
-                appointmentController.ConfirmOrCancelAppointment();
-                break;
-
-            case 7:
-                healthRecordController.CompleteAppointmentAndAddRecord();
-                break;
-
-            case 8:
-                healthRecordController.ViewHealthHistory();
-                break;
-
-            case 9:
-                systemTimeController.ManageSystemTime();
-                break;
-
-            case 10:
-                doctorController.ManageDoctorOffDays();
-                break;
-            case 11:
-                exit = true;
-                Console.WriteLine("Exiting application...");
-                break;
-
-            default:
-                Console.WriteLine("Invalid option. Please choose between 1 and 10.");
-                break;
-        }
-    }
-    catch (PatientNotFoundException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (DoctorNotFoundException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (AppointmentNotFoundException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (PastDateException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (AppointmentConflictException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (DoctorUnavailableException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (InvalidAppointmentStatusException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (InvalidHealthRecordException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (DuplicateHealthRecordException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (NoHealthRecordsFoundException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-    }
-    catch (ArgumentException ex)
-    {
-        Console.WriteLine($"Invalid input: {ex.Message}");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Unexpected error: {ex.Message}");
-    }
 }
+
+static string GetErrorMessage(Exception ex)
+{
+    return ex switch
+    {
+        PatientNotFoundException => $"Error: {ex.Message}",
+        DoctorNotFoundException => $"Error: {ex.Message}",
+        AppointmentNotFoundException => $"Error: {ex.Message}",
+        PastDateException => $"Error: {ex.Message}",
+        AppointmentConflictException => $"Error: {ex.Message}",
+        DoctorUnavailableException => $"Error: {ex.Message}",
+        InvalidAppointmentStatusException => $"Error: {ex.Message}",
+        InvalidHealthRecordException => $"Error: {ex.Message}",
+        DuplicateHealthRecordException => $"Error: {ex.Message}",
+        NoHealthRecordsFoundException => $"Error: {ex.Message}",
+        ArgumentException => $"Invalid input: {ex.Message}",
+        _ => $"Unexpected error: {ex.Message}"
+    };
+}
+

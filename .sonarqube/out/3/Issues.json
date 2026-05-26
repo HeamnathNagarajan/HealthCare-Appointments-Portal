@@ -141,6 +141,27 @@
           }
         },
         {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/PatientServiceTests.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 25,
+                  "endLine": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
           "ruleId": "CA1860",
           "level": "note",
           "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
@@ -209,16 +230,37 @@
         {
           "ruleId": "CA1822",
           "level": "note",
-          "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
+          "message": "Member 'CreatePatient' does not access instance data and can be marked as static",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/PatientServiceTests.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/HealthRecordServiceTests.cs",
                 "region": {
-                  "startLine": 25,
+                  "startLine": 36,
                   "startColumn": 25,
-                  "endLine": 25,
-                  "endColumn": 43
+                  "endLine": 36,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CreateDoctor' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/HealthRecordServiceTests.cs",
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 24,
+                  "endLine": 51,
+                  "endColumn": 36
                 }
               }
             }
@@ -282,48 +324,6 @@
                   "startColumn": 24,
                   "endLine": 64,
                   "endColumn": 44
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'CreatePatient' does not access instance data and can be marked as static",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/HealthRecordServiceTests.cs",
-                "region": {
-                  "startLine": 36,
-                  "startColumn": 25,
-                  "endLine": 36,
-                  "endColumn": 38
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'CreateDoctor' does not access instance data and can be marked as static",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/HealthRecordServiceTests.cs",
-                "region": {
-                  "startLine": 51,
-                  "startColumn": 24,
-                  "endLine": 51,
-                  "endColumn": 36
                 }
               }
             }

@@ -18,11 +18,11 @@ MC:\Users\310511\source\repos\HealthCareApp\Repositories\IPatientRepository.cs
 \C:\Users\310511\source\repos\HealthCareApp\Repositories\Implementations\PatientRepository.csutf-8j
 aC:\Users\310511\source\repos\HealthCareApp\Repositories\Implementations\HealthRecordRepository.csutf-8d
 [C:\Users\310511\source\repos\HealthCareApp\Repositories\Implementations\DoctorRepository.csutf-8i
-`C:\Users\310511\source\repos\HealthCareApp\Repositories\Implementations\AppointmentRepository.csutf-8[
-RC:\Users\310511\source\repos\HealthCareApp\Repositories\IHealthRecordRepository.csutf-8U
+`C:\Users\310511\source\repos\HealthCareApp\Repositories\Implementations\AppointmentRepository.csutf-8>
+5C:\Users\310511\source\repos\HealthCareApp\Program.csutf-8U
 LC:\Users\310511\source\repos\HealthCareApp\Repositories\IDoctorRepository.csutf-8Z
-QC:\Users\310511\source\repos\HealthCareApp\Repositories\IAppointmentRepository.csutf-8>
-5C:\Users\310511\source\repos\HealthCareApp\Program.csutf-8E
+QC:\Users\310511\source\repos\HealthCareApp\Repositories\IAppointmentRepository.csutf-8[
+RC:\Users\310511\source\repos\HealthCareApp\Repositories\IHealthRecordRepository.csutf-8E
 <C:\Users\310511\source\repos\HealthCareApp\Models\Patient.csutf-8J
 AC:\Users\310511\source\repos\HealthCareApp\Models\HealthRecord.csutf-8D
 ;C:\Users\310511\source\repos\HealthCareApp\Models\Doctor.csutf-8I
@@ -35,8 +35,8 @@ ZC:\Users\310511\source\repos\HealthCareApp\Exceptions\InvalidAppointmentStatusE
 WC:\Users\310511\source\repos\HealthCareApp\Exceptions\DuplicateHealthRecordException.csutf-8\
 SC:\Users\310511\source\repos\HealthCareApp\Exceptions\DoctorUnavailableException.csutf-8Y
 PC:\Users\310511\source\repos\HealthCareApp\Exceptions\DoctorNotFoundException.csutf-8^
-UC:\Users\310511\source\repos\HealthCareApp\Exceptions\AppointmentConflictException.csutf-8^
-UC:\Users\310511\source\repos\HealthCareApp\Exceptions\AppointmentNotFoundException.csutf-8K
+UC:\Users\310511\source\repos\HealthCareApp\Exceptions\AppointmentNotFoundException.csutf-8^
+UC:\Users\310511\source\repos\HealthCareApp\Exceptions\AppointmentConflictException.csutf-8K
 BC:\Users\310511\source\repos\HealthCareApp\Enums\Specialisation.csutf-8C
 :C:\Users\310511\source\repos\HealthCareApp\Enums\Gender.csutf-8N
 EC:\Users\310511\source\repos\HealthCareApp\Enums\AppointmentStatus.csutf-8E

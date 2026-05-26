@@ -1,10 +1,13 @@
 ﻿using HealthcareApp.Utilities;
+using System.Globalization;
 
 namespace HealthcareApp.Controllers
 {
-    public class SystemTimeController
+    public static class SystemTimeController
     {
-        public void ManageSystemTime()
+        private const string DateFormat = "yyyy-MM-dd";
+
+        public static void ManageSystemTime()
         {
             Console.WriteLine("\n========== System Time Management ==========");
             Console.WriteLine("1. Set custom date");
@@ -20,27 +23,44 @@ namespace HealthcareApp.Controllers
             switch (input)
             {
                 case 1:
-                    Console.Write("Enter custom date (yyyy-MM-dd): ");
-                    string? customInput = Console.ReadLine();
-
-                    while (!DateOnly.TryParse(customInput, out DateOnly _))
-                    {
-                        Console.WriteLine("Invalid date format.");
-                        Console.Write("Enter again (yyyy-MM-dd): ");
-                        customInput = Console.ReadLine();
-                    }
-
-                    DateOnly customDate = DateOnly.Parse(customInput);
-                    SystemTime.SetCustomTime(customDate);
-
-                    Console.WriteLine($"Custom date set: {SystemTime.Now:yyyy-MM-dd}");
+                    SetCustomDate();
                     break;
 
                 case 2:
-                    SystemTime.Reset();
-                    Console.WriteLine($"System date reset: {SystemTime.Now:yyyy-MM-dd}");
+                    ResetSystemDate();
                     break;
             }
+        }
+
+        private static void SetCustomDate()
+        {
+            Console.Write($"Enter custom date ({DateFormat}): ");
+            string customInput = Console.ReadLine() ?? string.Empty;
+
+            DateOnly customDate;
+
+            while (!DateOnly.TryParseExact(
+                       customInput,
+                       DateFormat,
+                       CultureInfo.InvariantCulture,
+                       DateTimeStyles.None,
+                       out customDate))
+            {
+                Console.WriteLine($"Invalid date format. Use {DateFormat}.");
+                Console.Write($"Enter again ({DateFormat}): ");
+                customInput = Console.ReadLine() ?? string.Empty;
+            }
+
+            SystemTime.SetCustomTime(customDate);
+
+            Console.WriteLine($"Custom date set: {SystemTime.Now:yyyy-MM-dd}");
+        }
+
+        private static void ResetSystemDate()
+        {
+            SystemTime.Reset();
+
+            Console.WriteLine($"System date reset: {SystemTime.Now:yyyy-MM-dd}");
         }
     }
 }

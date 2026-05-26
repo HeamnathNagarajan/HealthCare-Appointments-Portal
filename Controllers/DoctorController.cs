@@ -150,21 +150,9 @@ namespace HealthcareApp.Controllers
 
         private void AddDoctorOffDay(int doctorId)
         {
-            var offDay = new DateOnly();
-            do
-            { 
-                offDay = Validations.ReadDate(
-                    "Enter off day date (yyyy-MM-dd): "
-                 );
-                bool isPast = offDay < SystemTime.Now;
-                if (isPast)
-                {
-                    Console.WriteLine("Selected date cannot be in the past.");
-                    Console.Write("Enter again: ");
-                }
-
-             } while (offDay < SystemTime.Now);
-    
+            
+            DateOnly offDay = Validations.ReadDate(
+                "Enter off day date (yyyy-MM-dd): "  );
 
             _doctorService.AddOffDay(doctorId, offDay);
 

@@ -31,10 +31,10 @@ namespace HealthcareApp.Utilities
             Console.WriteLine();
 
             Console.WriteLine(
-                $"{"ID",-5} {"Name",-20} {"Specialisation",-20} {"Experience",-12} {"Fee",-10} {"Status",-12} {"Off Days",-25}"
+                $"{"ID",-5} {"Name",-20} {"Specialisation",-20} {"Experience",-12} {"Fee",-10} {"Status",-12}"
             );
 
-            Console.WriteLine(new string('-', 115));
+            Console.WriteLine(new string('-', 90));
 
             foreach (Doctor doctor in doctors)
             {
@@ -78,12 +78,21 @@ namespace HealthcareApp.Utilities
         private static string Truncate(string value, int maxLength)
         {
             if (string.IsNullOrWhiteSpace(value))
+            {
                 return "-";
+            }
 
             if (value.Length <= maxLength)
+            {
                 return value;
+            }
 
-            return value.Substring(0, maxLength - 3) + "...";
+            if (maxLength <= 3)
+            {
+                return value.AsSpan(0, maxLength).ToString();
+            }
+
+            return string.Concat(value.AsSpan(0, maxLength - 3), "...");
         }
     }
 }

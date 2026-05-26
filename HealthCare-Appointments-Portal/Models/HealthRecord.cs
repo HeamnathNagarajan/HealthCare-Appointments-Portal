@@ -13,6 +13,9 @@ public class HealthRecord
     // Unique Health Record Identifier
     public int RecordId { get; set; } = _recordCounter++;
 
+    // Appointment Reference
+    public int AppointmentId { get; set; }
+
     // Patient Information
     [Required(
         ErrorMessage = Constants.PatientRequired)]

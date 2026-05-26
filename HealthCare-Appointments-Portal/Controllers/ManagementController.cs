@@ -514,6 +514,9 @@ namespace HealthCare_Appointment_Portal.Controllers
                     _patientController.DeletePatient();
                     break;
 
+                case 6:
+                    return;
+
                 default:
                     Console.WriteLine(
                         ConsoleConstants.InvalidChoice);
@@ -570,6 +573,9 @@ namespace HealthCare_Appointment_Portal.Controllers
                 case 5:
                     _doctorController.DeleteDoctor();
                     break;
+
+                case 6:
+                    return;
 
                 default:
                     Console.WriteLine(
@@ -649,6 +655,9 @@ namespace HealthCare_Appointment_Portal.Controllers
                     _appointmentController.DeleteAppointment();
                     break;
 
+                case 9:
+                    return;
+
                 default:
                     Console.WriteLine(
                         ConsoleConstants.InvalidChoice);
@@ -705,6 +714,9 @@ namespace HealthCare_Appointment_Portal.Controllers
                 case 5:
                     _healthRecordController.DeleteHealthRecord();
                     break;
+
+                case 6:
+                    return;
 
                 default:
                     Console.WriteLine(

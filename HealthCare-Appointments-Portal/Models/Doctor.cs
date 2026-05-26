@@ -89,8 +89,8 @@ namespace HealthCare_Appointment_Portal.Models
                 YearsOfExperience,
                 ConsultationFee,
                 IsActive
-                    ? "Available"
-                    : "Unavailable");
+                    ? Constants.Available
+                    : Constants.NotAvailable);
         }
     }
 }

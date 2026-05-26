@@ -25,6 +25,17 @@ namespace HealthCare_Appointment_Portal.Services
         public void AddRecord(
             HealthRecord record)
         {
+            bool recordExists =
+                _healthRecordRepository
+                .GetAllRecords()
+                .Any(r =>
+                    r.AppointmentId ==
+                    record.AppointmentId);
+
+            if (recordExists)
+            {
+                throw new DuplicateHealthRecordException();
+            }
 
             _healthRecordRepository
                 .AddRecord(record);

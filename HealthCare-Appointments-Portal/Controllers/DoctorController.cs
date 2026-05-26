@@ -60,9 +60,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .DoctorAddedSuccessfully);
 
-            Console.WriteLine(
-                doctor
-                .GetDoctorSummary());
+            UtilityHelper.DisplayDoctorTable(
+                new List<Doctor> { doctor });
         }
 
         // Search Doctors
@@ -79,17 +78,21 @@ namespace HealthCare_Appointment_Portal.Controllers
                 .GetDoctorsBySpecialisation(
                     specialisation);
 
+            if (doctors.Count == 0)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .NoDoctorsAvailable);
+
+                return;
+            }
+
             Console.WriteLine(
                 ConsoleConstants
                 .AvailableDoctors);
 
-            foreach (Doctor doctor
-                in doctors)
-            {
-                Console.WriteLine(
-                    doctor
-                    .GetDoctorSummary());
-            }
+            UtilityHelper.DisplayDoctorTable(
+                doctors);
         }
 
         // Get Doctor By Id
@@ -106,9 +109,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 .GetDoctorById(
                     doctorId)!;
 
-            Console.WriteLine(
-                doctor
-                .GetDoctorSummary());
+            UtilityHelper.DisplayDoctorTable(
+                new List<Doctor> { doctor });
         }
 
         // View All Doctors
@@ -118,13 +120,17 @@ namespace HealthCare_Appointment_Portal.Controllers
                 _doctorService
                 .GetAllDoctors();
 
-            foreach (Doctor doctor
-                in doctors)
+            if (doctors.Count == 0)
             {
                 Console.WriteLine(
-                    doctor
-                    .GetDoctorSummary());
+                    ConsoleConstants
+                    .NoDoctorsAvailable);
+
+                return;
             }
+
+            UtilityHelper.DisplayDoctorTable(
+                doctors);
         }
 
         // Get Available Doctors
@@ -150,13 +156,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (Doctor doctor
-                in doctors)
-            {
-                Console.WriteLine(
-                    doctor
-                    .GetDoctorSummary());
-            }
+            UtilityHelper.DisplayDoctorTable(
+                doctors);
         }
 
         // Update Doctor
@@ -177,9 +178,11 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .CurrentDoctorDetails);
 
-            Console.WriteLine(
-                existingDoctor
-                .GetDoctorSummary());
+            UtilityHelper.DisplayDoctorTable(
+                new List<Doctor>
+                {
+                    existingDoctor
+                });
 
             Doctor updatedDoctor = new()
             {
@@ -229,11 +232,16 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .UpdatedDoctorDetails);
 
-            Console.WriteLine(
+            Doctor updatedDoctorDetails =
                 _doctorService
                 .GetDoctorById(
-                    doctorId)!
-                .GetDoctorSummary());
+                    doctorId)!;
+
+            UtilityHelper.DisplayDoctorTable(
+                new List<Doctor>
+                {
+                    updatedDoctorDetails
+                });
         }
 
         // Delete Doctor

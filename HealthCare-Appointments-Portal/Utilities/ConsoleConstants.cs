@@ -521,6 +521,8 @@ namespace HealthCare_Appointment_Portal.Utilities
             InsuranceIdLabel =
             "Insurance Id";
 
+        public const string NoPatientsFound = "No patients found.";
+
         // Doctor Update
         public const string
             DoctorNameLabel =

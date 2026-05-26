@@ -75,13 +75,23 @@ namespace HealthCare_Appointment_Portal.Utilities
 
         public const string PatientRemovedFromSystem = "Patient removed from system.";
 
+        //Exception Messages
+        public const string ConfirmOnlyPending =
+            "Only pending appointments can be confirmed.";
+
+        public const string CancelOnlyPendingOrConfirmed =
+            "Only pending or confirmed appointments can be cancelled.";
+
+        public const string CompleteOnlyConfirmed =
+            "Only confirmed appointments can be completed.";
+
         // Summary Formats
 
         public const string PatientProfileSummaryFormat =
             "Patient ID: {0} | Name: {1} | Age: {2} | Phone: {3}";
 
         public const string DoctorScheduleSummaryFormat =
-            "Dr. {0} has {1} upcoming appointment(s).";
+            "{0} has {1} upcoming appointment(s).";
 
         public const string AppointmentDetailsFormat =
             "Appointment ID: {0} | Patient: {1} | Doctor: {2} | Date: {3:dd-MM-yyyy} | Time: {4} | Status: {5}";

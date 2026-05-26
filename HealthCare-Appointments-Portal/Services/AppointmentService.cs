@@ -2,6 +2,7 @@
 using HealthCare_Appointment_Portal.Exceptions;
 using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
+using HealthCare_Appointment_Portal.Utilities;
 
 namespace HealthCare_Appointment_Portal.Services
 {
@@ -198,6 +199,14 @@ namespace HealthCare_Appointment_Portal.Services
                 throw new AppointmentNotFoundException();
             }
 
+            // Allow only Pending appointments
+            if (appointment.Status != AppointmentStatus.Pending)
+            {
+                throw new InvalidAppointmentStatusException(
+                    Constants
+                        .ConfirmOnlyPending);
+            }
+
             appointment.Confirm();
 
             _appointmentRepository
@@ -229,6 +238,15 @@ namespace HealthCare_Appointment_Portal.Services
                 throw new AppointmentNotFoundException();
             }
 
+            // Allow only Pending or Confirmed appointments
+            if (appointment.Status != AppointmentStatus.Pending &&
+                appointment.Status != AppointmentStatus.Confirmed)
+            {
+                throw new InvalidAppointmentStatusException(
+                    Constants
+                        .CancelOnlyPendingOrConfirmed);
+            }
+
             appointment.Cancel(reason);
 
             _appointmentRepository
@@ -250,6 +268,14 @@ namespace HealthCare_Appointment_Portal.Services
             {
 
                 throw new AppointmentNotFoundException();
+            }
+
+            // Allow only Confirmed appointments
+            if (appointment.Status != AppointmentStatus.Confirmed)
+            {
+                throw new InvalidAppointmentStatusException(
+                    Constants
+                        .CompleteOnlyConfirmed);
             }
 
             appointment.Complete();

@@ -18,9 +18,9 @@ lC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointm
 qC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Models\HealthRecord.csutf-8t
 kC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Models\Doctor.csutf-8y
 pC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Models\Appointment.csutf-8€
-wC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientService.csutf-8…
-|C:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IHealthRecordService.csutf-8ƒ
-zC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientRepository.csutf-8ˆ
+wC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientService.csutf-8ƒ
+zC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientRepository.csutf-8…
+|C:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IHealthRecordService.csutf-8ˆ
 C:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IHealthRecordRepository.csutf-8
 vC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IDoctorService.csutf-8‚
 yC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IDoctorRepository.csutf-8„

@@ -2,9 +2,12 @@
 using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
 using HealthCare_Appointment_Portal.Utilities;
+using System.Diagnostics.CodeAnalysis;
+using HealthCare_Appointment_Portal.Exceptions;
 
 namespace HealthCare_Appointment_Portal.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class DoctorController
     {
         private readonly IDoctorService _doctorService;
@@ -66,27 +69,34 @@ namespace HealthCare_Appointment_Portal.Controllers
         // Search Doctors
         public void SearchDoctors()
         {
-            Specialisation specialisation =
-                UtilityHelper
-                .ReadValidEnum<Specialisation>(
+            try
+            {
+                Specialisation specialisation =
+                    UtilityHelper
+                    .ReadValidEnum<Specialisation>(
+                        ConsoleConstants
+                        .EnterSpecialisationChoice);
+
+                List<Doctor> doctors =
+                    _doctorService
+                    .GetDoctorsBySpecialisation(
+                        specialisation);
+
+                Console.WriteLine(
                     ConsoleConstants
-                    .EnterSpecialisationChoice);
+                    .AvailableDoctors);
 
-            List<Doctor> doctors =
-                _doctorService
-                .GetDoctorsBySpecialisation(
-                    specialisation);
-
-            Console.WriteLine(
-                ConsoleConstants
-                .AvailableDoctors);
-
-            foreach (Doctor doctor
-                in doctors)
+                foreach (Doctor doctor in doctors)
+                {
+                    Console.WriteLine(
+                        doctor
+                        .GetDoctorSummary());
+                }
+            }
+            catch (DoctorNotFoundException ex)
             {
                 Console.WriteLine(
-                    doctor
-                    .GetDoctorSummary());
+                    $"Exception Handled: {ex.Message}");
             }
         }
 

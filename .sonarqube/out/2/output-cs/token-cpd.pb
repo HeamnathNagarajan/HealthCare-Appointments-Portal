@@ -10931,7 +10931,60 @@ AddPatient		 
 ), -
 ;- .
 } 
-} Þ
+} ›
+zC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientRepository.cs
+	namespace 	)
+HealthCare_Appointment_Portal
+ '
+.' (
+
+Interfaces( 2
+{ 
+public 
+
+	interface 
+IPatientRepository '
+{ 
+void		 
+
+AddPatient		 
+(		 
+Patient		 
+patient		  '
+)		' (
+;		( )
+Patient 
+? 
+GetPatientById 
+(  
+int  #
+	patientId$ -
+)- .
+;. /
+List 
+< 
+Patient 
+> 
+GetAllPatients $
+($ %
+)% &
+;& '
+void 
+UpdatePatient 
+( 
+Patient "
+updatedPatient# 1
+)1 2
+;2 3
+void 
+DeletePatientById 
+( 
+int "
+	patientId# ,
+), -
+;- .
+} 
+} Þ
 |C:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IHealthRecordService.cs
 	namespace 	)
 HealthCare_Appointment_Portal
@@ -11017,60 +11070,7 @@ Interfaces( 2
 )&&# $
 ;&&$ %
 }'' 
-}(( ›
-zC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientRepository.cs
-	namespace 	)
-HealthCare_Appointment_Portal
- '
-.' (
-
-Interfaces( 2
-{ 
-public 
-
-	interface 
-IPatientRepository '
-{ 
-void		 
-
-AddPatient		 
-(		 
-Patient		 
-patient		  '
-)		' (
-;		( )
-Patient 
-? 
-GetPatientById 
-(  
-int  #
-	patientId$ -
-)- .
-;. /
-List 
-< 
-Patient 
-> 
-GetAllPatients $
-($ %
-)% &
-;& '
-void 
-UpdatePatient 
-( 
-Patient "
-updatedPatient# 1
-)1 2
-;2 3
-void 
-DeletePatientById 
-( 
-int "
-	patientId# ,
-), -
-;- .
-} 
-} °
+}(( °
 C:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IHealthRecordRepository.cs
 	namespace 	)
 HealthCare_Appointment_Portal

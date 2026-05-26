@@ -22,32 +22,41 @@ namespace HealthcareApp.Services.Implementations
             _doctorRepository = doctorRepository;
         }
 
-        // ✅ UPDATED: No time slots
         public Appointment BookAppointment(int patientId, int doctorId, DateOnly date)
         {
-            var now = SystemTime.Now;
+            DateOnly today = SystemTime.Now;
 
-            if (date < now)
-                throw new PastDateException("Cannot book an appointment in the past.");
-
-            var patient = _patientRepository.GetById(patientId);
-            var doctor = _doctorRepository.GetById(doctorId);
-
-            // ✅ Get doctor's appointments
-            var doctorAppointments = _appointmentRepository.GetByDoctorId(doctorId);
-
-            // ✅ Use updated availability logic
-            if (!doctor.IsAvailable(date, doctorAppointments))
+            if (date < today)
             {
-                throw new DoctorUnavailableException(
-                    "Doctor is not available on the selected date.");
+                throw new PastDateException("Cannot book an appointment in the past.");
             }
 
-            // ✅ Patient cannot double-book same doctor same day
-            bool alreadyBooked = doctorAppointments.Any(a =>
-                a.Patient.PatientId == patientId &&
+            Patient patient = _patientRepository.GetById(patientId);
+            Doctor doctor = _doctorRepository.GetById(doctorId);
+
+            if (!doctor.IsAvailable(date))
+            {
+                throw new DoctorUnavailableException(
+                    "Doctor is unavailable on the selected date.");
+            }
+
+            List<Appointment> doctorAppointments =
+                _appointmentRepository.GetByDoctorId(doctorId) ?? new List<Appointment>();
+
+            int appointmentCount = doctorAppointments.Count(a =>
                 a.ScheduledDate == date &&
                 a.Status != AppointmentStatus.Cancelled);
+
+            if (appointmentCount >= 10)
+            {
+                throw new DoctorUnavailableException(
+                    "Doctor is fully booked on the selected date.");
+            }
+
+            bool alreadyBooked = doctorAppointments.Count(a =>
+                a.Patient.PatientId == patientId &&
+                a.ScheduledDate == date &&
+                a.Status != AppointmentStatus.Cancelled) > 0;
 
             if (alreadyBooked)
             {
@@ -70,7 +79,7 @@ namespace HealthcareApp.Services.Implementations
 
         public Appointment ConfirmAppointment(int appointmentId)
         {
-            var appointment = _appointmentRepository.GetById(appointmentId);
+            Appointment appointment = _appointmentRepository.GetById(appointmentId);
 
             appointment.Confirm();
 
@@ -82,9 +91,11 @@ namespace HealthcareApp.Services.Implementations
         public Appointment CancelAppointment(int appointmentId, string reason)
         {
             if (string.IsNullOrWhiteSpace(reason))
+            {
                 throw new ArgumentException("Cancellation reason is required.");
+            }
 
-            var appointment = _appointmentRepository.GetById(appointmentId);
+            Appointment appointment = _appointmentRepository.GetById(appointmentId);
 
             appointment.Cancel(reason);
 
@@ -95,7 +106,7 @@ namespace HealthcareApp.Services.Implementations
 
         public Appointment CompleteAppointment(int appointmentId)
         {
-            var appointment = _appointmentRepository.GetById(appointmentId);
+            Appointment appointment = _appointmentRepository.GetById(appointmentId);
 
             appointment.Complete();
 
@@ -126,13 +137,13 @@ namespace HealthcareApp.Services.Implementations
 
         public List<Appointment> GetUpcomingAppointments()
         {
-            var now = SystemTime.Now;
+            DateOnly today = SystemTime.Now;
 
             return _appointmentRepository
                 .GetAll()
                 .Where(a =>
                     a.Status == AppointmentStatus.Confirmed &&
-                    a.ScheduledDate >= now)
+                    a.ScheduledDate >= today)
                 .OrderBy(a => a.ScheduledDate)
                 .ToList();
         }

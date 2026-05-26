@@ -8,10 +8,7 @@ namespace HealthcareApp.Utilities
         {
             Console.WriteLine(heading);
 
-            foreach (Appointment appointment in appointments)
-            {
-                Console.WriteLine(appointment.GetDetails());
-            }
+            ConsoleTableHelper.DisplayAppointments(appointments);
         }
 
         public static int ReadAppointmentIdFromDisplayedList(

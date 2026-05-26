@@ -18,6 +18,12 @@ namespace HealthcareApp.Services
         List<Doctor> SearchDoctorsBySpecialisation(Specialisation specialisation);
 
         Doctor UpdateDoctor(Doctor doctor);
+        List<DateOnly> GetOffDays(int doctorId);
+
+        Doctor AddOffDay(int doctorId, DateOnly date);
+
+        Doctor RemoveOffDay(int doctorId, DateOnly date);
     }
+
 
 }

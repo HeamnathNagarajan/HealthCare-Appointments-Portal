@@ -10,7 +10,7 @@
     },
     {
       "key": "sonar.scanner.bootstrapStartTime",
-      "value": "1779708625000"
+      "value": "1779790011000"
     },
     {
       "key": "sonar.projectKey",
@@ -18,15 +18,15 @@
     },
     {
       "key": "sonar.working.directory",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\.sonar"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\.sonar"
     },
     {
       "key": "sonar.projectBaseDir",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp"
     },
     {
       "key": "sonar.pullrequest.cache.basepath",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp"
     },
     {
       "key": "sonar.sources",
@@ -50,11 +50,11 @@
     },
     {
       "key": "151EF4F4-9CEA-BFCF-E0FE-EEFF8141403C.sonar.projectBaseDir",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp"
     },
     {
       "key": "151EF4F4-9CEA-BFCF-E0FE-EEFF8141403C.sonar.working.directory",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\.sonar\\mod0"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\.sonar\\mod0"
     },
     {
       "key": "151EF4F4-9CEA-BFCF-E0FE-EEFF8141403C.sonar.sourceEncoding",
@@ -66,19 +66,19 @@
     },
     {
       "key": "151EF4F4-9CEA-BFCF-E0FE-EEFF8141403C.sonar.sources",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\Controllers\\AppointmentController.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Controllers\\DoctorController.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Controllers\\HealthRecordController.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Controllers\\PatientController.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Controllers\\SystemTimeController.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Data\\DataStore.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Enums\\AppointmentStatus.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Enums\\Gender.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Enums\\Specialisation.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\AppointmentConflictException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\AppointmentNotFoundException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\DoctorNotFoundException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\DoctorUnavailableException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\DuplicateHealthRecordException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\InvalidAppointmentStatusException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\InvalidHealthRecordException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\NoHealthRecordsFoundException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\PastDateException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Exceptions\\PatientNotFoundException.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Models\\Appointment.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Models\\Doctor.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Models\\HealthRecord.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Models\\Patient.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Program.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Repositories\\IAppointmentRepository.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Repositories\\IDoctorRepository.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Repositories\\IHealthRecordRepository.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Repositories\\Implementations\\AppointmentRepository.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Repositories\\Implementations\\DoctorRepository.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Repositories\\Implementations\\HealthRecordRepository.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Repositories\\Implementations\\PatientRepository.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Repositories\\IPatientRepository.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Services\\IAppointmentService.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Services\\IDoctorService.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Services\\IHealthRecordService.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Services\\Implementations\\AppointmentService.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Services\\Implementations\\DoctorService.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Services\\Implementations\\HealthRecordService.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Services\\Implementations\\PatientService.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Services\\IPatientService.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Utilities\\ConsoleSelectionHelper.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Utilities\\SystemTime.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\Utilities\\Validations.cs,C:\\Users\\310511\\source\\repos\\HealthcareApp\\.gitignore,C:\\Users\\310511\\source\\repos\\HealthcareApp\\coverage.xml,C:\\Users\\310511\\source\\repos\\HealthcareApp\\obj\\HealthcareApp.csproj.nuget.dgspec.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\obj\\project.assets.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\.vs\\HealthcareApp.slnx\\v18\\DocumentLayout.backup.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\.vs\\HealthcareApp.slnx\\v18\\DocumentLayout.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\bin\\Debug\\net10.0\\HealthcareApp.deps.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\bin\\Debug\\net10.0\\HealthcareApp.runtimeconfig.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\obj\\Debug\\net10.0\\HealthcareApp.sourcelink.json"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\Controllers\\AppointmentController.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Controllers\\DoctorController.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Controllers\\HealthRecordController.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Controllers\\PatientController.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Controllers\\SystemTimeController.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Data\\DataStore.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Enums\\AppointmentStatus.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Enums\\Gender.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Enums\\Specialisation.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\AppointmentConflictException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\AppointmentNotFoundException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\DoctorNotFoundException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\DoctorUnavailableException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\DuplicateHealthRecordException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\InvalidAppointmentStatusException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\InvalidHealthRecordException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\NoHealthRecordsFoundException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\PastDateException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Exceptions\\PatientNotFoundException.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Models\\Appointment.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Models\\Doctor.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Models\\HealthRecord.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Models\\Patient.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Program.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Repositories\\IAppointmentRepository.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Repositories\\IDoctorRepository.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Repositories\\IHealthRecordRepository.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Repositories\\Implementations\\AppointmentRepository.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Repositories\\Implementations\\DoctorRepository.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Repositories\\Implementations\\HealthRecordRepository.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Repositories\\Implementations\\PatientRepository.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Repositories\\IPatientRepository.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Services\\IAppointmentService.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Services\\IDoctorService.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Services\\IHealthRecordService.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Services\\Implementations\\AppointmentService.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Services\\Implementations\\DoctorService.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Services\\Implementations\\HealthRecordService.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Services\\Implementations\\PatientService.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Services\\IPatientService.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Utilities\\ConsoleSelectionHelper.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Utilities\\ConsoleTableHelper.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Utilities\\SystemTime.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\Utilities\\Validations.cs,C:\\Users\\310511\\source\\repos\\HealthCareApp\\.gitignore,C:\\Users\\310511\\source\\repos\\HealthCareApp\\coverage.xml,C:\\Users\\310511\\source\\repos\\HealthCareApp\\obj\\HealthcareApp.csproj.nuget.dgspec.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\obj\\project.assets.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\.vs\\HealthcareApp.slnx\\v18\\DocumentLayout.backup.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\.vs\\HealthcareApp.slnx\\v18\\DocumentLayout.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\bin\\Debug\\net10.0\\HealthcareApp.deps.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\bin\\Debug\\net10.0\\HealthcareApp.runtimeconfig.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\obj\\Debug\\net10.0\\HealthcareApp.sourcelink.json"
     },
     {
       "key": "151EF4F4-9CEA-BFCF-E0FE-EEFF8141403C.sonar.cs.analyzer.projectOutPaths",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\0,C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\2"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\0,C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\2"
     },
     {
       "key": "151EF4F4-9CEA-BFCF-E0FE-EEFF8141403C.sonar.cs.roslyn.reportFilePaths",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\0\\Issues.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\2\\Issues.json"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\0\\Issues.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\2\\Issues.json"
     },
     {
       "key": "151EF4F4-9CEA-BFCF-E0FE-EEFF8141403C.sonar.cs.scanner.telemetry",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\0\\Telemetry.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\2\\Telemetry.json"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\0\\Telemetry.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\2\\Telemetry.json"
     },
     {
       "key": "B3DFE11A-BA16-4676-8A27-C47DB5B99F8C.sonar.projectKey",
@@ -94,7 +94,7 @@
     },
     {
       "key": "B3DFE11A-BA16-4676-8A27-C47DB5B99F8C.sonar.working.directory",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\.sonar\\mod1"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\.sonar\\mod1"
     },
     {
       "key": "B3DFE11A-BA16-4676-8A27-C47DB5B99F8C.sonar.sourceEncoding",
@@ -110,15 +110,15 @@
     },
     {
       "key": "B3DFE11A-BA16-4676-8A27-C47DB5B99F8C.sonar.cs.analyzer.projectOutPaths",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\1,C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\3"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\1,C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\3"
     },
     {
       "key": "B3DFE11A-BA16-4676-8A27-C47DB5B99F8C.sonar.cs.roslyn.reportFilePaths",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\1\\Issues.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\3\\Issues.json"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\1\\Issues.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\3\\Issues.json"
     },
     {
       "key": "B3DFE11A-BA16-4676-8A27-C47DB5B99F8C.sonar.cs.scanner.telemetry",
-      "value": "C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\1\\Telemetry.json,C:\\Users\\310511\\source\\repos\\HealthcareApp\\.sonarqube\\out\\3\\Telemetry.json"
+      "value": "C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\1\\Telemetry.json,C:\\Users\\310511\\source\\repos\\HealthCareApp\\.sonarqube\\out\\3\\Telemetry.json"
     },
     {
       "key": "sonar.token",
@@ -126,7 +126,7 @@
     },
     {
       "key": "sonar.coverage.exclusions",
-      "value": "Program.cs,**/Program.cs,**/Data/**,**/Enums/**,**/Models/**,**/Utilities/**,**/Exceptions/**,**/Controllers/**"
+      "value": "**/Program.cs,**/Controllers/**,**/Data/**,**/Enums/**,**/Models/**,**/Utilities/**,**/Exceptions/**"
     },
     {
       "key": "sonar.host.url",

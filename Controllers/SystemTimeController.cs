@@ -21,7 +21,7 @@ namespace HealthcareApp.Controllers
             {
                 case 1:
                     Console.Write("Enter custom date (yyyy-MM-dd): ");
-                    string customInput = Console.ReadLine();
+                    string? customInput = Console.ReadLine();
 
                     while (!DateOnly.TryParse(customInput, out DateOnly _))
                     {

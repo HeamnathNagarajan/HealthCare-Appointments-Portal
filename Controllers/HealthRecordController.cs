@@ -54,7 +54,7 @@ namespace HealthcareApp.Controllers
             string prescription = Validations.ReadRequiredString("Prescription: ", "Prescription", 1);
 
             Console.Write("Notes: ");
-            string notes = Console.ReadLine();
+            string? notes = Console.ReadLine();
 
             Appointment completedAppointment =
                 _appointmentService.CompleteAppointment(appointmentId);
@@ -86,7 +86,8 @@ namespace HealthcareApp.Controllers
 
             foreach (HealthRecord record in records)
             {
-                Console.WriteLine(record.GetSummary());
+                ConsoleTableHelper.DisplayHealthRecords(records);
+
             }
         }
     }

@@ -20,9 +20,9 @@
               "resultFile": {
                 "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
                 "region": {
-                  "startLine": 65,
+                  "startLine": 77,
                   "startColumn": 36,
-                  "endLine": 65,
+                  "endLine": 77,
                   "endColumn": 40
                 }
               }
@@ -41,9 +41,30 @@
               "resultFile": {
                 "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
                 "region": {
-                  "startLine": 233,
+                  "startLine": 130,
+                  "startColumn": 30,
+                  "endLine": 130,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
+                "region": {
+                  "startLine": 261,
                   "startColumn": 39,
-                  "endLine": 233,
+                  "endLine": 261,
                   "endColumn": 43
                 }
               }
@@ -54,18 +75,18 @@
           }
         },
         {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/PatientServiceTests.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
                 "region": {
-                  "startLine": 25,
-                  "startColumn": 25,
-                  "endLine": 25,
-                  "endColumn": 43
+                  "startLine": 324,
+                  "startColumn": 30,
+                  "endLine": 324,
+                  "endColumn": 34
                 }
               }
             }
@@ -75,27 +96,24 @@
           }
         },
         {
-          "ruleId": "CA1860",
-          "level": "note",
-          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/RepositoryTests/HealthRecordRepositoryTests.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
                 "region": {
-                  "startLine": 101,
-                  "startColumn": 27,
-                  "endLine": 101,
-                  "endColumn": 56
+                  "startLine": 501,
+                  "startColumn": 30,
+                  "endLine": 501,
+                  "endColumn": 34
                 }
               }
             }
           ],
           "properties": {
-            "warningLevel": 1,
-            "customProperties": {
-              "DiagnosticPropertyKey": "Count"
-            }
+            "warningLevel": 1
           }
         },
         {
@@ -123,6 +141,51 @@
           }
         },
         {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/RepositoryTests/HealthRecordRepositoryTests.cs",
+                "region": {
+                  "startLine": 101,
+                  "startColumn": 27,
+                  "endLine": 101,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/PatientServiceTests.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 25,
+                  "endLine": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
           "ruleId": "CA1822",
           "level": "note",
           "message": "Member 'CreateValidDoctor' does not access instance data and can be marked as static",
@@ -131,10 +194,31 @@
               "resultFile": {
                 "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
                 "region": {
-                  "startLine": 22,
+                  "startLine": 31,
                   "startColumn": 24,
-                  "endLine": 22,
+                  "endLine": 31,
                   "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 25,
+                  "endLine": 45,
+                  "endColumn": 43
                 }
               }
             }
@@ -209,16 +293,16 @@
         {
           "ruleId": "CA1822",
           "level": "note",
-          "message": "Member 'CreateValidDoctor' does not access instance data and can be marked as static",
+          "message": "Member 'CreateInactiveDoctor' does not access instance data and can be marked as static",
           "locations": [
             {
               "resultFile": {
                 "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/AppointmentServiceTests.cs",
                 "region": {
-                  "startLine": 50,
+                  "startLine": 64,
                   "startColumn": 24,
-                  "endLine": 50,
-                  "endColumn": 41
+                  "endLine": 64,
+                  "endColumn": 44
                 }
               }
             }
@@ -230,16 +314,16 @@
         {
           "ruleId": "CA1822",
           "level": "note",
-          "message": "Member 'CreateInactiveDoctor' does not access instance data and can be marked as static",
+          "message": "Member 'CreateValidDoctor' does not access instance data and can be marked as static",
           "locations": [
             {
               "resultFile": {
                 "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/AppointmentServiceTests.cs",
                 "region": {
-                  "startLine": 64,
+                  "startLine": 50,
                   "startColumn": 24,
-                  "endLine": 64,
-                  "endColumn": 44
+                  "endLine": 50,
+                  "endColumn": 41
                 }
               }
             }

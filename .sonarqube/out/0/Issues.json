@@ -12,81 +12,13 @@
       },
       "results": [
         {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'Diagnosis' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Models/HealthRecord.cs",
-                "region": {
-                  "startLine": 20,
-                  "startColumn": 23,
-                  "endLine": 20,
-                  "endColumn": 32
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Models/HealthRecord.cs",
-                "region": {
-                  "startLine": 20,
-                  "startColumn": 23,
-                  "endLine": 20,
-                  "endColumn": 32
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'Prescription' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Models/HealthRecord.cs",
-                "region": {
-                  "startLine": 22,
-                  "startColumn": 23,
-                  "endLine": 22,
-                  "endColumn": 35
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Models/HealthRecord.cs",
-                "region": {
-                  "startLine": 22,
-                  "startColumn": 23,
-                  "endLine": 22,
-                  "endColumn": 35
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
           "ruleId": "CS8600",
           "level": "warning",
           "message": "Converting null literal or possible null value to non-nullable type.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 13,
                   "startColumn": 28,
@@ -107,33 +39,12 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 19,
                   "startColumn": 25,
                   "endLine": 19,
                   "endColumn": 43
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8600",
-          "level": "warning",
-          "message": "Converting null literal or possible null value to non-nullable type.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Controllers/HealthRecordController.cs",
-                "region": {
-                  "startLine": 57,
-                  "startColumn": 28,
-                  "endLine": 57,
-                  "endColumn": 46
                 }
               }
             }
@@ -149,7 +60,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Controllers/HealthRecordController.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Controllers/HealthRecordController.cs",
                 "region": {
                   "startLine": 69,
                   "startColumn": 17,
@@ -164,123 +75,13 @@
           }
         },
         {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'FullName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Models/Doctor.cs",
-                "region": {
-                  "startLine": 12,
-                  "startColumn": 23,
-                  "endLine": 12,
-                  "endColumn": 31
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Models/Doctor.cs",
-                "region": {
-                  "startLine": 12,
-                  "startColumn": 23,
-                  "endLine": 12,
-                  "endColumn": 31
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'CancellationReason' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Models/Appointment.cs",
-                "region": {
-                  "startLine": 19,
-                  "startColumn": 23,
-                  "endLine": 19,
-                  "endColumn": 41
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Models/Appointment.cs",
-                "region": {
-                  "startLine": 19,
-                  "startColumn": 23,
-                  "endLine": 19,
-                  "endColumn": 41
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
           "ruleId": "CS8600",
           "level": "warning",
           "message": "Converting null literal or possible null value to non-nullable type.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Controllers/SystemTimeController.cs",
-                "region": {
-                  "startLine": 24,
-                  "startColumn": 42,
-                  "endLine": 24,
-                  "endColumn": 60
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8600",
-          "level": "warning",
-          "message": "Converting null literal or possible null value to non-nullable type.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Controllers/SystemTimeController.cs",
-                "region": {
-                  "startLine": 30,
-                  "startColumn": 39,
-                  "endLine": 30,
-                  "endColumn": 57
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8600",
-          "level": "warning",
-          "message": "Converting null literal or possible null value to non-nullable type.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 122,
                   "startColumn": 28,
@@ -301,7 +102,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 130,
                   "startColumn": 25,
@@ -322,7 +123,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 139,
                   "startColumn": 28,
@@ -343,7 +144,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 148,
                   "startColumn": 25,
@@ -364,7 +165,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 1,
                   "startColumn": 1,
@@ -377,7 +178,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 42,
                   "startColumn": 1,
@@ -388,40 +189,29 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
-                  "startLine": 59,
+                  "startLine": 60,
                   "startColumn": 5,
-                  "endLine": 59,
+                  "endLine": 60,
                   "endColumn": 7
                 }
               }
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
-                  "startLine": 67,
+                  "startLine": 68,
                   "startColumn": 9,
-                  "endLine": 67,
+                  "endLine": 68,
                   "endColumn": 15
                 }
               }
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
-                "region": {
-                  "startLine": 115,
-                  "startColumn": 5,
-                  "endLine": 115,
-                  "endColumn": 10
-                }
-              }
-            },
-            {
-              "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 119,
                   "startColumn": 5,
@@ -432,7 +222,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 123,
                   "startColumn": 5,
@@ -443,7 +233,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 127,
                   "startColumn": 5,
@@ -454,7 +244,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 131,
                   "startColumn": 5,
@@ -465,7 +255,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 135,
                   "startColumn": 5,
@@ -476,7 +266,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 139,
                   "startColumn": 5,
@@ -487,7 +277,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 143,
                   "startColumn": 5,
@@ -498,7 +288,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 147,
                   "startColumn": 5,
@@ -509,7 +299,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 151,
                   "startColumn": 5,
@@ -520,7 +310,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 155,
                   "startColumn": 5,
@@ -531,11 +321,22 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Program.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
                 "region": {
                   "startLine": 159,
                   "startColumn": 5,
                   "endLine": 159,
+                  "endColumn": 10
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Program.cs",
+                "region": {
+                  "startLine": 163,
+                  "startColumn": 5,
+                  "endLine": 163,
                   "endColumn": 10
                 }
               }
@@ -569,7 +370,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 18,
                   "startColumn": 31,
@@ -582,7 +383,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 33,
                   "startColumn": 31,
@@ -593,7 +394,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 48,
                   "startColumn": 31,
@@ -604,7 +405,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 63,
                   "startColumn": 31,
@@ -615,7 +416,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 78,
                   "startColumn": 31,
@@ -626,7 +427,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 129,
                   "startColumn": 31,
@@ -637,7 +438,7 @@
             },
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 147,
                   "startColumn": 31,
@@ -666,11 +467,11 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Data/DataStore.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Data/DataStore.cs",
                 "region": {
-                  "startLine": 305,
+                  "startLine": 336,
                   "startColumn": 45,
-                  "endLine": 313,
+                  "endLine": 344,
                   "endColumn": 34
                 }
               }
@@ -687,7 +488,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Controllers/SystemTimeController.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Controllers/SystemTimeController.cs",
                 "region": {
                   "startLine": 7,
                   "startColumn": 21,
@@ -708,7 +509,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Controllers/SystemTimeController.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Controllers/SystemTimeController.cs",
                 "region": {
                   "startLine": 26,
                   "startColumn": 29,
@@ -729,7 +530,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Controllers/SystemTimeController.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Controllers/SystemTimeController.cs",
                 "region": {
                   "startLine": 33,
                   "startColumn": 43,
@@ -750,7 +551,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Controllers/SystemTimeController.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Controllers/SystemTimeController.cs",
                 "region": {
                   "startLine": 7,
                   "startColumn": 21,
@@ -771,7 +572,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 73,
                   "startColumn": 28,
@@ -792,7 +593,7 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 79,
                   "startColumn": 27,
@@ -813,12 +614,186 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthcareApp/Utilities/Validations.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/Validations.cs",
                 "region": {
                   "startLine": 144,
                   "startColumn": 21,
                   "endLine": 144,
                   "endColumn": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1854",
+          "level": "warning",
+          "message": "Remove this useless assignment to local variable 'offDay'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Controllers/DoctorController.cs",
+                "region": {
+                  "startLine": 153,
+                  "startColumn": 17,
+                  "endLine": 153,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<HealthcareApp.Models.Appointment>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Services/Implementations/AppointmentService.cs",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 53,
+                  "endLine": 56,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1827",
+          "level": "note",
+          "message": "Count() is used where Any() could be used instead to improve performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Services/Implementations/AppointmentService.cs",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 34,
+                  "endLine": 59,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "OperationKey": "OperationBinaryLeft"
+            }
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<HealthcareApp.Models.Appointment>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Services/Implementations/DoctorService.cs",
+                "region": {
+                  "startLine": 97,
+                  "startColumn": 22,
+                  "endLine": 97,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'offDay' to 'date' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Services/Implementations/DoctorService.cs",
+                "region": {
+                  "startLine": 81,
+                  "startColumn": 60,
+                  "endLine": 81,
+                  "endColumn": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'offDay' to 'date' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Services/Implementations/DoctorService.cs",
+                "region": {
+                  "startLine": 114,
+                  "startColumn": 63,
+                  "endLine": 114,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1827",
+          "level": "note",
+          "message": "Count() is used where Any() could be used instead to improve performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Services/Implementations/DoctorService.cs",
+                "region": {
+                  "startLine": 95,
+                  "startColumn": 49,
+                  "endLine": 99,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "OperationKey": "OperationBinaryLeft"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1845",
+          "level": "note",
+          "message": "Use span-based 'string.Concat' and 'AsSpan' instead of 'Substring'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareApp/Utilities/ConsoleTableHelper.cs",
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 20,
+                  "endLine": 86,
+                  "endColumn": 61
                 }
               }
             }
@@ -840,6 +815,36 @@
             "isEnabledByDefault": true,
             "tags": [
               "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1827": {
+          "id": "CA1827",
+          "shortDescription": "Do not use Count() or LongCount() when Any() can be used",
+          "fullDescription": "For non-empty collections, Count() and LongCount() enumerate the entire sequence, while Any() stops at the first item or the first item that satisfies a condition.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1827",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1845": {
+          "id": "CA1845",
+          "shortDescription": "Use span-based 'string.Concat'",
+          "fullDescription": "It is more efficient to use 'AsSpan' and 'string.Concat', instead of 'Substring' and a concatenation operator.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1845",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
               "Telemetry",
               "EnabledRuleInAggressiveMode"
             ]
@@ -873,20 +878,6 @@
             ]
           }
         },
-        "CS8618": {
-          "id": "CS8618",
-          "shortDescription": "Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.",
-          "defaultLevel": "warning",
-          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
-          "properties": {
-            "category": "Compiler",
-            "isEnabledByDefault": true,
-            "tags": [
-              "Compiler",
-              "Telemetry"
-            ]
-          }
-        },
         "S107": {
           "id": "S107",
           "shortDescription": "Methods should not have too many parameters",
@@ -896,6 +887,23 @@
           "properties": {
             "category": "Major Code Smell",
             "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1155": {
+          "id": "S1155",
+          "shortDescription": "\"Any()\" should be used to test for emptiness",
+          "fullDescription": "When you call Any(), it clearly communicates the code’s intention, which is to check if the collection is empty. Using Count() == 0 for this purpose is less direct and makes the code slightly more complex. However, there are some cases where special attention should be paid:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1155",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
             "tags": [
               "C#",
               "MainSourceScope",
@@ -916,6 +924,23 @@
             "tags": [
               "C#",
               "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1854": {
+          "id": "S1854",
+          "shortDescription": "Unused assignments should be removed",
+          "fullDescription": "Dead stores refer to assignments made to local variables that are subsequently never used or immediately overwritten. Such assignments are unnecessary and don’t contribute to the functionality or clarity of the code. They may even negatively impact performance. Removing them enhances code cleanliness and readability. Even if the unnecessary operations do not do any harm in terms of the program’s correctness, they are - at best - a waste of computing resources.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1854",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
               "SonarWay"
             ]
           }
@@ -978,6 +1003,23 @@
           "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6580",
           "properties": {
             "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S927": {
+          "id": "S927",
+          "shortDescription": "Parameter names should match base declaration and other partial definitions",
+          "fullDescription": "Parameters are part of the method signature and its identity.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-927",
+          "properties": {
+            "category": "Critical Code Smell",
             "isEnabledByDefault": true,
             "tags": [
               "C#",

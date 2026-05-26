@@ -141,7 +141,11 @@ namespace HealthcareApp.Utilities
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
 
             while (string.IsNullOrWhiteSpace(email) ||
-                   !Regex.IsMatch(email, pattern))
+                   !Regex.IsMatch(
+                        email,
+                        pattern,
+                        RegexOptions.None,
+                        TimeSpan.FromMilliseconds(250)))
             {
                 Console.WriteLine("Invalid email format.");
                 Console.Write("Enter again: ");

@@ -1,1 +1,1 @@
-C:\Users\310511\source\repos\HealthcareApp\.sonarqube\out\0
+C:\Users\310511\source\repos\HealthCareApp\.sonarqube\out\0

@@ -51,7 +51,8 @@ while (!exit)
     Console.WriteLine("7. Complete appointment and add health record");
     Console.WriteLine("8. View health history for a patient");
     Console.WriteLine("9. Manage system time");
-    Console.WriteLine("10. Exit");
+    Console.WriteLine("10. Manage Doctor Off Days");
+    Console.WriteLine("11. Exit");
     Console.Write("Choose an option: ");
 
     bool isValidChoice = int.TryParse(Console.ReadLine(), out int choice);
@@ -103,6 +104,9 @@ while (!exit)
                 break;
 
             case 10:
+                doctorController.ManageDoctorOffDays();
+                break;
+            case 11:
                 exit = true;
                 Console.WriteLine("Exiting application...");
                 break;

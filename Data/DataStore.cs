@@ -99,7 +99,11 @@ namespace HealthcareApp.Data
                     yearsOfExperience: 12,
                     consultationFee: 500,
                     isActive: true,
-                    offDays: GetTwoOffDaysExcluding(today.DayOfWeek, 1)
+                    offDays: new List<DateOnly>
+                    {
+                        today.AddDays(7),
+                        today.AddDays(14)
+                    }
                 ),
                 CreateDoctor(
                     doctorId: 2,
@@ -108,7 +112,11 @@ namespace HealthcareApp.Data
                     yearsOfExperience: 15,
                     consultationFee: 900,
                     isActive: true,
-                    offDays: GetTwoOffDaysExcluding(today.DayOfWeek, 2)
+                    offDays: new List<DateOnly>
+                    {
+                        today.AddDays(8),
+                        today.AddDays(15)
+                    }
                 ),
                 CreateDoctor(
                     doctorId: 3,
@@ -117,7 +125,11 @@ namespace HealthcareApp.Data
                     yearsOfExperience: 8,
                     consultationFee: 650,
                     isActive: true,
-                    offDays: GetTwoOffDaysExcluding(today.DayOfWeek, 3)
+                    offDays: new List<DateOnly>
+                    {
+                        today.AddDays(9),
+                        today.AddDays(16)
+                    }
                 ),
                 CreateDoctor(
                     doctorId: 4,
@@ -126,7 +138,11 @@ namespace HealthcareApp.Data
                     yearsOfExperience: 20,
                     consultationFee: 1200,
                     isActive: true,
-                    offDays: GetTwoOffDaysExcluding(today.DayOfWeek, 4)
+                    offDays: new List<DateOnly>
+                    {
+                        today.AddDays(10),
+                        today.AddDays(17)
+                    }
                 ),
                 CreateDoctor(
                     doctorId: 5,
@@ -135,7 +151,11 @@ namespace HealthcareApp.Data
                     yearsOfExperience: 10,
                     consultationFee: 550,
                     isActive: true,
-                    offDays: GetTwoOffDaysExcluding(today.DayOfWeek, 5)
+                    offDays: new List<DateOnly>
+                    {
+                        today.AddDays(11),
+                        today.AddDays(18)
+                    }
                 ),
                 CreateDoctor(
                     doctorId: 6,
@@ -144,7 +164,11 @@ namespace HealthcareApp.Data
                     yearsOfExperience: 7,
                     consultationFee: 600,
                     isActive: true,
-                    offDays: GetTwoOffDaysExcluding(today.DayOfWeek, 6)
+                    offDays: new List<DateOnly>
+                    {
+                        today.AddDays(12),
+                        today.AddDays(19)
+                    }
                 ),
 
                 // Inactive doctor for active-doctor filtering demo.
@@ -155,10 +179,14 @@ namespace HealthcareApp.Data
                     yearsOfExperience: 14,
                     consultationFee: 850,
                     isActive: false,
-                    offDays: GetTwoOffDaysExcluding(today.DayOfWeek, 2)
+                    offDays: new List<DateOnly>
+                    {
+                        today.AddDays(13),
+                        today.AddDays(20)
+                    }
                 ),
 
-                // Active doctor who is off-duty today for availability demo.
+                // Active doctor who is off today for availability demo.
                 CreateDoctor(
                     doctorId: 8,
                     fullName: "Naveen Raj",
@@ -166,7 +194,10 @@ namespace HealthcareApp.Data
                     yearsOfExperience: 9,
                     consultationFee: 700,
                     isActive: true,
-                    offDays: GetTwoOffDaysIncluding(today.DayOfWeek)
+                    offDays: new List<DateOnly>
+                    {
+                        today
+                    }
                 )
             };
         }
@@ -332,7 +363,7 @@ namespace HealthcareApp.Data
             int yearsOfExperience,
             decimal consultationFee,
             bool isActive,
-            List<DayOfWeek> offDays)
+            List<DateOnly> offDays)
         {
             return new Doctor
             {
@@ -399,41 +430,6 @@ namespace HealthcareApp.Data
         private Appointment GetAppointment(int appointmentId)
         {
             return Appointments.First(a => a.AppointmentId == appointmentId);
-        }
-
-        private static List<DayOfWeek> GetTwoOffDaysExcluding(DayOfWeek excludedDay, int offset)
-        {
-            var offDays = new List<DayOfWeek>();
-
-            int dayIndex = ((int)excludedDay + offset) % 7;
-
-            while (offDays.Count < 2)
-            {
-                DayOfWeek candidate = (DayOfWeek)dayIndex;
-
-                if (candidate != excludedDay && !offDays.Contains(candidate))
-                {
-                    offDays.Add(candidate);
-                }
-
-                dayIndex = (dayIndex + 1) % 7;
-            }
-
-            return offDays;
-        }
-
-        private static List<DayOfWeek> GetTwoOffDaysIncluding(DayOfWeek includedDay)
-        {
-            var offDays = new List<DayOfWeek>
-            {
-                includedDay
-            };
-
-            DayOfWeek secondDay = (DayOfWeek)(((int)includedDay + 1) % 7);
-
-            offDays.Add(secondDay);
-
-            return offDays;
         }
     }
 }

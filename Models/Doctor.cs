@@ -9,7 +9,7 @@ namespace HealthcareApp.Models
     {
         public int DoctorId { get; set; }
 
-        public string FullName { get; set; }
+        public required string FullName { get; set; }
 
         public Specialisation Specialisation { get; set; }
 
@@ -19,24 +19,16 @@ namespace HealthcareApp.Models
 
         public bool IsActive { get; set; }
 
-        public List<DayOfWeek> OffDays { get; set; } = new List<DayOfWeek>();
+        public List<DateOnly> OffDays { get; set; } = new List<DateOnly>();
 
-        public bool IsAvailable(DateOnly date, List<Appointment> appointments)
+        public bool IsAvailable(DateOnly date)
         {
-            // 1. Active check
             if (!IsActive)
+            {
                 return false;
+            }
 
-            // 2. Off-day check
-            if (OffDays.Contains(date.DayOfWeek))
-                return false;
-
-            // 3. Daily limit check (max 10)
-            int appointmentCount = appointments.Count(a =>
-                a.ScheduledDate == date &&
-                a.Status != AppointmentStatus.Cancelled);
-
-            return appointmentCount < 10;
+            return !OffDays.Contains(date);
         }
 
         public string GetDoctorSummary()

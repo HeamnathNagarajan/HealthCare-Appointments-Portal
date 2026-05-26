@@ -16,7 +16,7 @@ namespace HealthcareApp.Models
 
         public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
 
-        public string CancellationReason { get; set; }
+        public string? CancellationReason { get; set; }
 
         public void Confirm()
         {

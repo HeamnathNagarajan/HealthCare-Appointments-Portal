@@ -59,7 +59,7 @@ namespace HealthcareApp.Controllers
 
             foreach (Doctor doctor in matchingDoctors)
             {
-                Console.WriteLine(doctor.GetDoctorSummary());
+                ConsoleTableHelper.DisplayDoctors(matchingDoctors);
             }
 
             int doctorId;

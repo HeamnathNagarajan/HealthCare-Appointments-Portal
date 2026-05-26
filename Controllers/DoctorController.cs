@@ -2,6 +2,7 @@
 using HealthcareApp.Models;
 using HealthcareApp.Services;
 using HealthcareApp.Utilities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HealthcareApp.Controllers
 {
@@ -18,9 +19,14 @@ namespace HealthcareApp.Controllers
         {
             Console.WriteLine("\n========== Add New Doctor ==========");
 
-            string fullName = Validations.ReadRequiredString("Enter full name: ", "Full name", 2);
+            string fullName = Validations.ReadRequiredString(
+                "Enter full name: ",
+                "Full name",
+                2
+            );
 
-            Specialisation selectedSpecialisation = Validations.ReadEnumChoice<Specialisation>("specialisation");
+            Specialisation selectedSpecialisation =
+                Validations.ReadEnumChoice<Specialisation>("specialisation");
 
             int yearsOfExperience = Validations.ReadIntInRange(
                 "Enter years of experience: ",
@@ -36,8 +42,6 @@ namespace HealthcareApp.Controllers
                 100000
             );
 
-            List<DayOfWeek> offDays = SelectTwoOffDays();
-
             var doctor = new Doctor
             {
                 FullName = fullName,
@@ -45,22 +49,24 @@ namespace HealthcareApp.Controllers
                 YearsOfExperience = yearsOfExperience,
                 ConsultationFee = consultationFee,
                 IsActive = true,
-                OffDays = offDays
+                OffDays = new List<DateOnly>()
             };
 
             Doctor addedDoctor = _doctorService.AddDoctor(doctor);
 
             Console.WriteLine("\nDoctor added successfully.");
-            Console.WriteLine($"{addedDoctor.GetDoctorSummary()} | Off Days: {string.Join(", ", addedDoctor.OffDays)}");
+            Console.WriteLine(addedDoctor.GetDoctorSummary());
         }
 
         public void SearchDoctorsBySpecialisation()
         {
             Console.WriteLine("\n========== Search Doctors By Specialisation ==========");
 
-            Specialisation selectedSpecialisation = Validations.ReadEnumChoice<Specialisation>("specialisation");
+            Specialisation selectedSpecialisation =
+                Validations.ReadEnumChoice<Specialisation>("specialisation");
 
-            List<Doctor> doctors = _doctorService.SearchDoctorsBySpecialisation(selectedSpecialisation);
+            List<Doctor> doctors =
+                _doctorService.SearchDoctorsBySpecialisation(selectedSpecialisation);
 
             if (doctors.Count == 0)
             {
@@ -70,48 +76,110 @@ namespace HealthcareApp.Controllers
 
             Console.WriteLine($"\nActive doctors available for specialisation: {selectedSpecialisation}");
 
-            foreach (Doctor doctor in doctors)
+            ConsoleTableHelper.DisplayDoctors(doctors);
+        }
+
+        public void ManageDoctorOffDays()
+        {
+            Console.WriteLine("\n========== Manage Doctor Off Days ==========");
+
+            int doctorId = Validations.ReadPositiveInt(
+                "Enter Doctor ID: ",
+                "Doctor ID"
+            );
+
+            Doctor doctor = _doctorService.GetDoctorById(doctorId);
+
+            bool goBack = false;
+
+            while (!goBack)
             {
-                Console.WriteLine(doctor.GetDoctorSummary());
+                Console.WriteLine($"\nDoctor: Dr. {doctor.FullName}");
+
+                DisplayCurrentOffDays(doctorId);
+
+                Console.WriteLine("\n1. Add off day");
+                Console.WriteLine("2. Remove off day");
+                Console.WriteLine("0. Go back");
+
+                int choice = Validations.ReadIntInRange(
+                    "Choose an option: ",
+                    "Off day menu option",
+                    0,
+                    2
+                );
+
+                switch (choice)
+                {
+                    case 1:
+                        AddDoctorOffDay(doctorId);
+                        break;
+
+                    case 2:
+                        RemoveDoctorOffDay(doctorId);
+                        break;
+
+                    case 0:
+                        goBack = true;
+                        Console.WriteLine("Returning to main menu...");
+                        break;
+                }
             }
         }
 
-        private static List<DayOfWeek> SelectTwoOffDays()
+        private void DisplayCurrentOffDays(int doctorId)
         {
-            var selectedOffDays = new List<DayOfWeek>();
+            List<DateOnly> offDays = _doctorService.GetOffDays(doctorId);
 
-            Console.WriteLine("\nSelect exactly two off-duty days:");
+            Console.WriteLine("\nCurrent Off Days:");
 
-            var days = Enum.GetValues<DayOfWeek>();
-
-            while (selectedOffDays.Count < 2)
+            if (offDays.Count == 0)
             {
-                Console.WriteLine();
-
-                for (int i = 0; i < days.Length; i++)
-                {
-                    Console.WriteLine($"{i + 1}. {days[i]}");
-                }
-
-                int dayChoice = Validations.ReadIntInRange(
-                    $"Choose off-duty day {selectedOffDays.Count + 1}: ",
-                    "Off-duty day",
-                    1,
-                    days.Length
-                );
-
-                DayOfWeek selectedDay = days[dayChoice - 1];
-
-                if (selectedOffDays.Contains(selectedDay))
-                {
-                    Console.WriteLine("This day has already been selected. Choose another day.");
-                    continue;
-                }
-
-                selectedOffDays.Add(selectedDay);
+                Console.WriteLine("No off days set.");
+                return;
             }
 
-            return selectedOffDays;
+            Console.WriteLine($"{"No.",-5} {"Date",-12}");
+            Console.WriteLine(new string('-', 20));
+
+            for (int i = 0; i < offDays.Count; i++)
+            {
+                Console.WriteLine($"{i + 1,-5} {offDays[i]:yyyy-MM-dd}");
+            }
+        }
+
+        private void AddDoctorOffDay(int doctorId)
+        {
+            var offDay = new DateOnly();
+            do
+            { 
+                offDay = Validations.ReadDate(
+                    "Enter off day date (yyyy-MM-dd): "
+                 );
+                bool isPast = offDay < SystemTime.Now;
+                if (isPast)
+                {
+                    Console.WriteLine("Selected date cannot be in the past.");
+                    Console.Write("Enter again: ");
+                }
+
+             } while (offDay < SystemTime.Now);
+    
+
+            _doctorService.AddOffDay(doctorId, offDay);
+
+            Console.WriteLine("Off day added successfully.");
+        }
+
+        private void RemoveDoctorOffDay(int doctorId)
+        {
+            DateOnly offDay = Validations.ReadDate(
+                "Enter off day date to remove (yyyy-MM-dd): "
+            );
+
+            _doctorService.RemoveOffDay(doctorId, offDay);
+
+            Console.WriteLine("Off day removed successfully.");
         }
     }
 }

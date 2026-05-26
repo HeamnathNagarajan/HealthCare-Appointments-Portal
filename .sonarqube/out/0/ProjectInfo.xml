@@ -4,15 +4,15 @@
   <ProjectLanguage>C#</ProjectLanguage>
   <ProjectType>Product</ProjectType>
   <ProjectGuid>151ef4f4-9cea-bfcf-e0fe-eeff8141403c</ProjectGuid>
-  <FullPath>C:\Users\310511\source\repos\HealthcareApp\HealthcareApp.csproj</FullPath>
+  <FullPath>C:\Users\310511\source\repos\HealthCareApp\HealthcareApp.csproj</FullPath>
   <IsExcluded>false</IsExcluded>
   <AnalysisResultFiles>
-    <AnalysisResultFile Id="FilesToAnalyze" Location="C:\Users\310511\source\repos\HealthcareApp\.sonarqube\conf\0\FilesToAnalyze.txt" />
+    <AnalysisResultFile Id="FilesToAnalyze" Location="C:\Users\310511\source\repos\HealthCareApp\.sonarqube\conf\0\FilesToAnalyze.txt" />
   </AnalysisResultFiles>
   <AnalysisSettings>
-    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\310511\source\repos\HealthcareApp\.sonarqube\out\0\Issues.json</Property>
-    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\310511\source\repos\HealthcareApp\.sonarqube\out\0</Property>
-    <Property Name="sonar.cs.scanner.telemetry">C:\Users\310511\source\repos\HealthcareApp\.sonarqube\out\0\Telemetry.json</Property>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\310511\source\repos\HealthCareApp\.sonarqube\out\0\Issues.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\310511\source\repos\HealthCareApp\.sonarqube\out\0</Property>
+    <Property Name="sonar.cs.scanner.telemetry">C:\Users\310511\source\repos\HealthCareApp\.sonarqube\out\0\Telemetry.json</Property>
   </AnalysisSettings>
   <Configuration>Debug</Configuration>
   <Platform>AnyCPU</Platform>

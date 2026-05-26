@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AnalysisConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
-  <SonarConfigDir>C:\Users\310511\source\repos\HealthcareApp\.sonarqube\conf</SonarConfigDir>
-  <SonarOutputDir>C:\Users\310511\source\repos\HealthcareApp\.sonarqube\out</SonarOutputDir>
-  <SonarBinDir>C:\Users\310511\source\repos\HealthcareApp\.sonarqube\bin</SonarBinDir>
-  <SonarScannerWorkingDirectory>C:\Users\310511\source\repos\HealthcareApp</SonarScannerWorkingDirectory>
+  <SonarConfigDir>C:\Users\310511\source\repos\HealthCareApp\.sonarqube\conf</SonarConfigDir>
+  <SonarOutputDir>C:\Users\310511\source\repos\HealthCareApp\.sonarqube\out</SonarOutputDir>
+  <SonarBinDir>C:\Users\310511\source\repos\HealthCareApp\.sonarqube\bin</SonarBinDir>
+  <SonarScannerWorkingDirectory>C:\Users\310511\source\repos\HealthCareApp</SonarScannerWorkingDirectory>
   <JavaExePath>C:\Users\310511\.sonar\cache\39c5e23f3ce4d420663afba8ffde28034b72e2b3e240943dc2321bc1f912eef9\OpenJDK21U-jre_x64_windows_hotspot_21.0.9_10.zip_extracted\jdk-21.0.9+10-jre\bin\java.exe</JavaExePath>
   <EngineJarPath>C:\Users\310511\.sonar\cache\df17e3ead4aaf76103004e38246cc89f939a95b74a020a5e16ddc87a217b6498\sonar-scanner-engine-shaded-26.1.0.118079-all.jar</EngineJarPath>
   <UseSonarScannerCli>false</UseSonarScannerCli>
@@ -18,7 +18,7 @@
     <ConfigSetting Id="TfsUri" />
     <ConfigSetting Id="VsCoverageConverterToolPath" />
     <ConfigSetting Id="UnchangedFilesPath" />
-    <ConfigSetting Id="sonar.pullrequest.cache.basepath" Value="C:\Users\310511\source\repos\HealthcareApp" />
+    <ConfigSetting Id="sonar.pullrequest.cache.basepath" Value="C:\Users\310511\source\repos\HealthCareApp" />
     <ConfigSetting Id="settings.file.path" Value="C:\Users\310511\.dotnet\tools\.store\dotnet-sonarscanner\11.2.1\dotnet-sonarscanner\11.2.1\tools\netcoreapp3.1\any\SonarQube.Analysis.xml" />
   </AdditionalConfig>
   <ServerSettings>
@@ -152,7 +152,7 @@
     <Property Name="sonar.core.startTime">25-05-2026 09:28:52</Property>
   </ServerSettings>
   <LocalSettings>
-    <Property Name="sonar.coverage.exclusions">Program.cs,**/Program.cs,**/Data/**,**/Enums/**,**/Models/**,**/Utilities/**,**/Exceptions/**,**/Controllers/**</Property>
+    <Property Name="sonar.coverage.exclusions">**/Program.cs,**/Controllers/**,**/Data/**,**/Enums/**,**/Models/**,**/Utilities/**,**/Exceptions/**</Property>
     <Property Name="sonar.host.url">http://localhost:9000</Property>
     <Property Name="sonar.cs.vscoveragexml.reportsPaths">coverage.xml</Property>
     <Property Name="sonar.exclusions">coverage.xml</Property>
@@ -161,8 +161,8 @@
   <AnalyzersSettings>
     <AnalyzerSettings>
       <Language>cs</Language>
-      <RulesetPath>C:\Users\310511\source\repos\HealthcareApp\.sonarqube\conf\Sonar-cs.ruleset</RulesetPath>
-      <DeactivatedRulesetPath>C:\Users\310511\source\repos\HealthcareApp\.sonarqube\conf\Sonar-cs-none.ruleset</DeactivatedRulesetPath>
+      <RulesetPath>C:\Users\310511\source\repos\HealthCareApp\.sonarqube\conf\Sonar-cs.ruleset</RulesetPath>
+      <DeactivatedRulesetPath>C:\Users\310511\source\repos\HealthCareApp\.sonarqube\conf\Sonar-cs-none.ruleset</DeactivatedRulesetPath>
       <AnalyzerPlugins>
         <AnalyzerPlugin Key="csharp" Version="10.17.0.131074" StaticResourceName="SonarAnalyzer-csharp-10.17.0.131074.zip">
           <AssemblyPaths>
@@ -174,13 +174,13 @@
         </AnalyzerPlugin>
       </AnalyzerPlugins>
       <AdditionalFilePaths>
-        <Path>C:\Users\310511\source\repos\HealthcareApp\.sonarqube\conf\cs\SonarLint.xml</Path>
+        <Path>C:\Users\310511\source\repos\HealthCareApp\.sonarqube\conf\cs\SonarLint.xml</Path>
       </AdditionalFilePaths>
     </AnalyzerSettings>
     <AnalyzerSettings>
       <Language>vbnet</Language>
-      <RulesetPath>C:\Users\310511\source\repos\HealthcareApp\.sonarqube\conf\Sonar-vbnet.ruleset</RulesetPath>
-      <DeactivatedRulesetPath>C:\Users\310511\source\repos\HealthcareApp\.sonarqube\conf\Sonar-vbnet-none.ruleset</DeactivatedRulesetPath>
+      <RulesetPath>C:\Users\310511\source\repos\HealthCareApp\.sonarqube\conf\Sonar-vbnet.ruleset</RulesetPath>
+      <DeactivatedRulesetPath>C:\Users\310511\source\repos\HealthCareApp\.sonarqube\conf\Sonar-vbnet-none.ruleset</DeactivatedRulesetPath>
       <AnalyzerPlugins>
         <AnalyzerPlugin Key="vbnet" Version="10.17.0.131074" StaticResourceName="SonarAnalyzer-vbnet-10.17.0.131074.zip">
           <AssemblyPaths>
@@ -192,7 +192,7 @@
         </AnalyzerPlugin>
       </AnalyzerPlugins>
       <AdditionalFilePaths>
-        <Path>C:\Users\310511\source\repos\HealthcareApp\.sonarqube\conf\vbnet\SonarLint.xml</Path>
+        <Path>C:\Users\310511\source\repos\HealthCareApp\.sonarqube\conf\vbnet\SonarLint.xml</Path>
       </AdditionalFilePaths>
     </AnalyzerSettings>
   </AnalyzersSettings>

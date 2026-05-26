@@ -17,9 +17,9 @@ namespace HealthcareApp.Models
 
         public DateOnly VisitDate { get; set; }
 
-        public string Diagnosis { get; set; }
+        public required string Diagnosis { get; set; }
 
-        public string Prescription { get; set; }
+        public required string Prescription { get; set; }
 
         public string? Notes { get; set; }
 
@@ -27,7 +27,7 @@ namespace HealthcareApp.Models
 
         public string GetSummary()
         {
-            return $"{VisitDate:yyyy-MM-dd} | Diagnosis: {Diagnosis} | Prescription: {Prescription}";
+            return $"{VisitDate:yyyy-MM-dd} | Diagnosis: {Diagnosis} | Prescription: {Prescription} | Notes: {Prescription}";
         }
     }
 }

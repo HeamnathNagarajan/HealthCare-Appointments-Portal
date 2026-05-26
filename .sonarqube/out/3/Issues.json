@@ -20,9 +20,9 @@
               "resultFile": {
                 "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
                 "region": {
-                  "startLine": 65,
+                  "startLine": 77,
                   "startColumn": 36,
-                  "endLine": 65,
+                  "endLine": 77,
                   "endColumn": 40
                 }
               }
@@ -41,9 +41,30 @@
               "resultFile": {
                 "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
                 "region": {
-                  "startLine": 233,
+                  "startLine": 130,
+                  "startColumn": 30,
+                  "endLine": 130,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
+                "region": {
+                  "startLine": 261,
                   "startColumn": 39,
-                  "endLine": 233,
+                  "endLine": 261,
                   "endColumn": 43
                 }
               }
@@ -54,18 +75,39 @@
           }
         },
         {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'CreateValidDoctor' does not access instance data and can be marked as static",
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
           "locations": [
             {
               "resultFile": {
                 "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
                 "region": {
-                  "startLine": 22,
-                  "startColumn": 24,
-                  "endLine": 22,
-                  "endColumn": 41
+                  "startLine": 324,
+                  "startColumn": 30,
+                  "endLine": 324,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
+                "region": {
+                  "startLine": 501,
+                  "startColumn": 30,
+                  "endLine": 501,
+                  "endColumn": 34
                 }
               }
             }
@@ -125,15 +167,36 @@
         {
           "ruleId": "CA1822",
           "level": "note",
+          "message": "Member 'CreateValidDoctor' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 24,
+                  "endLine": 31,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
           "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/PatientServiceTests.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/DoctorServiceTests.cs",
                 "region": {
-                  "startLine": 25,
+                  "startLine": 45,
                   "startColumn": 25,
-                  "endLine": 25,
+                  "endLine": 45,
                   "endColumn": 43
                 }
               }
@@ -146,37 +209,16 @@
         {
           "ruleId": "CA1822",
           "level": "note",
-          "message": "Member 'CreatePatient' does not access instance data and can be marked as static",
+          "message": "Member 'CreateValidPatient' does not access instance data and can be marked as static",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/HealthRecordServiceTests.cs",
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/PatientServiceTests.cs",
                 "region": {
-                  "startLine": 36,
+                  "startLine": 25,
                   "startColumn": 25,
-                  "endLine": 36,
-                  "endColumn": 38
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'CreateDoctor' does not access instance data and can be marked as static",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/HealthRecordServiceTests.cs",
-                "region": {
-                  "startLine": 51,
-                  "startColumn": 24,
-                  "endLine": 51,
-                  "endColumn": 36
+                  "endLine": 25,
+                  "endColumn": 43
                 }
               }
             }
@@ -240,6 +282,48 @@
                   "startColumn": 24,
                   "endLine": 64,
                   "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CreatePatient' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/HealthRecordServiceTests.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 25,
+                  "endLine": 36,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CreateDoctor' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310511/source/repos/HealthCareAppTests/ServiceTests/HealthRecordServiceTests.cs",
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 24,
+                  "endLine": 51,
+                  "endColumn": 36
                 }
               }
             }

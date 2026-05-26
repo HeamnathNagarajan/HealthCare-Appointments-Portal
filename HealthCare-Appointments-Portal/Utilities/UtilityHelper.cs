@@ -363,6 +363,124 @@ namespace HealthCare_Appointment_Portal.Utilities
             }
         }
 
+    // Read Validated Integer Property
+    public static int ReadValidatedIntProperty<T>(
+    string message,
+    string propertyName,
+    T model)
+        {
+            while (true)
+            {
+                string input =
+                    ReadInput(message);
+
+                bool isValidNumber =
+                    int.TryParse(
+                        input,
+                        out int value);
+
+                if (!isValidNumber)
+                {
+                    Console.WriteLine(
+                        "Invalid Number Format.");
+
+                    continue;
+                }
+
+                var property =
+                    typeof(T)
+                    .GetProperty(propertyName);
+
+                property?.SetValue(
+                    model,
+                    value);
+
+                ValidationContext context =
+                    new(model!)
+                    {
+                        MemberName =
+                            propertyName
+                    };
+
+                List<ValidationResult> results =
+                    [];
+
+                bool isValid =
+                    Validator.TryValidateProperty(
+                        value,
+                        context,
+                        results);
+
+                if (isValid)
+                {
+                    return value;
+                }
+
+                Console.WriteLine(
+                    results[0]
+                    .ErrorMessage);
+            }
+        }
+
+    // Read Validated Decimal Property
+    public static decimal ReadValidatedDecimalProperty<T>(
+        string message,
+        string propertyName,
+        T model)
+        {
+            while (true)
+            {
+                string input =
+                    ReadInput(message);
+
+                bool isValidNumber =
+                    decimal.TryParse(
+                        input,
+                        out decimal value);
+
+                if (!isValidNumber)
+                {
+                    Console.WriteLine(
+                        "Invalid Decimal Format.");
+
+                    continue;
+                }
+
+                var property =
+                    typeof(T)
+                    .GetProperty(propertyName);
+
+                property?.SetValue(
+                    model,
+                    value);
+
+                ValidationContext context =
+                    new(model!)
+                    {
+                        MemberName =
+                            propertyName
+                    };
+
+                List<ValidationResult> results =
+                    [];
+
+                bool isValid =
+                    Validator.TryValidateProperty(
+                        value,
+                        context,
+                        results);
+
+                if (isValid)
+                {
+                    return value;
+                }
+
+                Console.WriteLine(
+                    results[0]
+                    .ErrorMessage);
+            }
+        }
+
         // Read Optional Integer
         public static int ReadOptionalInt(
             string label,

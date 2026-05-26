@@ -25,9 +25,13 @@ namespace HealthCare_Appointment_Portal.Services
         public Appointment BookAppointment(
             Patient patient,
             Doctor doctor,
+            Specialisation specialisation,
             DateOnly date,
             TimeOnly slot)
         {
+
+            if (doctor.Specialisation != specialisation) { 
+                throw new InvalidDoctorSpecialisationException(); }
 
             DateOnly currentDate =
                 DateOnly.FromDateTime(

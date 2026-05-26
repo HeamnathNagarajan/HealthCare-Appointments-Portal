@@ -1,4 +1,5 @@
-﻿using HealthCare_Appointment_Portal.Models;
+﻿using HealthCare_Appointment_Portal.Enums;
+using HealthCare_Appointment_Portal.Models;
 
 namespace HealthCare_Appointment_Portal.Interfaces
 {
@@ -10,6 +11,7 @@ namespace HealthCare_Appointment_Portal.Interfaces
         Appointment BookAppointment(
             Patient patient,
             Doctor doctor,
+            Specialisation specialisation,
             DateOnly date,
             TimeOnly slot);
 

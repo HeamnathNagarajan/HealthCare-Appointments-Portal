@@ -36,14 +36,18 @@ namespace HealthCare_Appointment_Portal.Controllers
                     ConsoleConstants.EnterSpecialisationChoice);
 
             doctor.YearsOfExperience =
-                UtilityHelper
-                .ReadValidInt(
-                    ConsoleConstants.EnterYearsOfExperience);
+            UtilityHelper
+            .ReadValidatedIntProperty(
+                ConsoleConstants.EnterYearsOfExperience,
+                nameof(Doctor.YearsOfExperience),
+                doctor);
 
             doctor.ConsultationFee =
-                UtilityHelper
-                .ReadValidDecimal(
-                    ConsoleConstants.EnterConsultationFee);
+              UtilityHelper
+              .ReadValidatedDecimalProperty(
+               ConsoleConstants.EnterConsultationFee,
+               nameof(Doctor.ConsultationFee),
+               doctor);
 
             doctor.IsActive = true;
 

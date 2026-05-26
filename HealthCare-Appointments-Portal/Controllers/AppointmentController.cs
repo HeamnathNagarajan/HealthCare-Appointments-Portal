@@ -110,6 +110,7 @@ namespace HealthCare_Appointment_Portal.Controllers
                 .BookAppointment(
                     existingPatient,
                     existingDoctor,
+                    specialisation,
                     scheduledDate,
                     timeSlot);
 

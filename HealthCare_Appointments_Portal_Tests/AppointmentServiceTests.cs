@@ -4,6 +4,7 @@ using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
 using HealthCare_Appointment_Portal.Services;
 using Moq;
+using System.Numerics;
 
 namespace HealthCare_Appointment_Portal.Tests
 {
@@ -44,6 +45,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 .BookAppointment(
                     patient,
                     doctor,
+                    doctor.Specialisation,
                     DateOnly.FromDateTime(
                         DateTime.Now.AddDays(1)),
                     new TimeOnly(10, 0));
@@ -69,6 +71,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 .BookAppointment(
                     CreatePatient(),
                     CreateDoctor(),
+                    Specialisation.Cardiology,
                     DateOnly.FromDateTime(
                         DateTime.Now.AddDays(-1)),
                     new TimeOnly(10, 0)));
@@ -83,6 +86,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 .BookAppointment(
                     CreatePatient(),
                     CreateDoctor(),
+                    Specialisation.Cardiology,
                     DateOnly.FromDateTime(DateTime.Now),
                     TimeOnly.FromDateTime(
                         DateTime.Now.AddHours(-1))));
@@ -120,6 +124,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 .BookAppointment(
                     patient,
                     doctor,
+                    doctor.Specialisation,
                     DateOnly.FromDateTime(
                         DateTime.Now.AddDays(1)),
                     new TimeOnly(10, 0)));
@@ -158,6 +163,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 .BookAppointment(
                     patient,
                     doctor,
+                    doctor.Specialisation,
                     appointment.ScheduledDate,
                     appointment.TimeSlot));
         }
@@ -195,6 +201,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 .BookAppointment(
                     patient,
                     doctor,
+                    doctor.Specialisation,
                     cancelled.ScheduledDate,
                     cancelled.TimeSlot);
 
@@ -880,6 +887,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 .BookAppointment(
                     patient,
                     doctor,
+                    doctor.Specialisation,
                     DateOnly.FromDateTime(DateTime.Now),
                     futureTime);
 
@@ -1407,6 +1415,75 @@ namespace HealthCare_Appointment_Portal.Tests
                     _appointmentService
                     .CompleteAppointment(
                         appointment.AppointmentId));
+        }
+
+        // Invalid Doctor Specialisation
+        [Fact]
+        public void BookAppointment_InvalidDoctorSpecialisation_ShouldThrowException()
+        {
+            // Arrange
+            Patient patient =
+                CreatePatient();
+
+            Doctor doctor =
+                CreateDoctor();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(new List<Appointment>());
+
+            // Act & Assert
+            Assert.Throws<
+                InvalidDoctorSpecialisationException>(() =>
+                    _appointmentService
+                    .BookAppointment(
+                        patient,
+                        doctor,
+                        Specialisation.Neurology,
+                        DateOnly.FromDateTime(
+                            DateTime.Now.AddDays(1)),
+                        new TimeOnly(10, 0)));
+        }
+
+        // Valid Doctor Specialisation
+        [Fact]
+        public void BookAppointment_ValidDoctorSpecialisation_ShouldBookAppointment()
+        {
+            // Arrange
+            Patient patient =
+                CreatePatient();
+
+            Doctor doctor =
+                CreateDoctor();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(new List<Appointment>());
+
+            // Act
+            Appointment result =
+                _appointmentService
+                .BookAppointment(
+                    patient,
+                    doctor,
+                    doctor.Specialisation,
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(1)),
+                    new TimeOnly(10, 0));
+
+            // Assert
+            Assert.NotNull(result);
+
+            Assert.Equal(
+                AppointmentStatus.Pending,
+                result.Status);
+
+            _mockRepository.Verify(
+                r => r.AddAppointment(
+                    It.IsAny<Appointment>()),
+                Times.Once);
         }
     }
 }

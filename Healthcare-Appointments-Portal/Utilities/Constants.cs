@@ -101,5 +101,10 @@ namespace HealthCare_Appointment_Portal.Utilities
 
         public const string DoctorProfileSummaryFormat =
             "Doctor ID: {0} | Name: {1} | Specialisation: {2} | Experience: {3} Years | Fee: Rs{4} | Status: {5}";
+
+        public const string Available = "Available";
+
+        public const string NotAvailable = "Not Available";
+
     }
 }

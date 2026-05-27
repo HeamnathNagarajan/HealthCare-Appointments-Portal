@@ -2,9 +2,11 @@
 using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
 using HealthCare_Appointment_Portal.Utilities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointment_Portal.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class PatientController
     {
         private readonly IPatientService _patientService;
@@ -68,8 +70,11 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .PatientRegisteredSuccessfully);
 
-            Console.WriteLine(
-                patient.GetProfileSummary());
+            UtilityHelper.DisplayPatientTable(
+                new List<Patient>
+                {
+                    patient
+                });
         }
 
         // View Patient By Id
@@ -85,9 +90,11 @@ namespace HealthCare_Appointment_Portal.Controllers
                 .GetPatientById(
                     patientId)!;
 
-            Console.WriteLine(
-                patient
-                .GetProfileSummary());
+            UtilityHelper.DisplayPatientTable(
+                new List<Patient>
+                {
+                    patient
+                });
         }
 
         // View All Patients
@@ -97,12 +104,17 @@ namespace HealthCare_Appointment_Portal.Controllers
                 _patientService
                 .GetAllPatients();
 
-            foreach (Patient patient in patients)
+            if (patients.Count == 0)
             {
                 Console.WriteLine(
-                    patient
-                    .GetProfileSummary());
+                    ConsoleConstants
+                    .NoPatientsFound);
+
+                return;
             }
+
+            UtilityHelper.DisplayPatientTable(
+                patients);
         }
 
         // Get Patient By Email
@@ -111,16 +123,19 @@ namespace HealthCare_Appointment_Portal.Controllers
             string email =
                 UtilityHelper
                 .ReadInput(
-                    ConsoleConstants.EnterPatientEmail);
+                    ConsoleConstants
+                    .EnterPatientEmail);
 
             Patient patient =
                 _patientService
                 .GetPatientByEmail(
                     email)!;
 
-            Console.WriteLine(
-                patient
-                .GetProfileSummary());
+            UtilityHelper.DisplayPatientTable(
+                new List<Patient>
+                {
+                    patient
+                });
         }
 
         // Update Patient
@@ -129,7 +144,8 @@ namespace HealthCare_Appointment_Portal.Controllers
             int patientId =
                 UtilityHelper
                 .ReadValidInt(
-                    ConsoleConstants.EnterPatientId);
+                    ConsoleConstants
+                    .EnterPatientId);
 
             Patient existingPatient =
                 _patientService
@@ -140,9 +156,11 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .CurrentPatientDetails);
 
-            Console.WriteLine(
-                existingPatient
-                .GetProfileSummary());
+            UtilityHelper.DisplayPatientTable(
+                new List<Patient>
+                {
+                    existingPatient
+                });
 
             Patient updatedPatient = new()
             {
@@ -198,10 +216,16 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .UpdatedPatientDetails);
 
-            Console.WriteLine(
+            Patient updatedPatientDetails =
                 _patientService
-                .GetPatientById(patientId)!
-                .GetProfileSummary());
+                .GetPatientById(
+                    patientId)!;
+
+            UtilityHelper.DisplayPatientTable(
+                new List<Patient>
+                {
+                    updatedPatientDetails
+                });
         }
 
         // Delete Patient
@@ -210,7 +234,8 @@ namespace HealthCare_Appointment_Portal.Controllers
             int patientId =
                 UtilityHelper
                 .ReadValidInt(
-                    ConsoleConstants.EnterPatientId);
+                    ConsoleConstants
+                    .EnterPatientId);
 
             _patientService
                 .DeletePatientById(
@@ -250,13 +275,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (Appointment appointment
-                in appointments)
-            {
-                Console.WriteLine(
-                    appointment
-                    .GetDetails());
-            }
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
         }
 
         // View Patient Health Records
@@ -288,13 +308,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (HealthRecord record
-                in records)
-            {
-                Console.WriteLine(
-                    record
-                    .GetSummary());
-            }
+            UtilityHelper.DisplayHealthRecordTable(
+                records);
         }
     }
 }

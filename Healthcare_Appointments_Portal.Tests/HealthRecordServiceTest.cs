@@ -33,6 +33,11 @@ namespace HealthCare_Appointment_Portal.Tests
             HealthRecord record =
                 CreateHealthRecord();
 
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(new List<HealthRecord>());
+
             // Act
             _healthRecordService
                 .AddRecord(record);
@@ -43,6 +48,7 @@ namespace HealthCare_Appointment_Portal.Tests
                 Times.Once);
         }
 
+
         // Add Record Repository Verification
         [Fact]
         public void AddRecord_ShouldCallRepositoryOnce()
@@ -50,6 +56,11 @@ namespace HealthCare_Appointment_Portal.Tests
             // Arrange
             HealthRecord record =
                 CreateHealthRecord();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(new List<HealthRecord>());
 
             // Act
             _healthRecordService
@@ -595,6 +606,73 @@ namespace HealthCare_Appointment_Portal.Tests
                 result.VisitDate);
         }
 
+        // Add Duplicate Record Should Throw Exception
+        [Fact]
+        public void AddRecord_DuplicateAppointmentId_ShouldThrowException()
+        {
+            // Arrange
+            HealthRecord existingRecord =
+                CreateHealthRecord();
+
+            existingRecord.AppointmentId = 1;
+
+            HealthRecord newRecord =
+                CreateHealthRecord();
+
+            newRecord.AppointmentId = 1;
+
+            List<HealthRecord> records =
+            [
+                existingRecord
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(records);
+
+            // Act & Assert
+            Assert.Throws<
+                DuplicateHealthRecordException>(() =>
+                    _healthRecordService
+                    .AddRecord(newRecord));
+        }
+
+        // Add Record Unique AppointmentId Should Add Record
+        [Fact]
+        public void AddRecord_UniqueAppointmentId_ShouldAddRecord()
+        {
+            // Arrange
+            HealthRecord existingRecord =
+                CreateHealthRecord();
+
+            existingRecord.AppointmentId = 1;
+
+            HealthRecord newRecord =
+                CreateHealthRecord();
+
+            newRecord.AppointmentId = 2;
+
+            List<HealthRecord> records =
+            [
+                existingRecord
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(records);
+
+            // Act
+            _healthRecordService
+                .AddRecord(newRecord);
+
+            // Assert
+            _mockRepository.Verify(r =>
+                r.AddRecord(newRecord),
+                Times.Once);
+        }
+
         // Helper Method
         private static Patient CreatePatient()
         {
@@ -632,6 +710,8 @@ namespace HealthCare_Appointment_Portal.Tests
             return new HealthRecord
             {
                 RecordId = 1,
+
+                AppointmentId = 1,
 
                 Patient =
                     CreatePatient(),

@@ -18,9 +18,9 @@ lC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointm
 qC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Models\HealthRecord.csutf-8t
 kC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Models\Doctor.csutf-8y
 pC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Models\Appointment.csutf-8Ä
-wC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientService.csutf-8Ö
-|C:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IHealthRecordService.csutf-8É
-zC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientRepository.csutf-8à
+wC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientService.csutf-8É
+zC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IPatientRepository.csutf-8Ö
+|C:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IHealthRecordService.csutf-8à
 C:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IHealthRecordRepository.csutf-8
 vC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IDoctorService.csutf-8Ç
 yC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Interface\IDoctorRepository.csutf-8Ñ
@@ -32,7 +32,8 @@ yC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointm
 zC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Exceptions\PastDateException.csutf-8î
 äC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Exceptions\InvalidAppointmentStatusException.csutf-8ê
 ÜC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Exceptions\HealthRecordNotFoundException.csutf-8å
-ÇC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Exceptions\DuplicatePatientException.csutf-8ã
+ÇC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Exceptions\DuplicatePatientException.csutf-8ë
+áC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Exceptions\DuplicateHealthRecordException.csutf-8ã
 ÅC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Exceptions\DuplicateDoctorException.csutf-8ç
 ÉC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Exceptions\DoctorUnavailableException.csutf-8ä
 ÄC:\Users\310481\source\repos\HealthCare-Appointments-Portal\Healthcare-Appointments-Portal\Exceptions\DoctorNotFoundException.csutf-8ä

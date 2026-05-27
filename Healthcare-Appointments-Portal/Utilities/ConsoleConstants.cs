@@ -1,5 +1,8 @@
-﻿namespace HealthCare_Appointment_Portal.Utilities
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace HealthCare_Appointment_Portal.Utilities
 {
+    [ExcludeFromCodeCoverage]
     public static class ConsoleConstants
     {
         // Application Title
@@ -517,6 +520,8 @@
         public const string
             InsuranceIdLabel =
             "Insurance Id";
+
+        public const string NoPatientsFound = "No patients found.";
 
         // Doctor Update
         public const string

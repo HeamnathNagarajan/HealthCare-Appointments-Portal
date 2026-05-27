@@ -1,9 +1,11 @@
 ﻿using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
 using HealthCare_Appointment_Portal.Utilities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointment_Portal.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class HealthRecordController
     {
         private readonly IHealthRecordService _healthRecordService;
@@ -41,13 +43,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .CompletedAppointments);
 
-            foreach (Appointment appointment
-                in completedAppointments)
-            {
-                Console.WriteLine(
-                    appointment
-                    .GetDetails());
-            }
+            UtilityHelper.DisplayAppointmentTable(
+                completedAppointments);
 
             int appointmentId =
                 UtilityHelper
@@ -94,9 +91,11 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .HealthRecordAddedSuccessfully);
 
-            Console.WriteLine(
-                record
-                .GetSummary());
+            UtilityHelper.DisplayHealthRecordTable(
+                new List<HealthRecord>
+                {
+                    record
+                });
         }
 
         // Get Health Record By Id
@@ -113,9 +112,11 @@ namespace HealthCare_Appointment_Portal.Controllers
                 .GetRecordById(
                     recordId)!;
 
-            Console.WriteLine(
-                record
-                .GetSummary());
+            UtilityHelper.DisplayHealthRecordTable(
+                new List<HealthRecord>
+                {
+                    record
+                });
         }
 
         // View All Health Records
@@ -134,13 +135,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (HealthRecord record
-                in records)
-            {
-                Console.WriteLine(
-                    record
-                    .GetSummary());
-            }
+            UtilityHelper.DisplayHealthRecordTable(
+                records);
         }
 
         // Get Records By Doctor
@@ -166,13 +162,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (HealthRecord record
-                in records)
-            {
-                Console.WriteLine(
-                    record
-                    .GetSummary());
-            }
+            UtilityHelper.DisplayHealthRecordTable(
+                records);
         }
 
         // Update Health Record
@@ -193,14 +184,19 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .CurrentHealthRecordDetails);
 
-            Console.WriteLine(
-                existingRecord
-                .GetSummary());
+            UtilityHelper.DisplayHealthRecordTable(
+                new List<HealthRecord>
+                {
+                    existingRecord
+                });
 
             HealthRecord updatedRecord = new()
             {
                 RecordId =
                     existingRecord.RecordId,
+
+                AppointmentId =
+                    existingRecord.AppointmentId,
 
                 Patient =
                     existingRecord.Patient,
@@ -250,11 +246,16 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .UpdatedHealthRecordDetails);
 
-            Console.WriteLine(
+            HealthRecord updatedRecordDetails =
                 _healthRecordService
                 .GetRecordById(
-                    recordId)!
-                .GetSummary());
+                    recordId)!;
+
+            UtilityHelper.DisplayHealthRecordTable(
+                new List<HealthRecord>
+                {
+                    updatedRecordDetails
+                });
         }
 
         // Delete Health Record

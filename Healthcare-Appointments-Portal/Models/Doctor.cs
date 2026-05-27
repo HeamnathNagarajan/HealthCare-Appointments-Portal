@@ -1,9 +1,11 @@
-using System.ComponentModel.DataAnnotations;
 using HealthCare_Appointment_Portal.Enums;
 using HealthCare_Appointment_Portal.Utilities;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointment_Portal.Models
 {
+    [ExcludeFromCodeCoverage]
     public class Doctor
     {
         // Auto Increment Doctor Id
@@ -87,8 +89,8 @@ namespace HealthCare_Appointment_Portal.Models
                 YearsOfExperience,
                 ConsultationFee,
                 IsActive
-                    ? "Available"
-                    : "Unavailable");
+                    ? Constants.Available
+                    : Constants.NotAvailable);
         }
     }
 }

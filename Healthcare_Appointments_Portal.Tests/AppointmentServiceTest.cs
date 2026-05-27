@@ -506,8 +506,12 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void CompleteAppointment_ShouldComplete()
         {
+            // Arrange
             Appointment appointment =
                 CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Confirmed;
 
             _mockRepository
                 .Setup(r =>
@@ -515,10 +519,12 @@ namespace HealthCare_Appointment_Portal.Tests
                         appointment.AppointmentId))
                 .Returns(appointment);
 
+            // Act
             _appointmentService
                 .CompleteAppointment(
                     appointment.AppointmentId);
 
+            // Assert
             Assert.Equal(
                 AppointmentStatus.Completed,
                 appointment.Status);
@@ -1275,5 +1281,132 @@ namespace HealthCare_Appointment_Portal.Tests
             Assert.Empty(result);
         }
 
+
+        // Confirm Non Pending Appointment
+        [Fact]
+        public void ConfirmAppointment_NonPending_ShouldThrowException()
+        {
+            // Arrange
+            Appointment appointment =
+                CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Completed;
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            // Act & Assert
+            Assert.Throws<
+                InvalidAppointmentStatusException>(() =>
+                    _appointmentService
+                    .ConfirmAppointment(
+                        appointment.AppointmentId));
+        }
+
+        // Cancel Completed Appointment
+        [Fact]
+        public void CancelAppointment_Completed_ShouldThrowException()
+        {
+            // Arrange
+            Appointment appointment =
+                CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Completed;
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            // Act & Assert
+            Assert.Throws<
+                InvalidAppointmentStatusException>(() =>
+                    _appointmentService
+                    .CancelAppointment(
+                        appointment.AppointmentId,
+                        "Reason"));
+        }
+
+        // Cancel Cancelled Appointment
+        [Fact]
+        public void CancelAppointment_AlreadyCancelled_ShouldThrowException()
+        {
+            // Arrange
+            Appointment appointment =
+                CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Cancelled;
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            // Act & Assert
+            Assert.Throws<
+                InvalidAppointmentStatusException>(() =>
+                    _appointmentService
+                    .CancelAppointment(
+                        appointment.AppointmentId,
+                        "Reason"));
+        }
+
+        // Complete Pending Appointment
+        [Fact]
+        public void CompleteAppointment_Pending_ShouldThrowException()
+        {
+            // Arrange
+            Appointment appointment =
+                CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Pending;
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            // Act & Assert
+            Assert.Throws<
+                InvalidAppointmentStatusException>(() =>
+                    _appointmentService
+                    .CompleteAppointment(
+                        appointment.AppointmentId));
+        }
+
+        // Complete Cancelled Appointment
+        [Fact]
+        public void CompleteAppointment_Cancelled_ShouldThrowException()
+        {
+            // Arrange
+            Appointment appointment =
+                CreateAppointment();
+
+            appointment.Status =
+                AppointmentStatus.Cancelled;
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        appointment.AppointmentId))
+                .Returns(appointment);
+
+            // Act & Assert
+            Assert.Throws<
+                InvalidAppointmentStatusException>(() =>
+                    _appointmentService
+                    .CompleteAppointment(
+                        appointment.AppointmentId));
+        }
     }
 }

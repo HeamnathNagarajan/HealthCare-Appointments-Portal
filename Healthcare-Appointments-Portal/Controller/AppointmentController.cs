@@ -2,9 +2,11 @@
 using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
 using HealthCare_Appointment_Portal.Utilities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointment_Portal.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class AppointmentController
     {
         private readonly IAppointmentService _appointmentService;
@@ -66,13 +68,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .AvailableDoctors);
 
-            foreach (Doctor doctor
-                in availableDoctors)
-            {
-                Console.WriteLine(
-                    doctor
-                    .GetDoctorSummary());
-            }
+            UtilityHelper.DisplayDoctorTable(
+                availableDoctors);
 
             int doctorId =
                 UtilityHelper
@@ -120,9 +117,11 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .AppointmentBookedSuccessfully);
 
-            Console.WriteLine(
-                appointment
-                .GetDetails());
+            UtilityHelper.DisplayAppointmentTable(
+                new List<Appointment>
+                {
+                    appointment
+                });
         }
 
         // View All Appointments
@@ -141,13 +140,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (Appointment appointment
-                in appointments)
-            {
-                Console.WriteLine(
-                    appointment
-                    .GetDetails());
-            }
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
         }
 
         // Get Appointment By Id
@@ -164,9 +158,11 @@ namespace HealthCare_Appointment_Portal.Controllers
                 .GetAppointmentById(
                     appointmentId)!;
 
-            Console.WriteLine(
-                appointment
-                .GetDetails());
+            UtilityHelper.DisplayAppointmentTable(
+                new List<Appointment>
+                {
+                    appointment
+                });
         }
 
         // Get Appointments By Patient
@@ -192,13 +188,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (Appointment appointment
-                in appointments)
-            {
-                Console.WriteLine(
-                    appointment
-                    .GetDetails());
-            }
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
         }
 
         // Get Appointments By Doctor
@@ -224,13 +215,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (Appointment appointment
-                in appointments)
-            {
-                Console.WriteLine(
-                    appointment
-                    .GetDetails());
-            }
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
         }
 
         // Get Upcoming Appointments
@@ -249,13 +235,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (Appointment appointment
-                in appointments)
-            {
-                Console.WriteLine(
-                    appointment
-                    .GetDetails());
-            }
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
         }
 
         // Get Completed Appointments
@@ -274,13 +255,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (Appointment appointment
-                in appointments)
-            {
-                Console.WriteLine(
-                    appointment
-                    .GetDetails());
-            }
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
         }
 
         // Manage Appointment Status
@@ -299,13 +275,8 @@ namespace HealthCare_Appointment_Portal.Controllers
                 return;
             }
 
-            foreach (Appointment appointment
-                in appointments)
-            {
-                Console.WriteLine(
-                    appointment
-                    .GetDetails());
-            }
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
 
             int appointmentId =
                 UtilityHelper
@@ -404,9 +375,11 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .CurrentAppointmentDetails);
 
-            Console.WriteLine(
-                existingAppointment
-                .GetDetails());
+            UtilityHelper.DisplayAppointmentTable(
+                new List<Appointment>
+                {
+                    existingAppointment
+                });
 
             Appointment updatedAppointment = new()
             {
@@ -457,11 +430,16 @@ namespace HealthCare_Appointment_Portal.Controllers
                 ConsoleConstants
                 .UpdatedAppointmentDetails);
 
-            Console.WriteLine(
+            Appointment updatedAppointmentDetails =
                 _appointmentService
                 .GetAppointmentById(
-                    appointmentId)!
-                .GetDetails());
+                    appointmentId)!;
+
+            UtilityHelper.DisplayAppointmentTable(
+                new List<Appointment>
+                {
+                    updatedAppointmentDetails
+                });
         }
 
         // Delete Appointment

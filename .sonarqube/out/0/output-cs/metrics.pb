@@ -24,10 +24,7 @@ lC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 !"$%'),-.023xÇ	!$'.©
 qC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\HealthRecord.cs 8jr	 !"#$%&'()*Ç	 !#$™
 kC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Doctor.cs 8r"
-!"#$%&()*+,-.xÇ#$%&()Ø
-pC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Appointment.cs 8r&
-!"#%&()+,./01234567Ç
-!"(./12à
+!"#$%&()*+,-.xÇ#$%&()à
 xC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IPatientService.csr
 	ã
 {C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IPatientRepository.csr
@@ -36,12 +33,15 @@ xC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 	ê
 ÄC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IHealthRecordRepository.csr		
 â
-wC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IDoctorService.csr	ó
+wC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IDoctorService.csr	Ø
+pC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Appointment.cs 8r&
+!"#%&()+,./01234567Ç
+!"(./12ó
 |C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IAppointmentService.csr	
-å
-zC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IDoctorRepository.csr	è
+è
 C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IAppointmentRepository.csr
-	é
+	å
+zC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IDoctorRepository.csr	é
 zC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Exceptions\PastDateException.cs 8r
 	
 õ

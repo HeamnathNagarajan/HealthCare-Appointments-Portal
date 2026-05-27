@@ -10,7 +10,7 @@
     },
     {
       "key": "sonar.scanner.bootstrapStartTime",
-      "value": "1779683671000"
+      "value": "1779691779000"
     },
     {
       "key": "sonar.projectKey",
@@ -134,7 +134,7 @@
     },
     {
       "key": "sonar.exclusions",
-      "value": "coverage.xml"
+      "value": "**/AppController/**,**/Data/**,**/Enums/**,**/Models/**,**/Utilities/**,**/Exceptions/**,**/Program.cs,coverage.xml"
     },
     {
       "key": "sonar.visualstudio.enable",

@@ -248,16 +248,36 @@ yC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 EE )
 EE/ <JJ' 4
 HH $LL OO/ :
-II  !JJ ÷
-eC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Program.csd
-		            <
-    !!! "" ## ((
- 
-   %%/ A
-!! %%  -
-"" %% 
-## %%C P
-(( )) ø
+II  !JJ §
+kC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Doctor.cs
+
+ 
+
+  
+
+
+
+  
+ "** 
+
+" 0
+
+ (
+
+ *
+
+  
+% 1' 3$$+ 7
+
+ #
+- 1# '
+ $ '
+: ;  
+
+!! ,
+## &&' ,
+$$ (++ (
+$$> ?%% && ø
 lC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Patient.cs
 
  
@@ -298,36 +318,16 @@ qC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 
  
 
- §
-kC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Doctor.cs
-
- 
-
-  
-
-
-
-  
- "** 
-
-" 0
-
- (
-
- *
-
-  
-% 1' 3$$+ 7
-
- #
-- 1# '
- $ '
-: ;  
-
-!! ,
-## &&' ,
-$$ (++ (
-$$> ?%% && ˆ
+ ÷
+eC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Program.csd
+		            <
+    !!! "" ## ((
+ 
+   %%/ A
+!! %%  -
+"" %% 
+## %%C P
+(( )) ˆ
 pC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Appointment.cs
 
  
@@ -350,20 +350,7 @@ pC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 
 %% 
 
-++ Â
-xC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IPatientService.cs
-
- $
-
- 
-
-  '
-
-		 
-
-		% .
-
- $Å
+++ Å
 {C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IPatientRepository.cs
 
  '
@@ -389,7 +376,20 @@ xC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 
  .
 
-4 =³
+4 =Â
+xC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IPatientService.cs
+
+ $
+
+ 
+
+  '
+
+		 
+
+		% .
+
+ $³
 €C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IHealthRecordRepository.cs
 
  ,
@@ -495,35 +495,7 @@ zC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
  *
 
 
-0 7 ’
-ƒC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Exceptions\DoctorUnavailableException.cs
-
- +”
-…C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Exceptions\AppointmentConflictException.cs
-
- -€
-rC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Enums\Specialisation.cs
-
- x
-jC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Enums\Gender.cs
-
- ƒ
-uC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Enums\AppointmentStatus.cs
-
- !ª
-lC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Data\DataStore.cs
-
- 
-
- %
-
-
-
- #
-
-! -
-
-" /™
+0 7 ™
 mC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Data\DataSeeder.cs
 
  "
@@ -554,7 +526,35 @@ mC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 ]] ii( .<
 nn '** ++ DD EE NN 
 nn/ 5rr 
-nn> Jvv6 Bá
+nn> Jvv6 B”
+…C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Exceptions\AppointmentConflictException.cs
+
+ -€
+rC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Enums\Specialisation.cs
+
+ x
+jC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Enums\Gender.cs
+
+ ƒ
+uC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Enums\AppointmentStatus.cs
+
+ !ª
+lC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Data\DataStore.cs
+
+ 
+
+ %
+
+
+
+ #
+
+! -
+
+" /’
+ƒC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Exceptions\DoctorUnavailableException.cs
+
+ +á
 yC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\AppController\AppController.cs
 
 

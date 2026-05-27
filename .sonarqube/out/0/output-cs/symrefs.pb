@@ -327,30 +327,7 @@ kC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 !! ,
 ## &&' ,
 $$ (++ (
-$$> ?%% && ˆ
-pC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Appointment.cs
-
- 
- 00 
-
-
-
- 
- #11 
- !22 
- !33 
- 44 2
- # !! (( 55 
- $"" 
-
- 
-
- 
- $"" #
-
-%% 
-
-++ Â
+$$> ?%% && Â
 xC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IPatientService.cs
 
  $
@@ -419,7 +396,30 @@ wC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 
  
 
-# +²
+# +ˆ
+pC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Appointment.cs
+
+ 
+ 00 
+
+
+
+ 
+ #11 
+ !22 
+ !33 
+ 44 2
+ # !! (( 55 
+ $"" 
+
+ 
+
+ 
+ $"" #
+
+%% 
+
+++ ²
 |C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IAppointmentService.cs
 
  (
@@ -452,7 +452,20 @@ wC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 
  1
 
- 2ô
+ 2É
+C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IAppointmentRepository.cs
+
+ +
+
+ 
+
+( 3
+
+		 '
+
+		- :
+
+ ,ô
 zC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IDoctorRepository.cs
 
  &
@@ -473,20 +486,7 @@ zC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 
  
 
-# +É
-C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IAppointmentRepository.cs
-
- +
-
- 
-
-( 3
-
-		 '
-
-		- :
-
- ,ˆ
+# +ˆ
 zC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Exceptions\PastDateException.cs
 
  "§

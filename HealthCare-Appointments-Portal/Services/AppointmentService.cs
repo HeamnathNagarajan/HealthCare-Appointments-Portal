@@ -82,17 +82,22 @@ namespace HealthCare_Appointments_Portal.Services
                 .ToList();
         }
 
-        // Get Upcoming Confirmed Appointments
+        // Get Upcoming Appointments
         public List<Appointment> GetUpcomingAppointments()
         {
-            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            DateTime now = DateTime.Now;
 
             return _repository
                 .GetAllAppointments()
                 .Where(a =>
-                    (a.Status == AppointmentStatus.Pending ||
-                     a.Status == AppointmentStatus.Confirmed) &&
-                    a.ScheduledDate >= today)
+                {
+                    DateTime appointmentDateTime =
+                        a.ScheduledDate.ToDateTime(a.TimeSlot);
+
+                    return appointmentDateTime > now &&
+                           (a.Status == AppointmentStatus.Pending ||
+                            a.Status == AppointmentStatus.Confirmed);
+                })
                 .OrderBy(a => a.ScheduledDate)
                 .ThenBy(a => a.TimeSlot)
                 .ToList();
@@ -113,9 +118,18 @@ namespace HealthCare_Appointments_Portal.Services
         // Get Completed Appointments
         public List<Appointment> GetCompletedAppointments()
         {
+            DateTime now = DateTime.Now;
+
             return _repository
                 .GetAllAppointments()
-                .Where(a => a.Status == AppointmentStatus.Completed)
+                .Where(a =>
+                {
+                    DateTime appointmentDateTime =
+                        a.ScheduledDate.ToDateTime(a.TimeSlot);
+
+                    return appointmentDateTime <= now &&
+                           a.Status != AppointmentStatus.Cancelled;
+                })
                 .OrderBy(a => a.ScheduledDate)
                 .ThenBy(a => a.TimeSlot)
                 .ToList();

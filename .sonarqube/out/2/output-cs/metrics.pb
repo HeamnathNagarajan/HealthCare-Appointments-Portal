@@ -18,21 +18,21 @@ yC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointm
 ÇÚ
 {C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Repositories\DoctorRepository.cs 8jrB	 !#$%&')*,-./12346789;<=>@ABCDEGHIKLNOPRSx
 Ç! %&'),-./12346789;<=>@AGHIKN˙
-ÄC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Repositories\AppointmentRepository.cs 8jrD	 !"#$%&')*+,./12346789;<>?@ABDEFHIJLMOPQSTxÇ!!%&')+,./12346789;<>?@AHIJLO¢
-eC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Program.cs&j'r	 !"#%()Ç !"#%()¨
+ÄC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Repositories\AppointmentRepository.cs 8jrD	 !"#$%&')*+,./12346789;<>?@ABDEFHIJLMOPQSTxÇ!!%&')+,./12346789;<>?@AHIJLO™
+kC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Doctor.cs 8r"
+!"#$%&()*+,-.xÇ#$%&()¨
 lC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Patient.cs 8j+r	
 !"$%'),-.023xÇ	!$'.©
-qC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\HealthRecord.cs 8jr	 !"#$%&'()*Ç	 !#$™
-kC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Doctor.cs 8r"
-!"#$%&()*+,-.xÇ#$%&()Ø
+qC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\HealthRecord.cs 8jr	 !"#$%&'()*Ç	 !#$¢
+eC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Program.cs&j'r	 !"#%()Ç !"#%()Ø
 pC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Models\Appointment.cs 8r&
 !"#%&()+,./01234567Ç
-!"(./12à
-xC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IPatientService.csr
-	ã
+!"(./12ã
 {C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IPatientRepository.csr
 	ç
 }C:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IHealthRecordService.csr
+	à
+xC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IPatientService.csr
 	ê
 ÄC:\Users\287684\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\Interfaces\IHealthRecordRepository.csr		
 â

@@ -5,6 +5,7 @@
 {"dotnetenterprise.s4net.jre.download":"CacheHit"}
 {"dotnetenterprise.s4net.scannerEngine.bootstrapping":"Enabled"}
 {"dotnetenterprise.s4net.scannerEngine.download":"CacheHit"}
+{"dotnetenterprise.s4net.params.sonar_exclusions.source":"CLI"}
 {"dotnetenterprise.s4net.params.sonar_cs_vscoveragexml_reportspaths.source":"CLI"}
 {"dotnetenterprise.s4net.params.sonar_cs_vscoveragexml_reportspaths.value":"relative"}
 {"dotnetenterprise.s4net.params.sonar_scm_disabled.source":"SQ_SERVER_SETTINGS"}

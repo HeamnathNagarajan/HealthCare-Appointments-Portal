@@ -1,10 +1,12 @@
-﻿using System.Text.RegularExpressions;
-using System.Globalization;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace HealthCare_Appointments_Portal.Utilities
 {
     public static class InputHelper
     {
+        private const string ChoicePrompt = "Choice: ";
+
         public static string ReadName(string msg)
         {
             while (true)
@@ -19,7 +21,8 @@ namespace HealthCare_Appointments_Portal.Utilities
                     return input.Trim();
                 }
 
-                Console.WriteLine("Invalid name. Only alphabets and spaces allowed (min 3 chars).");
+                Console.WriteLine(
+                    "Invalid name. Only alphabets and spaces allowed (min 3 chars).");
             }
         }
 
@@ -31,7 +34,7 @@ namespace HealthCare_Appointments_Portal.Utilities
                 var val = Console.ReadLine();
 
                 if (!string.IsNullOrWhiteSpace(val))
-                    return val;
+                    return val.Trim();
 
                 Console.WriteLine("Cannot be empty");
             }
@@ -50,11 +53,27 @@ namespace HealthCare_Appointments_Portal.Utilities
             }
         }
 
+        public static decimal ReadValidDecimal(string msg)
+        {
+            while (true)
+            {
+                Console.Write(msg);
+
+                if (decimal.TryParse(Console.ReadLine(), out decimal value) &&
+                    value >= 0)
+                {
+                    return value;
+                }
+
+                Console.WriteLine("Invalid decimal value");
+            }
+        }
+
         public static int ReadValidIndex(int max)
         {
             while (true)
             {
-                int index = ReadValidInt("Choice: ") - 1;
+                int index = ReadValidInt(ChoicePrompt) - 1;
 
                 if (index >= 0 && index < max)
                     return index;
@@ -73,7 +92,9 @@ namespace HealthCare_Appointments_Portal.Utilities
                 if (!string.IsNullOrWhiteSpace(phone) &&
                     phone.Length == 10 &&
                     phone.All(char.IsDigit))
+                {
                     return phone;
+                }
 
                 Console.WriteLine("Invalid phone number");
             }
@@ -138,7 +159,7 @@ namespace HealthCare_Appointments_Portal.Utilities
                     return date;
                 }
 
-                Console.WriteLine("Invalid date");
+                Console.WriteLine("Invalid future date");
             }
         }
 
@@ -149,12 +170,13 @@ namespace HealthCare_Appointments_Portal.Utilities
                 Console.Write("Enter Time (HH:mm): ");
 
                 if (TimeOnly.TryParseExact(
-                        Console.ReadLine(),
+                        Console.ReadLine(), 
                         "HH:mm",
                         CultureInfo.InvariantCulture,
                         DateTimeStyles.None,
                         out var time))
                 {
+                    // Check only if appointment date is today
                     if (date == DateOnly.FromDateTime(DateTime.Now))
                     {
                         var currentTime = TimeOnly.FromDateTime(DateTime.Now);
@@ -172,7 +194,7 @@ namespace HealthCare_Appointments_Portal.Utilities
                 Console.WriteLine("Invalid time format");
             }
         }
-
+    
         public static string ReadCleanText(string message)
         {
             while (true)
@@ -180,8 +202,11 @@ namespace HealthCare_Appointments_Portal.Utilities
                 Console.Write(message);
                 var input = Console.ReadLine();
 
-                if (!string.IsNullOrWhiteSpace(input) && input.Trim().Length >= 3)
+                if (!string.IsNullOrWhiteSpace(input) &&
+                    input.Trim().Length >= 3)
+                {
                     return input.Trim();
+                }
 
                 Console.WriteLine("Enter at least 3 characters.");
             }
@@ -192,5 +217,80 @@ namespace HealthCare_Appointments_Portal.Utilities
             Console.Write(message);
             return Console.ReadLine()?.Trim() ?? string.Empty;
         }
+
+        public static bool ReadYesNo(string message)
+        {
+            while (true)
+            {
+                Console.Write($"{message} (Y/N): ");
+                var input = Console.ReadLine()?.Trim().ToUpper();
+
+                if (input == "Y")
+                    return true;
+
+                if (input == "N")
+                    return false;
+
+                Console.WriteLine("Enter Y or N only.");
+            }
+        }
+
+        public static int ReadPositiveInt(string msg)
+        {
+            while (true)
+            {
+                Console.Write(msg);
+
+                if (int.TryParse(Console.ReadLine(), out int value) && value >= 0)
+                    return value;
+
+                Console.WriteLine("Enter a valid positive number");
+            }
+        }
+
+
+        public static int ReadExperience(string msg)
+        {
+            while (true)
+            {
+                Console.Write(msg);
+
+                if (int.TryParse(Console.ReadLine(), out int value))
+                {
+                    if (value >= 0 && value <= 50)
+                        return value;
+
+                    Console.WriteLine(
+                        "Experience must be between 0 and 50 years.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid number");
+                }
+            }
+        }
+
+
+        public static decimal ReadConsultationFee(string msg)
+        {
+            while (true)
+            {
+                Console.Write(msg);
+
+                if (decimal.TryParse(Console.ReadLine(), out decimal fee))
+                {
+                    if (fee >= 100 && fee <= 10000)
+                        return fee;
+
+                    Console.WriteLine(
+                        "Consultation fee must be between 100 and 10000.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid fee");
+                }
+            }
+        }
+
     }
 }

@@ -13,6 +13,11 @@ public class HealthRecord
     // Unique Health Record Identifier
     public int RecordId { get; set; } = _recordCounter++;
 
+    public static void SetRecordCounter(int value)
+    {
+        _recordCounter = value;
+    }
+
     // Appointment Reference
     public int AppointmentId { get; set; }
 

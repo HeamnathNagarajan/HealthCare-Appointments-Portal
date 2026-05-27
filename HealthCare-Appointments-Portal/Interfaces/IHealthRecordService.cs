@@ -36,5 +36,9 @@ namespace HealthCare_Appointment_Portal.Interfaces
         // Create Health Record From Appointment
         public HealthRecord CreateRecordFromAppointment(
             Appointment appointment);
+
+        // Get Completed Appointments 
+        // Without Health Record
+        List<Appointment> GetCompletedAppointmentsWithoutHealthRecord();
     }
 }

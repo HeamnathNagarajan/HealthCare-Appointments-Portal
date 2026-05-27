@@ -40,7 +40,7 @@ namespace HealthCare_Appointment_Portal.Utilities
                 if (!isValidDate)
                 {
                     Console.WriteLine(
-                        "Invalid Date Format. Please enter in yyyy-MM-dd format.");
+                        "Invalid Date . Please enter a valid date in yyyy-MM-dd format.");
 
                     continue;
                 }
@@ -619,7 +619,7 @@ namespace HealthCare_Appointment_Portal.Utilities
                 if (!isValidDate)
                 {
                     Console.WriteLine(
-                        "Invalid Date Format. Please enter in yyyy-MM-dd format.");
+                        "Invalid Date . Please enter a valid date in yyyy-MM-dd format.");
 
                     continue;
                 }
@@ -806,26 +806,32 @@ namespace HealthCare_Appointment_Portal.Utilities
             }
 
             int idWidth =
-                Math.Max(5,
-                patients.Max(p =>
-                    p.PatientId.ToString().Length));
+                Math.Max(
+                    5,
+                    patients.Max(p =>
+                        p.PatientId
+                        .ToString()
+                        .Length));
 
             int nameWidth =
-                Math.Max(20,
-                patients.Max(p =>
-                    p.FullName.Length));
+                Math.Max(
+                    20,
+                    patients.Max(p =>
+                        p.FullName.Length));
 
             int ageWidth = 5;
 
             int phoneWidth =
-                Math.Max(12,
-                patients.Max(p =>
-                    p.PhoneNumber.Length));
+                Math.Max(
+                    12,
+                    patients.Max(p =>
+                        p.PhoneNumber.Length));
 
             int emailWidth =
-                Math.Max(25,
-                patients.Max(p =>
-                    p.Email.Length));
+                Math.Max(
+                    25,
+                    patients.Max(p =>
+                        p.Email.Length));
 
             string border =
                 "+" + new string('-', idWidth + 2) +
@@ -854,19 +860,31 @@ namespace HealthCare_Appointment_Portal.Utilities
                     patient.DateOfBirth.Year;
 
                 Console.WriteLine(
-                "| " + patient.PatientId.ToString().PadRight(idWidth) +
-                " | " + patient.FullName.PadRight(nameWidth) +
-                " | " + age.ToString().PadRight(ageWidth) +
-                " | " + patient.PhoneNumber.PadRight(phoneWidth) +
-                " | " + patient.Email.PadRight(emailWidth) +
-                " |");
+                    "| " + patient.PatientId
+                        .ToString()
+                        .PadRight(idWidth) +
 
-                Console.WriteLine(border);
+                    " | " + patient.FullName
+                        .PadRight(nameWidth) +
+
+                    " | " + age
+                        .ToString()
+                        .PadRight(ageWidth) +
+
+                    " | " + patient.PhoneNumber
+                        .PadRight(phoneWidth) +
+
+                    " | " + patient.Email
+                        .PadRight(emailWidth) +
+
+                    " |");
             }
+
+            Console.WriteLine(border);
         }
 
         public static void DisplayDoctorTable(
-    List<Doctor> doctors)
+            List<Doctor> doctors)
         {
             if (doctors.Count == 0)
             {
@@ -1120,7 +1138,7 @@ namespace HealthCare_Appointment_Portal.Utilities
                         .PadRight(idWidth) +
 
                     " | " + record.VisitDate
-                        .ToString()
+                        .ToString("dd-MM-yyyy")
                         .PadRight(dateWidth) +
 
                     " | " + record.Patient.FullName

@@ -26,9 +26,9 @@ namespace HealthCare_Appointment_Portal.Controllers
         // Add Health Record
         public void AddHealthRecord()
         {
-            List<Appointment> completedAppointments =
-                _appointmentService
-                .GetCompletedAppointments();
+            List<Appointment> completedAppointments = 
+                _healthRecordService
+                .GetCompletedAppointmentsWithoutHealthRecord();
 
             if (completedAppointments.Count == 0)
             {

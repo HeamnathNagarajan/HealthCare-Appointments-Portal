@@ -12,7 +12,13 @@ public class Appointment
     private static int _appointmentCounter = 1;
 
     // Unique Appointment Identifier
-    public int AppointmentId { get; set; } = _appointmentCounter++;
+    public int AppointmentId { get; set; }
+    = _appointmentCounter++;
+
+    // Constructor
+    public static void SetAppointmentCounter(int value) {
+        _appointmentCounter = value;
+    }
 
     // Patient Information
     [Required(

@@ -84,6 +84,8 @@ namespace HealthCare_Appointment_Portal.Utilities
 
         public const string CompleteOnlyConfirmed =
             "Only confirmed appointments can be completed.";
+        public const string CompletedHealthRecord =
+           "Health record can be added only for completed appointments.";
 
         // Summary Formats
 

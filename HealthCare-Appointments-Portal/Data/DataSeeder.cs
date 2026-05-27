@@ -10,7 +10,6 @@ namespace HealthCare_Appointment_Portal.Data
         public static void Seed(DataStore dataStore)
         {
             // PATIENTS
-
             Patient patient1 = new()
             {
                 PatientId = 1,
@@ -182,162 +181,161 @@ namespace HealthCare_Appointment_Portal.Data
             ]);
 
             // APPOINTMENTS
+            Appointment appointment1 =
+                CreateAppointment(
+                    1,
+                    patient1,
+                    doctor1,
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(2)),
+                    new TimeOnly(10, 30),
+                    AppointmentStatus.Confirmed);
+
+            Appointment appointment2 =
+                CreateAppointment(
+                    2,
+                    patient2,
+                    doctor2,
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(-1)),
+                    new TimeOnly(11, 0),
+                    AppointmentStatus.Completed);
+
+            Appointment appointment3 =
+                CreateAppointment(
+                    3,
+                    patient3,
+                    doctor1,
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(3)),
+                    new TimeOnly(12, 15),
+                    AppointmentStatus.Pending);
+
+            Appointment appointment4 =
+                CreateAppointment(
+                    4,
+                    patient4,
+                    doctor4,
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(1)),
+                    new TimeOnly(2, 0),
+                    AppointmentStatus.Confirmed);
+
+            Appointment appointment5 =
+                CreateAppointment(
+                    5,
+                    patient5,
+                    doctor3,
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(-2)),
+                    new TimeOnly(4, 30),
+                    AppointmentStatus.Completed);
+
+            Appointment appointment6 =
+                CreateAppointment(
+                    6,
+                    patient6,
+                    doctor6,
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(5)),
+                    new TimeOnly(9, 45),
+                    AppointmentStatus.Cancelled);
+
+            appointment6.CancellationReason =
+                "Patient Sick";
+
+            Appointment appointment7 =
+                CreateAppointment(
+                    7,
+                    patient7,
+                    doctor7,
+                    DateOnly.FromDateTime(
+                        DateTime.Now.AddDays(4)),
+                    new TimeOnly(5, 15),
+                    AppointmentStatus.Pending);
 
             dataStore.Appointments.AddRange(
             [
-                new Appointment
-                {
-                    AppointmentId = 1,
-                    Patient = patient1,
-                    Doctor = doctor1,
-                    ScheduledDate = DateOnly.FromDateTime(DateTime.Now.AddDays(2)),
-                    TimeSlot = new TimeOnly(10, 30),
-                    Status = AppointmentStatus.Confirmed
-                },
-
-                new Appointment
-                {
-                    AppointmentId = 2,
-                    Patient = patient2,
-                    Doctor = doctor2,
-                    ScheduledDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-1)),
-                    TimeSlot = new TimeOnly(11, 0),
-                    Status = AppointmentStatus.Completed
-                },
-
-                new Appointment
-                {
-                    AppointmentId = 3,
-                    Patient = patient3,
-                    Doctor = doctor1,
-                    ScheduledDate = DateOnly.FromDateTime(DateTime.Now.AddDays(3)),
-                    TimeSlot = new TimeOnly(12, 15),
-                    Status = AppointmentStatus.Pending
-                },
-
-                new Appointment
-                {
-                    AppointmentId = 4,
-                    Patient = patient4,
-                    Doctor = doctor4,
-                    ScheduledDate = DateOnly.FromDateTime(DateTime.Now.AddDays(1)),
-                    TimeSlot = new TimeOnly(2, 0),
-                    Status = AppointmentStatus.Confirmed
-                },
-
-                new Appointment
-                {
-                    AppointmentId = 5,
-                    Patient = patient5,
-                    Doctor = doctor3,
-                    ScheduledDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-2)),
-                    TimeSlot = new TimeOnly(4, 30),
-                    Status = AppointmentStatus.Completed
-                },
-
-                new Appointment
-                {
-                    AppointmentId = 6,
-                    Patient = patient6,
-                    Doctor = doctor6,
-                    ScheduledDate = DateOnly.FromDateTime(DateTime.Now.AddDays(5)),
-                    TimeSlot = new TimeOnly(9, 45),
-                    Status = AppointmentStatus.Cancelled,
-                    CancellationReason = "Patient Sick"
-                },
-
-                new Appointment
-                {
-                    AppointmentId = 7,
-                    Patient = patient7,
-                    Doctor = doctor7,
-                    ScheduledDate = DateOnly.FromDateTime(DateTime.Now.AddDays(4)),
-                    TimeSlot = new TimeOnly(5, 15),
-                    Status = AppointmentStatus.Pending
-                }
+                appointment1,
+                appointment2,
+                appointment3,
+                appointment4,
+                appointment5,
+                appointment6,
+                appointment7
             ]);
 
-            // HEALTH RECORDS
-
+            // HEALTH RECORDS   
             dataStore.HealthRecords.AddRange(
             [
                 new HealthRecord
                 {
                     RecordId = 1,
+                    AppointmentId = 2,
                     Patient = patient2,
                     Doctor = doctor2,
                     Diagnosis = "Skin Allergy",
                     Prescription = "Cetirizine",
                     Notes = "Avoid Dust",
-                    VisitDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-1))
+                    VisitDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now.AddDays(-1))
                 },
 
                 new HealthRecord
                 {
                     RecordId = 2,
+                    AppointmentId = 5,
                     Patient = patient5,
                     Doctor = doctor3,
                     Diagnosis = "Heart Pain",
                     Prescription = "ECG Test",
                     Notes = "Weekly Review",
-                    VisitDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-2))
+                    VisitDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now.AddDays(-2))
                 },
 
                 new HealthRecord
                 {
                     RecordId = 3,
+                    AppointmentId = 1,
                     Patient = patient1,
                     Doctor = doctor1,
                     Diagnosis = "High BP",
                     Prescription = "BP Tablets",
                     Notes = "Reduce Salt",
-                    VisitDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-5))
-                },
-
-                new HealthRecord
-                {
-                    RecordId = 4,
-                    Patient = patient3,
-                    Doctor = doctor1,
-                    Diagnosis = "Chest Pain",
-                    Prescription = "Scan",
-                    Notes = "Observation Needed",
-                    VisitDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-4))
-                },
-
-                new HealthRecord
-                {
-                    RecordId = 5,
-                    Patient = patient4,
-                    Doctor = doctor4,
-                    Diagnosis = "Migraine",
-                    Prescription = "Pain Relief",
-                    Notes = "Reduce Screen Time",
-                    VisitDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-3))
-                },
-
-                new HealthRecord
-                {
-                    RecordId = 6,
-                    Patient = patient6,
-                    Doctor = doctor6,
-                    Diagnosis = "Acne",
-                    Prescription = "Face Cream",
-                    Notes = "Drink Water",
-                    VisitDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-7))
-                },
-
-                new HealthRecord
-                {
-                    RecordId = 7,
-                    Patient = patient7,
-                    Doctor = doctor7,
-                    Diagnosis = "Fever",
-                    Prescription = "Paracetamol",
-                    Notes = "Rest Well",
-                    VisitDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-6))
+                    VisitDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now.AddDays(-5))
                 }
             ]);
+        }
+
+        // Helper Method
+        private static Appointment CreateAppointment(
+            int id,
+            Patient patient,
+            Doctor doctor,
+            DateOnly date,
+            TimeOnly slot,
+            AppointmentStatus status)
+        {
+            Appointment appointment =
+                new()
+                {
+                    AppointmentId = id,
+                    Patient = patient,
+                    Doctor = doctor,
+                    ScheduledDate = date,
+                    TimeSlot = slot,
+                    Status = status
+                };
+
+            doctor.Appointments
+                .Add(appointment);
+
+            return appointment;
         }
     }
 }

@@ -47,6 +47,14 @@ namespace HealthCare_Appointment_Portal.Services
                 throw new PastDateException();
             }
 
+            // Maximum Advance Booking Date
+            DateOnly maxBookingDate = 
+                currentDate.AddMonths(6);
+
+            if (date > maxBookingDate) { 
+                throw new AdvanceBookingLimitException();
+            }
+
             // Same Day Past Time Check
             if (date == currentDate &&
                  slot < currentTime)
@@ -88,6 +96,8 @@ namespace HealthCare_Appointment_Portal.Services
                     Status =
                         AppointmentStatus.Pending
                 };
+
+            doctor.Appointments.Add(appointment);
 
             _appointmentRepository
                 .AddAppointment(appointment);
@@ -288,6 +298,7 @@ namespace HealthCare_Appointment_Portal.Services
                 .UpdateAppointment(
                     appointment);
         }
+
 
         // Update Existing Appointment
         public void UpdateAppointment(

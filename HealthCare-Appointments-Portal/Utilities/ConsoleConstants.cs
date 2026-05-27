@@ -129,7 +129,7 @@ namespace HealthCare_Appointment_Portal.Utilities
 
         public const string
             ApplicationClosed =
-            "Application Closed.";
+            "Thank You For Using HealthCare Appointment Portal.";
 
         // General Messages
         public const string

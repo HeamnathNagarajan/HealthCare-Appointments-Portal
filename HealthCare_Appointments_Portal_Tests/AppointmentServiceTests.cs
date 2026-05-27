@@ -1485,5 +1485,32 @@ namespace HealthCare_Appointment_Portal.Tests
                     It.IsAny<Appointment>()),
                 Times.Once);
         }
+
+        // Advance Booking Limit
+        [Fact]
+        public void BookAppointment_MoreThanSixMonths_ShouldThrowException()
+        {
+            // Arrange
+            Patient patient =
+                CreatePatient();
+
+            Doctor doctor =
+                CreateDoctor();
+
+            DateOnly futureDate =
+                DateOnly.FromDateTime(
+                    DateTime.Now.AddMonths(7));
+
+            // Act & Assert
+            Assert.Throws<
+                AdvanceBookingLimitException>(() =>
+                    _appointmentService
+                    .BookAppointment(
+                        patient,
+                        doctor,
+                        doctor.Specialisation,
+                        futureDate,
+                        new TimeOnly(10, 0)));
+        }
     }
 }

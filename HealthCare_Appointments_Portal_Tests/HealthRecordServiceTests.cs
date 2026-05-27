@@ -15,14 +15,21 @@ namespace HealthCare_Appointment_Portal.Tests
         private readonly HealthRecordService
             _healthRecordService;
 
+        private readonly Mock<IAppointmentRepository>
+            _mockAppointmentRepository;
+
         public HealthRecordServiceTests()
         {
             _mockRepository =
                 new Mock<IHealthRecordRepository>();
 
+            _mockAppointmentRepository = 
+                new Mock<IAppointmentRepository>();
+
             _healthRecordService =
                 new HealthRecordService(
-                    _mockRepository.Object);
+                    _mockRepository.Object,
+                    _mockAppointmentRepository.Object);
         }
 
         // Add Record Success
@@ -30,8 +37,30 @@ namespace HealthCare_Appointment_Portal.Tests
         public void AddRecord_ValidRecord_ShouldAddRecord()
         {
             // Arrange
+            Appointment appointment =
+                new()
+                {
+                    AppointmentId = 1,
+                    Patient = CreatePatient(),
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now),
+                    TimeSlot =
+                        TimeOnly.FromDateTime(
+                            DateTime.Now),
+                    Status =
+                        AppointmentStatus.Completed
+                };
+
             HealthRecord record =
                 CreateHealthRecord();
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        record.AppointmentId))
+                .Returns(appointment);
 
             _mockRepository
                 .Setup(r =>
@@ -47,15 +76,35 @@ namespace HealthCare_Appointment_Portal.Tests
                 r.AddRecord(record),
                 Times.Once);
         }
-
-
         // Add Record Repository Verification
         [Fact]
         public void AddRecord_ShouldCallRepositoryOnce()
         {
             // Arrange
+            Appointment appointment =
+                new()
+                {
+                    AppointmentId = 1,
+                    Patient = CreatePatient(),
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now),
+                    TimeSlot =
+                        TimeOnly.FromDateTime(
+                            DateTime.Now),
+                    Status =
+                        AppointmentStatus.Completed
+                };
+
             HealthRecord record =
                 CreateHealthRecord();
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        record.AppointmentId))
+                .Returns(appointment);
 
             _mockRepository
                 .Setup(r =>
@@ -607,10 +656,26 @@ namespace HealthCare_Appointment_Portal.Tests
         }
 
         // Add Duplicate Record Should Throw Exception
-       [Fact]
+        [Fact]
         public void AddRecord_DuplicateAppointmentId_ShouldThrowException()
         {
             // Arrange
+            Appointment appointment =
+                new()
+                {
+                    AppointmentId = 1,
+                    Patient = CreatePatient(),
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now),
+                    TimeSlot =
+                        TimeOnly.FromDateTime(
+                            DateTime.Now),
+                    Status =
+                        AppointmentStatus.Completed
+                };
+
             HealthRecord existingRecord =
                 CreateHealthRecord();
 
@@ -626,6 +691,11 @@ namespace HealthCare_Appointment_Portal.Tests
                 existingRecord
             ];
 
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAppointmentById(1))
+                .Returns(appointment);
+
             _mockRepository
                 .Setup(r =>
                     r.GetAllRecords())
@@ -635,7 +705,7 @@ namespace HealthCare_Appointment_Portal.Tests
             Assert.Throws<
                 DuplicateHealthRecordException>(() =>
                     _healthRecordService
-                    .AddRecord(newRecord));
+                        .AddRecord(newRecord));
         }
 
         // Add Record Unique AppointmentId Should Add Record
@@ -643,6 +713,22 @@ namespace HealthCare_Appointment_Portal.Tests
         public void AddRecord_UniqueAppointmentId_ShouldAddRecord()
         {
             // Arrange
+            Appointment appointment =
+                new()
+                {
+                    AppointmentId = 2,
+                    Patient = CreatePatient(),
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now),
+                    TimeSlot =
+                        TimeOnly.FromDateTime(
+                            DateTime.Now),
+                    Status =
+                        AppointmentStatus.Completed
+                };
+
             HealthRecord existingRecord =
                 CreateHealthRecord();
 
@@ -658,6 +744,11 @@ namespace HealthCare_Appointment_Portal.Tests
                 existingRecord
             ];
 
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAppointmentById(2))
+                .Returns(appointment);
+
             _mockRepository
                 .Setup(r =>
                     r.GetAllRecords())
@@ -671,6 +762,142 @@ namespace HealthCare_Appointment_Portal.Tests
             _mockRepository.Verify(r =>
                 r.AddRecord(newRecord),
                 Times.Once);
+        }
+
+        // Add Record Invalid Appointment
+        [Fact]
+        public void AddRecord_InvalidAppointment_ShouldThrowException()
+        {
+            // Arrange
+            HealthRecord record =
+                CreateHealthRecord();
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        record.AppointmentId))
+                .Returns((Appointment?)null);
+
+            // Act & Assert
+            Assert.Throws<
+                AppointmentNotFoundException>(() =>
+                    _healthRecordService
+                        .AddRecord(record));
+        }
+
+        // Add Record Non Completed Appointment
+        [Fact]
+        public void AddRecord_NonCompletedAppointment_ShouldThrowException()
+        {
+            // Arrange
+            Appointment appointment =
+                new()
+                {
+                    AppointmentId = 1,
+                    Patient = CreatePatient(),
+                    Doctor = CreateDoctor(),
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now),
+                    TimeSlot =
+                        TimeOnly.FromDateTime(
+                            DateTime.Now),
+                    Status =
+                        AppointmentStatus.Pending
+                };
+
+            HealthRecord record =
+                CreateHealthRecord();
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAppointmentById(
+                        record.AppointmentId))
+                .Returns(appointment);
+
+            // Act & Assert
+            Assert.Throws<
+                InvalidAppointmentStatusException>(() =>
+                    _healthRecordService
+                        .AddRecord(record));
+        }
+
+        // Get Completed Appointments
+        // Without Health Record
+        [Fact]
+        public void GetCompletedAppointmentsWithoutHealthRecord_ShouldReturnAppointments()
+        {
+            // Arrange
+            List<Appointment> appointments =
+            [
+                new Appointment
+        {
+            AppointmentId = 1,
+            Patient = CreatePatient(),
+            Doctor = CreateDoctor(),
+            ScheduledDate =
+                DateOnly.FromDateTime(
+                    DateTime.Now),
+            TimeSlot =
+                TimeOnly.FromDateTime(
+                    DateTime.Now),
+            Status =
+                AppointmentStatus.Completed
+        },
+
+        new Appointment
+        {
+            AppointmentId = 2,
+            Patient = CreatePatient(),
+            Doctor = CreateDoctor(),
+            ScheduledDate =
+                DateOnly.FromDateTime(
+                    DateTime.Now),
+            TimeSlot =
+                TimeOnly.FromDateTime(
+                    DateTime.Now),
+            Status =
+                AppointmentStatus.Completed
+        }
+            ];
+
+            List<HealthRecord> records =
+            [
+                new HealthRecord
+        {
+            AppointmentId = 1,
+            Patient = CreatePatient(),
+            Doctor = CreateDoctor(),
+            VisitDate =
+                DateOnly.FromDateTime(
+                    DateTime.Now),
+            Diagnosis = "Fever",
+            Prescription = "Tablet",
+            Notes = "Rest"
+        }
+            ];
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAllAppointments())
+                .Returns(appointments);
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(records);
+
+            // Act
+            List<Appointment> result =
+                _healthRecordService
+                    .GetCompletedAppointmentsWithoutHealthRecord();
+
+            // Assert
+            Assert.Single(result);
+
+            Assert.Equal(
+                2,
+                result[0].AppointmentId);
         }
 
         // Helper Method

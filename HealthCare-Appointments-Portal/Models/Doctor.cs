@@ -14,6 +14,10 @@ namespace HealthCare_Appointment_Portal.Models
         // Unique Doctor Identifier
         public int DoctorId { get; set; } = _doctorCounter++;
 
+        public static void SetDoctorCounter(int value) { 
+            _doctorCounter = value; 
+        }
+
         // Doctor Full Name
         [Required(
             ErrorMessage = Constants.FullNameRequired)]

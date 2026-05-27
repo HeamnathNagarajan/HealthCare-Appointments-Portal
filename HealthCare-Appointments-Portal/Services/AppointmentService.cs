@@ -2,10 +2,10 @@
 using HealthCare_Appointments_Portal.Exceptions;
 using HealthCare_Appointments_Portal.Interfaces;
 using HealthCare_Appointments_Portal.Models;
+using HealthCare_Appointments_Portal.Utilities;
 
 namespace HealthCare_Appointments_Portal.Services
 {
-
     public class AppointmentService : IAppointmentService
     {
 
@@ -29,12 +29,25 @@ namespace HealthCare_Appointments_Portal.Services
             TimeOnly slot)
         {
 
-            if (date <
+            DateOnly currentDate =
                 DateOnly.FromDateTime(
-                    DateTime.Now))
-            {
+                    DateTime.Now);
 
+            TimeOnly currentTime =
+                TimeOnly.FromDateTime(
+                    DateTime.Now);
+
+            // Past Date Check
+            if (date < currentDate)
+            {
                 throw new PastDateException();
+            }
+
+            // Same Day Past Time Check
+            if (date == currentDate &&
+                 slot < currentTime)
+            {
+                throw new PastTimeSlotException();
             }
 
             if (!doctor.IsAvailable(date))
@@ -186,11 +199,26 @@ namespace HealthCare_Appointments_Portal.Services
                 throw new AppointmentNotFoundException();
             }
 
+            // Allow only Pending appointments
+            if (appointment.Status != AppointmentStatus.Pending)
+            {
+                throw new InvalidAppointmentStatusException(
+                    Constants
+                        .ConfirmOnlyPending);
+            }
+
             appointment.Confirm();
 
             _appointmentRepository
                 .UpdateAppointment(
                     appointment);
+
+            // Call Doctor Method
+            string summary =
+                appointment.Doctor
+                .GetScheduleSummary();
+
+            Console.WriteLine(summary);
         }
 
         // Cancel Appointment
@@ -208,6 +236,15 @@ namespace HealthCare_Appointments_Portal.Services
             {
 
                 throw new AppointmentNotFoundException();
+            }
+
+            // Allow only Pending or Confirmed appointments
+            if (appointment.Status != AppointmentStatus.Pending &&
+                appointment.Status != AppointmentStatus.Confirmed)
+            {
+                throw new InvalidAppointmentStatusException(
+                    Constants
+                        .CancelOnlyPendingOrConfirmed);
             }
 
             appointment.Cancel(reason);
@@ -231,6 +268,14 @@ namespace HealthCare_Appointments_Portal.Services
             {
 
                 throw new AppointmentNotFoundException();
+            }
+
+            // Allow only Confirmed appointments
+            if (appointment.Status != AppointmentStatus.Confirmed)
+            {
+                throw new InvalidAppointmentStatusException(
+                    Constants
+                        .CompleteOnlyConfirmed);
             }
 
             appointment.Complete();
@@ -278,9 +323,17 @@ namespace HealthCare_Appointments_Portal.Services
                 throw new AppointmentNotFoundException();
             }
 
+            // Prevent Delete
+            if (appointment.Status ==
+                AppointmentStatus.Pending ||
+                appointment.Status == AppointmentStatus.Confirmed)
+            {
+                throw new AppointmentDeletionException();
+            }
+
             _appointmentRepository
-                .DeleteAppointmentById(
-                    appointmentId);
+            .DeleteAppointmentById(
+                appointmentId);
         }
     }
 }

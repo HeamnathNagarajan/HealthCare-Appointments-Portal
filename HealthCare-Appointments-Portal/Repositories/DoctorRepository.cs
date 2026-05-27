@@ -1,4 +1,5 @@
-﻿using HealthCare_Appointments_Portal.Data;
+﻿
+using HealthCare_Appointments_Portal.Data;
 using HealthCare_Appointments_Portal.Interfaces;
 using HealthCare_Appointments_Portal.Models;
 
@@ -42,41 +43,41 @@ namespace HealthCare_Appointments_Portal.Repositories
         }
 
         // Update Existing Doctor
-        public void UpdateDoctor(Doctor updatedDoctor)
+        public void UpdateDoctor(Doctor doctor)
         {
 
             Doctor? existingDoctor =
                 _dataStore.Doctors
                 .FirstOrDefault(d =>
                     d.DoctorId ==
-                    updatedDoctor.DoctorId);
+                    doctor.DoctorId);
 
             if (existingDoctor != null)
             {
 
                 existingDoctor.FullName =
                     string.IsNullOrWhiteSpace(
-                        updatedDoctor.FullName)
+                        doctor.FullName)
                     ? existingDoctor.FullName
-                    : updatedDoctor.FullName;
+                    : doctor.FullName;
 
                 existingDoctor.Specialisation =
-                    updatedDoctor.Specialisation == default
+                    doctor.Specialisation == default
                     ? existingDoctor.Specialisation
-                    : updatedDoctor.Specialisation;
+                    : doctor.Specialisation;
 
                 existingDoctor.YearsOfExperience =
-                    updatedDoctor.YearsOfExperience == 0
+                    doctor.YearsOfExperience == 0
                     ? existingDoctor.YearsOfExperience
-                    : updatedDoctor.YearsOfExperience;
+                    : doctor.YearsOfExperience;
 
                 existingDoctor.ConsultationFee =
-                    updatedDoctor.ConsultationFee == 0
+                    doctor.ConsultationFee == 0
                     ? existingDoctor.ConsultationFee
-                    : updatedDoctor.ConsultationFee;
+                    : doctor.ConsultationFee;
 
                 existingDoctor.IsActive =
-                    updatedDoctor.IsActive;
+                    doctor.IsActive;
             }
         }
 

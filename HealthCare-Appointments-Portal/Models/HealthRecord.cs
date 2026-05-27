@@ -1,8 +1,11 @@
 ﻿using HealthCare_Appointments_Portal.Utilities;
+using HealthCare_Appointments_Portal.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointments_Portal.Models;
 
+[ExcludeFromCodeCoverage]
 public class HealthRecord
 {
     // Auto Increment Health Record Id
@@ -10,6 +13,9 @@ public class HealthRecord
 
     // Unique Health Record Identifier
     public int RecordId { get; set; } = _recordCounter++;
+
+    // Appointment Reference
+    public int AppointmentId { get; set; }
 
     // Patient Information
     [Required(

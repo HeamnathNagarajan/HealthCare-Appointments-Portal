@@ -1,9 +1,12 @@
-﻿using HealthCare_Appointments_Portal.Enums;
-using HealthCare_Appointments_Portal.Utilities;
+﻿using HealthCare_Appointments_Portal.Utilities;
+using HealthCare_Appointments_Portal.Enums;
+using HealthCare_Appointments_Portal.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HealthCare_Appointments_Portal.Models
 {
+    [ExcludeFromCodeCoverage]
     public class Doctor
     {
         // Auto Increment Doctor Id
@@ -16,7 +19,7 @@ namespace HealthCare_Appointments_Portal.Models
         [Required(
             ErrorMessage = Constants.FullNameRequired)]
         [RegularExpression(
-            @"^[a-zA-Z\s]+$",
+            @"^[a-zA-Z.\s]+$",
             ErrorMessage = Constants.InvalidFullNameFormat)]
         public string FullName { get; set; }
             = string.Empty;
@@ -87,8 +90,8 @@ namespace HealthCare_Appointments_Portal.Models
                 YearsOfExperience,
                 ConsultationFee,
                 IsActive
-                    ? "Available"
-                    : "Unavailable");
+                    ? Constants.Available
+                    : Constants.NotAvailable);
         }
     }
 }

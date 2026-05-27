@@ -1,4 +1,5 @@
-﻿using HealthCare_Appointments_Portal.Enums;
+﻿
+using HealthCare_Appointments_Portal.Enums;
 using HealthCare_Appointments_Portal.Exceptions;
 using HealthCare_Appointments_Portal.Interfaces;
 using HealthCare_Appointments_Portal.Models;
@@ -33,6 +34,35 @@ namespace HealthCare_Appointments_Portal.Tests
             HealthRecord record =
                 CreateHealthRecord();
 
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(new List<HealthRecord>());
+
+            // Act
+            _healthRecordService
+                .AddRecord(record);
+
+            // Assert
+            _mockRepository.Verify(r =>
+                r.AddRecord(record),
+                Times.Once);
+        }
+
+
+        // Add Record Repository Verification
+        [Fact]
+        public void AddRecord_ShouldCallRepositoryOnce()
+        {
+            // Arrange
+            HealthRecord record =
+                CreateHealthRecord();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(new List<HealthRecord>());
+
             // Act
             _healthRecordService
                 .AddRecord(record);
@@ -64,8 +94,7 @@ namespace HealthCare_Appointments_Portal.Tests
                     record.RecordId);
 
             // Assert
-            Assert.NotNull(
-                result);
+            Assert.NotNull(result);
 
             Assert.Equal(
                 record.RecordId,
@@ -87,8 +116,7 @@ namespace HealthCare_Appointments_Portal.Tests
             Assert.Throws<
                 HealthRecordNotFoundException>(() =>
                     _healthRecordService
-                    .GetRecordById(
-                        23));
+                    .GetRecordById(23));
         }
 
         // Get All Records
@@ -134,8 +162,7 @@ namespace HealthCare_Appointments_Portal.Tests
                 .GetAllRecords();
 
             // Assert
-            Assert.Empty(
-                result);
+            Assert.Empty(result);
         }
 
         // Get Records By Patient
@@ -155,12 +182,9 @@ namespace HealthCare_Appointments_Portal.Tests
                     VisitDate =
                         DateOnly.FromDateTime(
                             DateTime.Now),
-                    Diagnosis =
-                        "Fever",
-                    Prescription =
-                        "Paracetamol",
-                    Notes =
-                        "Take Rest"
+                    Diagnosis = "Fever",
+                    Prescription = "Paracetamol",
+                    Notes = "Take Rest"
                 }
             ];
 
@@ -176,8 +200,7 @@ namespace HealthCare_Appointments_Portal.Tests
                     patient.PatientId);
 
             // Assert
-            Assert.Single(
-                result);
+            Assert.Single(result);
         }
 
         // Get Records By Patient Empty
@@ -193,12 +216,84 @@ namespace HealthCare_Appointments_Portal.Tests
             // Act
             List<HealthRecord> result =
                 _healthRecordService
-                .GetRecordsByPatient(
-                     1);
+                .GetRecordsByPatient(1);
 
             // Assert
-            Assert.Empty(
-                result);
+            Assert.Empty(result);
+        }
+
+        // Get Records By Patient Unmatched
+        [Fact]
+        public void GetRecordsByPatient_UnmatchedPatient_ShouldReturnEmpty()
+        {
+            // Arrange
+            List<HealthRecord> records =
+            [
+                CreateHealthRecord()
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(records);
+
+            // Act
+            List<HealthRecord> result =
+                _healthRecordService
+                .GetRecordsByPatient(999);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        // Get Records By Patient Ordered Descending
+        [Fact]
+        public void GetRecordsByPatient_ShouldReturnOrderedRecords()
+        {
+            // Arrange
+            Patient patient =
+                CreatePatient();
+
+            List<HealthRecord> records =
+            [
+                new HealthRecord
+                {
+                    Patient = patient,
+                    Doctor = CreateDoctor(),
+                    VisitDate =
+                        new DateOnly(2024, 1, 1),
+                    Diagnosis = "Cold",
+                    Prescription = "Tablet",
+                    Notes = "Rest"
+                },
+
+                new HealthRecord
+                {
+                    Patient = patient,
+                    Doctor = CreateDoctor(),
+                    VisitDate =
+                        new DateOnly(2025, 1, 1),
+                    Diagnosis = "Fever",
+                    Prescription = "Paracetamol",
+                    Notes = "Rest"
+                }
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(records);
+
+            // Act
+            List<HealthRecord> result =
+                _healthRecordService
+                .GetRecordsByPatient(
+                    patient.PatientId);
+
+            // Assert
+            Assert.Equal(
+                new DateOnly(2025, 1, 1),
+                result[0].VisitDate);
         }
 
         // Get Records By Doctor
@@ -218,12 +313,9 @@ namespace HealthCare_Appointments_Portal.Tests
                     VisitDate =
                         DateOnly.FromDateTime(
                             DateTime.Now),
-                    Diagnosis =
-                        "Cold",
-                    Prescription =
-                        "Tablet",
-                    Notes =
-                        "Daily"
+                    Diagnosis = "Cold",
+                    Prescription = "Tablet",
+                    Notes = "Daily"
                 }
             ];
 
@@ -239,8 +331,7 @@ namespace HealthCare_Appointments_Portal.Tests
                     doctor.DoctorId);
 
             // Assert
-            Assert.Single(
-                result);
+            Assert.Single(result);
         }
 
         // Get Records By Doctor Empty
@@ -256,12 +347,84 @@ namespace HealthCare_Appointments_Portal.Tests
             // Act
             List<HealthRecord> result =
                 _healthRecordService
-                .GetRecordsByDoctor(
-                    1);
+                .GetRecordsByDoctor(1);
 
             // Assert
-            Assert.Empty(
-                result);
+            Assert.Empty(result);
+        }
+
+        // Get Records By Doctor Unmatched
+        [Fact]
+        public void GetRecordsByDoctor_UnmatchedDoctor_ShouldReturnEmpty()
+        {
+            // Arrange
+            List<HealthRecord> records =
+            [
+                CreateHealthRecord()
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(records);
+
+            // Act
+            List<HealthRecord> result =
+                _healthRecordService
+                .GetRecordsByDoctor(999);
+
+            // Assert
+            Assert.Empty(result);
+        }
+
+        // Get Records By Doctor Ordered Descending
+        [Fact]
+        public void GetRecordsByDoctor_ShouldReturnOrderedRecords()
+        {
+            // Arrange
+            Doctor doctor =
+                CreateDoctor();
+
+            List<HealthRecord> records =
+            [
+                new HealthRecord
+                {
+                    Patient = CreatePatient(),
+                    Doctor = doctor,
+                    VisitDate =
+                        new DateOnly(2024, 1, 1),
+                    Diagnosis = "Cold",
+                    Prescription = "Tablet",
+                    Notes = "Rest"
+                },
+
+                new HealthRecord
+                {
+                    Patient = CreatePatient(),
+                    Doctor = doctor,
+                    VisitDate =
+                        new DateOnly(2025, 1, 1),
+                    Diagnosis = "Fever",
+                    Prescription = "Paracetamol",
+                    Notes = "Rest"
+                }
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(records);
+
+            // Act
+            List<HealthRecord> result =
+                _healthRecordService
+                .GetRecordsByDoctor(
+                    doctor.DoctorId);
+
+            // Assert
+            Assert.Equal(
+                new DateOnly(2025, 1, 1),
+                result[0].VisitDate);
         }
 
         // Update Existing Record
@@ -280,13 +443,35 @@ namespace HealthCare_Appointments_Portal.Tests
 
             // Act
             _healthRecordService
-                .UpdateRecord(
-                    record);
+                .UpdateRecord(record);
 
             // Assert
             _mockRepository.Verify(r =>
-                r.UpdateRecord(
-                    record),
+                r.UpdateRecord(record),
+                Times.Once);
+        }
+
+        // Update Repository Verification
+        [Fact]
+        public void UpdateRecord_ShouldCallRepositoryOnce()
+        {
+            // Arrange
+            HealthRecord record =
+                CreateHealthRecord();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetRecordById(
+                        record.RecordId))
+                .Returns(record);
+
+            // Act
+            _healthRecordService
+                .UpdateRecord(record);
+
+            // Assert
+            _mockRepository.Verify(r =>
+                r.UpdateRecord(record),
                 Times.Once);
         }
 
@@ -308,13 +493,38 @@ namespace HealthCare_Appointments_Portal.Tests
             Assert.Throws<
                 HealthRecordNotFoundException>(() =>
                     _healthRecordService
-                    .UpdateRecord(
-                        record));
+                    .UpdateRecord(record));
         }
 
         // Delete Existing Record
         [Fact]
         public void DeleteRecordById_ExistingId_ShouldDeleteRecord()
+        {
+            // Arrange
+            HealthRecord record =
+                CreateHealthRecord();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetRecordById(
+                        record.RecordId))
+                .Returns(record);
+
+            // Act
+            _healthRecordService
+                .DeleteRecordById(
+                    record.RecordId);
+
+            // Assert
+            _mockRepository.Verify(r =>
+                r.DeleteRecordById(
+                    record.RecordId),
+                Times.Once);
+        }
+
+        // Delete Repository Verification
+        [Fact]
+        public void DeleteRecord_ShouldCallRepositoryOnce()
         {
             // Arrange
             HealthRecord record =
@@ -353,8 +563,115 @@ namespace HealthCare_Appointments_Portal.Tests
             Assert.Throws<
                 HealthRecordNotFoundException>(() =>
                     _healthRecordService
-                    .DeleteRecordById(
-                        87));
+                    .DeleteRecordById(87));
+        }
+
+        // Create Record From Appointment
+        [Fact]
+        public void CreateRecordFromAppointment_ShouldCreateHealthRecord()
+        {
+            // Arrange
+            Appointment appointment =
+                new()
+                {
+                    Patient =
+                        CreatePatient(),
+
+                    Doctor =
+                        CreateDoctor(),
+
+                    ScheduledDate =
+                        DateOnly.FromDateTime(
+                            DateTime.Now)
+                };
+
+            // Act
+            HealthRecord result =
+                _healthRecordService
+                .CreateRecordFromAppointment(
+                    appointment);
+
+            // Assert
+            Assert.NotNull(result);
+
+            Assert.Equal(
+                appointment.Patient,
+                result.Patient);
+
+            Assert.Equal(
+                appointment.Doctor,
+                result.Doctor);
+
+            Assert.Equal(
+                appointment.ScheduledDate,
+                result.VisitDate);
+        }
+
+        // Add Duplicate Record Should Throw Exception
+        [Fact]
+        public void AddRecord_DuplicateAppointmentId_ShouldThrowException()
+        {
+            // Arrange
+            HealthRecord existingRecord =
+                CreateHealthRecord();
+
+            existingRecord.AppointmentId = 1;
+
+            HealthRecord newRecord =
+                CreateHealthRecord();
+
+            newRecord.AppointmentId = 1;
+
+            List<HealthRecord> records =
+            [
+                existingRecord
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(records);
+
+            // Act & Assert
+            Assert.Throws<
+                DuplicateHealthRecordException>(() =>
+                    _healthRecordService
+                    .AddRecord(newRecord));
+        }
+
+        // Add Record Unique AppointmentId Should Add Record
+        [Fact]
+        public void AddRecord_UniqueAppointmentId_ShouldAddRecord()
+        {
+            // Arrange
+            HealthRecord existingRecord =
+                CreateHealthRecord();
+
+            existingRecord.AppointmentId = 1;
+
+            HealthRecord newRecord =
+                CreateHealthRecord();
+
+            newRecord.AppointmentId = 2;
+
+            List<HealthRecord> records =
+            [
+                existingRecord
+            ];
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetAllRecords())
+                .Returns(records);
+
+            // Act
+            _healthRecordService
+                .AddRecord(newRecord);
+
+            // Assert
+            _mockRepository.Verify(r =>
+                r.AddRecord(newRecord),
+                Times.Once);
         }
 
         // Helper Method
@@ -362,26 +679,14 @@ namespace HealthCare_Appointments_Portal.Tests
         {
             return new Patient
             {
-                FullName =
-                    "Ragu",
-
+                PatientId = 1,
+                FullName = "Ragu",
                 DateOfBirth =
-                    new DateOnly(
-                        2001,
-                        4,
-                        22),
-
-                Gender =
-                    Gender.Male,
-
-                PhoneNumber =
-                    "9876543210",
-
-                Email =
-                    "ragu@gmail.com",
-
-                InsuranceId =
-                    "INS101"
+                    new DateOnly(2001, 4, 22),
+                Gender = Gender.Male,
+                PhoneNumber = "9876543210",
+                Email = "ragu@gmail.com",
+                InsuranceId = "INS101"
             };
         }
 
@@ -390,20 +695,13 @@ namespace HealthCare_Appointments_Portal.Tests
         {
             return new Doctor
             {
-                FullName =
-                    "Dr Ragu",
-
+                DoctorId = 1,
+                FullName = "Dr Ragu",
                 Specialisation =
                     Specialisation.Cardiology,
-
-                YearsOfExperience =
-                    5,
-
-                ConsultationFee =
-                    1000,
-
-                IsActive =
-                    true
+                YearsOfExperience = 5,
+                ConsultationFee = 1000,
+                IsActive = true
             };
         }
 
@@ -412,6 +710,10 @@ namespace HealthCare_Appointments_Portal.Tests
         {
             return new HealthRecord
             {
+                RecordId = 1,
+
+                AppointmentId = 1,
+
                 Patient =
                     CreatePatient(),
 
@@ -422,14 +724,12 @@ namespace HealthCare_Appointments_Portal.Tests
                     DateOnly.FromDateTime(
                         DateTime.Now),
 
-                Diagnosis =
-                    "Fever",
+                Diagnosis = "Fever",
 
                 Prescription =
                     "Paracetamol",
 
-                Notes =
-                    "Take Rest"
+                Notes = "Take Rest"
             };
         }
     }

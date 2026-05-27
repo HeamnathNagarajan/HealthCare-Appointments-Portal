@@ -1,4 +1,5 @@
-﻿using HealthCare_Appointments_Portal.Exceptions;
+﻿
+using HealthCare_Appointments_Portal.Exceptions;
 using HealthCare_Appointments_Portal.Interfaces;
 using HealthCare_Appointments_Portal.Models;
 
@@ -25,6 +26,17 @@ namespace HealthCare_Appointments_Portal.Services
         public void AddRecord(
             HealthRecord record)
         {
+            bool recordExists =
+                _healthRecordRepository
+                .GetAllRecords()
+                .Any(r =>
+                    r.AppointmentId ==
+                    record.AppointmentId);
+
+            if (recordExists)
+            {
+                throw new DuplicateHealthRecordException();
+            }
 
             _healthRecordRepository
                 .AddRecord(record);

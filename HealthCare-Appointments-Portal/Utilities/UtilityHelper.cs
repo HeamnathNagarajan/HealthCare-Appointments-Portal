@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HealthCare_Appointments_Portal.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace HealthCare_Appointments_Portal.Utilities
 {
+    [ExcludeFromCodeCoverage]
     public static class UtilityHelper
     {
         // Read Console Input
@@ -29,6 +33,8 @@ namespace HealthCare_Appointments_Portal.Utilities
                     DateOnly.TryParseExact(
                         input,
                         "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out DateOnly date);
 
                 if (!isValidDate)
@@ -69,7 +75,7 @@ namespace HealthCare_Appointments_Portal.Utilities
                 }
 
                 Console.WriteLine(
-                    results.First()
+                    results[0]
                     .ErrorMessage);
             }
         }
@@ -87,6 +93,8 @@ namespace HealthCare_Appointments_Portal.Utilities
                     TimeOnly.TryParseExact(
                         input,
                         "HH:mm",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out TimeOnly time);
 
                 if (isValidTime)
@@ -143,7 +151,7 @@ namespace HealthCare_Appointments_Portal.Utilities
                 }
 
                 Console.WriteLine(
-                    results.First()
+                    results[0]
                     .ErrorMessage);
             }
         }
@@ -267,7 +275,6 @@ namespace HealthCare_Appointments_Portal.Utilities
             }
         }
 
-
         // OPTIONAL UPDATE HELPER METHODS
         // Press Enter = keep existing value
         // Enter new value = update value
@@ -351,7 +358,7 @@ namespace HealthCare_Appointments_Portal.Utilities
                     oldValue);
 
                 Console.WriteLine(
-                    results.First()
+                    results[0]
                     .ErrorMessage);
             }
         }
@@ -424,6 +431,7 @@ namespace HealthCare_Appointments_Portal.Utilities
             }
         }
 
+
         // Read Optional Date
         public static DateOnly ReadOptionalDate(
             string label,
@@ -447,6 +455,8 @@ namespace HealthCare_Appointments_Portal.Utilities
                     DateOnly.TryParseExact(
                         input,
                         "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out DateOnly value);
 
                 if (isValid)
@@ -484,6 +494,8 @@ namespace HealthCare_Appointments_Portal.Utilities
                     DateOnly.TryParseExact(
                         input,
                         "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out DateOnly date);
 
                 if (!isValidDate)
@@ -531,7 +543,7 @@ namespace HealthCare_Appointments_Portal.Utilities
                     oldValue);
 
                 Console.WriteLine(
-                    results.First()
+                    results[0]
                     .ErrorMessage);
             }
         }
@@ -559,6 +571,8 @@ namespace HealthCare_Appointments_Portal.Utilities
                     TimeOnly.TryParseExact(
                         input,
                         "HH:mm",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
                         out TimeOnly value);
 
                 if (isValid)
@@ -662,5 +676,355 @@ namespace HealthCare_Appointments_Portal.Utilities
                     "Invalid Choice.");
             }
         }
+        public static void DisplayPatientTable(
+            List<Patient> patients)
+        {
+            if (patients.Count == 0)
+            {
+                Console.WriteLine(
+                    "No Patients Found.");
+
+                return;
+            }
+
+            int idWidth =
+                Math.Max(5,
+                patients.Max(p =>
+                    p.PatientId.ToString().Length));
+
+            int nameWidth =
+                Math.Max(20,
+                patients.Max(p =>
+                    p.FullName.Length));
+
+            int ageWidth = 5;
+
+            int phoneWidth =
+                Math.Max(12,
+                patients.Max(p =>
+                    p.PhoneNumber.Length));
+
+            int emailWidth =
+                Math.Max(25,
+                patients.Max(p =>
+                    p.Email.Length));
+
+            string border =
+                "+" + new string('-', idWidth + 2) +
+                "+" + new string('-', nameWidth + 2) +
+                "+" + new string('-', ageWidth + 2) +
+                "+" + new string('-', phoneWidth + 2) +
+                "+" + new string('-', emailWidth + 2) +
+                "+";
+
+            Console.WriteLine(border);
+
+            Console.WriteLine(
+                "| " + "ID".PadRight(idWidth) +
+                " | " + "Name".PadRight(nameWidth) +
+                " | " + "Age".PadRight(ageWidth) +
+                " | " + "Phone".PadRight(phoneWidth) +
+                " | " + "Email".PadRight(emailWidth) +
+                " |");
+
+            Console.WriteLine(border);
+
+            foreach (Patient patient in patients)
+            {
+                int age =
+                    DateTime.Now.Year -
+                    patient.DateOfBirth.Year;
+
+                Console.WriteLine(
+                "| " + patient.PatientId.ToString().PadRight(idWidth) +
+                " | " + patient.FullName.PadRight(nameWidth) +
+                " | " + age.ToString().PadRight(ageWidth) +
+                " | " + patient.PhoneNumber.PadRight(phoneWidth) +
+                " | " + patient.Email.PadRight(emailWidth) +
+                " |");
+
+                Console.WriteLine(border);
+            }
+        }
+
+        public static void DisplayDoctorTable(
+    List<Doctor> doctors)
+        {
+            if (doctors.Count == 0)
+            {
+                Console.WriteLine(
+                    "No Doctors Found.");
+
+                return;
+            }
+
+            int idWidth = 5;
+            int nameWidth =
+                Math.Max(
+                    20,
+                    doctors.Max(d =>
+                        d.FullName.Length));
+
+            int specialisationWidth =
+                Math.Max(
+                    15,
+                    doctors.Max(d =>
+                        d.Specialisation
+                        .ToString()
+                        .Length));
+
+            int experienceWidth = 10;
+            int feeWidth = 10;
+            int statusWidth = 12;
+
+            string border =
+                "+" + new string('-', idWidth + 2) +
+                "+" + new string('-', nameWidth + 2) +
+                "+" + new string('-', specialisationWidth + 2) +
+                "+" + new string('-', experienceWidth + 2) +
+                "+" + new string('-', feeWidth + 2) +
+                "+" + new string('-', statusWidth + 2) +
+                "+";
+
+            Console.WriteLine(border);
+
+            Console.WriteLine(
+                "| " + "ID".PadRight(idWidth) +
+                " | " + "Name".PadRight(nameWidth) +
+                " | " + "Specialisation".PadRight(specialisationWidth) +
+                " | " + "Experience".PadRight(experienceWidth) +
+                " | " + "Fee".PadRight(feeWidth) +
+                " | " + "Status".PadRight(statusWidth) +
+                " |");
+
+            Console.WriteLine(border);
+
+            foreach (Doctor doctor in doctors)
+            {
+                string status =
+                    doctor.IsActive
+                        ? "Available"
+                        : "Unavailable";
+
+                Console.WriteLine(
+                    "| " + doctor.DoctorId
+                        .ToString()
+                        .PadRight(idWidth) +
+
+                    " | " + doctor.FullName
+                        .PadRight(nameWidth) +
+
+                    " | " + doctor.Specialisation
+                        .ToString()
+                        .PadRight(specialisationWidth) +
+
+                    " | " + doctor.YearsOfExperience
+                        .ToString()
+                        .PadRight(experienceWidth) +
+
+                    " | " + doctor.ConsultationFee
+                        .ToString()
+                        .PadRight(feeWidth) +
+
+                    " | " + status
+                        .PadRight(statusWidth) +
+
+                    " |");
+            }
+
+            Console.WriteLine(border);
+        }
+
+        public static void DisplayAppointmentTable(
+                List<Appointment> appointments)
+        {
+            if (appointments.Count == 0)
+            {
+                Console.WriteLine(
+                    "No Appointments Found.");
+
+                return;
+            }
+
+            int idWidth = 5;
+
+            int patientWidth =
+                Math.Max(
+                    20,
+                    appointments.Max(a =>
+                        a.Patient.FullName.Length));
+
+            int doctorWidth =
+                Math.Max(
+                    20,
+                    appointments.Max(a =>
+                        a.Doctor.FullName.Length));
+
+            int dateWidth = 12;
+
+            int timeWidth = 10;
+
+            int statusWidth =
+                Math.Max(
+                    12,
+                    appointments.Max(a =>
+                        a.Status.ToString().Length));
+
+            string border =
+                "+" + new string('-', idWidth + 2) +
+                "+" + new string('-', patientWidth + 2) +
+                "+" + new string('-', doctorWidth + 2) +
+                "+" + new string('-', dateWidth + 2) +
+                "+" + new string('-', timeWidth + 2) +
+                "+" + new string('-', statusWidth + 2) +
+                "+";
+
+            Console.WriteLine(border);
+
+            Console.WriteLine(
+                "| " + "ID".PadRight(idWidth) +
+                " | " + "Patient".PadRight(patientWidth) +
+                " | " + "Doctor".PadRight(doctorWidth) +
+                " | " + "Date".PadRight(dateWidth) +
+                " | " + "Time".PadRight(timeWidth) +
+                " | " + "Status".PadRight(statusWidth) +
+                " |");
+
+            Console.WriteLine(border);
+
+            foreach (Appointment appointment
+                in appointments)
+            {
+                Console.WriteLine(
+                    "| " + appointment.AppointmentId
+                        .ToString()
+                        .PadRight(idWidth) +
+
+                    " | " + appointment.Patient.FullName
+                        .PadRight(patientWidth) +
+
+                    " | " + appointment.Doctor.FullName
+                        .PadRight(doctorWidth) +
+
+                    " | " + appointment.ScheduledDate
+                        .ToString()
+                        .PadRight(dateWidth) +
+
+                    " | " + appointment.TimeSlot
+                        .ToString()
+                        .PadRight(timeWidth) +
+
+                    " | " + appointment.Status
+                        .ToString()
+                        .PadRight(statusWidth) +
+
+                    " |");
+            }
+
+            Console.WriteLine(border);
+        }
+
+        public static void DisplayHealthRecordTable(
+                List<HealthRecord> records)
+        {
+            if (records.Count == 0)
+            {
+                Console.WriteLine(
+                    "No Health Records Found.");
+
+                return;
+            }
+
+            int idWidth = 5;
+
+            int dateWidth = 12;
+
+            int patientWidth =
+                Math.Max(
+                    20,
+                    records.Max(r =>
+                        r.Patient.FullName.Length));
+
+            int doctorWidth =
+                Math.Max(
+                    20,
+                    records.Max(r =>
+                        r.Doctor.FullName.Length));
+
+            int diagnosisWidth =
+                Math.Max(
+                    20,
+                    records.Max(r =>
+                        r.Diagnosis.Length));
+
+            int prescriptionWidth =
+                Math.Max(
+                    20,
+                    records.Max(r =>
+                        r.Prescription.Length));
+
+            int notesWidth =
+                Math.Max(
+                    20,
+                    records.Max(r =>
+                        (r.Notes ?? string.Empty).Length));
+
+            string border =
+                "+" + new string('-', idWidth + 2) +
+                "+" + new string('-', dateWidth + 2) +
+                "+" + new string('-', patientWidth + 2) +
+                "+" + new string('-', doctorWidth + 2) +
+                "+" + new string('-', diagnosisWidth + 2) +
+                "+" + new string('-', prescriptionWidth + 2) +
+                "+" + new string('-', notesWidth + 2) +
+                "+";
+
+            Console.WriteLine(border);
+
+            Console.WriteLine(
+                "| " + "ID".PadRight(idWidth) +
+                " | " + "Visit Date".PadRight(dateWidth) +
+                " | " + "Patient".PadRight(patientWidth) +
+                " | " + "Doctor".PadRight(doctorWidth) +
+                " | " + "Diagnosis".PadRight(diagnosisWidth) +
+                " | " + "Prescription".PadRight(prescriptionWidth) +
+                " | " + "Notes".PadRight(notesWidth) +
+                " |");
+
+            Console.WriteLine(border);
+
+            foreach (HealthRecord record
+                in records)
+            {
+                Console.WriteLine(
+                    "| " + record.RecordId
+                        .ToString()
+                        .PadRight(idWidth) +
+
+                    " | " + record.VisitDate
+                        .ToString()
+                        .PadRight(dateWidth) +
+
+                    " | " + record.Patient.FullName
+                        .PadRight(patientWidth) +
+
+                    " | " + record.Doctor.FullName
+                        .PadRight(doctorWidth) +
+
+                    " | " + record.Diagnosis
+                        .PadRight(diagnosisWidth) +
+
+                    " | " + record.Prescription
+                        .PadRight(prescriptionWidth) +
+
+                    " | " + (record.Notes ?? string.Empty)
+                        .PadRight(notesWidth) +
+
+                    " |");
+            }
+
+            Console.WriteLine(border);
+        }
+
     }
 }

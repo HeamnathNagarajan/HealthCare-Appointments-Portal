@@ -1,0 +1,464 @@
+﻿
+using HealthCare_Appointments_Portal.Enums;
+using HealthCare_Appointments_Portal.Interfaces;
+using HealthCare_Appointments_Portal.Models;
+using HealthCare_Appointments_Portal.Utilities;
+using System.Diagnostics.CodeAnalysis;
+
+namespace HealthCare_Appointments_Portal.Controllers
+{
+    [ExcludeFromCodeCoverage]
+    public class AppointmentController
+    {
+        private readonly IAppointmentService _appointmentService;
+
+        private readonly IPatientService _patientService;
+
+        private readonly IDoctorService _doctorService;
+
+        public AppointmentController(
+            IAppointmentService appointmentService,
+            IPatientService patientService,
+            IDoctorService doctorService)
+        {
+            _appointmentService =
+                appointmentService;
+
+            _patientService =
+                patientService;
+
+            _doctorService =
+                doctorService;
+        }
+
+        // Book Appointment
+        public void BookAppointment()
+        {
+            string patientEmail =
+                UtilityHelper
+                .ReadInput(
+                    ConsoleConstants
+                    .EnterPatientEmail);
+
+            Patient existingPatient =
+                _patientService
+                .GetPatientByEmail(
+                    patientEmail)!;
+
+            Specialisation specialisation =
+                UtilityHelper
+                .ReadValidEnum<Specialisation>(
+                    ConsoleConstants
+                    .EnterSpecialisationChoice);
+
+            List<Doctor> availableDoctors =
+                _doctorService
+                .GetDoctorsBySpecialisation(
+                    specialisation);
+
+            if (availableDoctors.Count == 0)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .NoDoctorsAvailable);
+
+                return;
+            }
+
+            Console.WriteLine(
+                ConsoleConstants
+                .AvailableDoctors);
+
+            UtilityHelper.DisplayDoctorTable(
+                availableDoctors);
+
+            int doctorId =
+                UtilityHelper
+                .ReadValidInt(
+                    ConsoleConstants
+                    .EnterDoctorId);
+
+            Doctor existingDoctor =
+                _doctorService
+                .GetDoctorById(
+                    doctorId)!;
+
+            Appointment appointmentModel = new()
+            {
+                Patient =
+                    existingPatient,
+
+                Doctor =
+                    existingDoctor
+            };
+
+            DateOnly scheduledDate =
+                UtilityHelper
+                .ReadValidDate(
+                    ConsoleConstants
+                    .EnterAppointmentDate,
+                    nameof(Appointment.ScheduledDate),
+                    appointmentModel);
+
+            TimeOnly timeSlot =
+                UtilityHelper
+                .ReadValidTime(
+                    ConsoleConstants
+                    .EnterTimeSlot);
+
+            Appointment appointment =
+                _appointmentService
+                .BookAppointment(
+                    existingPatient,
+                    existingDoctor,
+                    scheduledDate,
+                    timeSlot);
+
+            Console.WriteLine(
+                ConsoleConstants
+                .AppointmentBookedSuccessfully);
+
+            UtilityHelper.DisplayAppointmentTable(
+                new List<Appointment>
+                {
+                    appointment
+                });
+        }
+
+        // View All Appointments
+        public void GetAllAppointments()
+        {
+            List<Appointment> appointments =
+                _appointmentService
+                .GetAllAppointments();
+
+            if (appointments.Count == 0)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .NoAppointmentsAvailable);
+
+                return;
+            }
+
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
+        }
+
+        // Get Appointment By Id
+        public void GetAppointmentById()
+        {
+            int appointmentId =
+                UtilityHelper
+                .ReadValidInt(
+                    ConsoleConstants
+                    .EnterAppointmentId);
+
+            Appointment appointment =
+                _appointmentService
+                .GetAppointmentById(
+                    appointmentId)!;
+
+            UtilityHelper.DisplayAppointmentTable(
+                new List<Appointment>
+                {
+                    appointment
+                });
+        }
+
+        // Get Appointments By Patient
+        public void GetAppointmentsByPatient()
+        {
+            int patientId =
+                UtilityHelper
+                .ReadValidInt(
+                    ConsoleConstants
+                    .EnterPatientId);
+
+            List<Appointment> appointments =
+                _appointmentService
+                .GetAppointmentsByPatient(
+                    patientId);
+
+            if (appointments.Count == 0)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .NoAppointmentsFound);
+
+                return;
+            }
+
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
+        }
+
+        // Get Appointments By Doctor
+        public void GetAppointmentsByDoctor()
+        {
+            int doctorId =
+                UtilityHelper
+                .ReadValidInt(
+                    ConsoleConstants
+                    .EnterDoctorId);
+
+            List<Appointment> appointments =
+                _appointmentService
+                .GetAppointmentsByDoctor(
+                    doctorId);
+
+            if (appointments.Count == 0)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .NoAppointmentsFound);
+
+                return;
+            }
+
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
+        }
+
+        // Get Upcoming Appointments
+        public void GetUpcomingAppointments()
+        {
+            List<Appointment> appointments =
+                _appointmentService
+                .GetUpcomingAppointments();
+
+            if (appointments.Count == 0)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .NoAppointmentsFound);
+
+                return;
+            }
+
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
+        }
+
+        // Get Completed Appointments
+        public void GetCompletedAppointments()
+        {
+            List<Appointment> appointments =
+                _appointmentService
+                .GetCompletedAppointments();
+
+            if (appointments.Count == 0)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .NoCompletedAppointmentsFound);
+
+                return;
+            }
+
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
+        }
+
+        // Manage Appointment Status
+        public void ManageAppointment()
+        {
+            List<Appointment> appointments =
+                _appointmentService
+                .GetAllAppointments();
+
+            if (appointments.Count == 0)
+            {
+                Console.WriteLine(
+                    ConsoleConstants
+                    .NoAppointmentsAvailable);
+
+                return;
+            }
+
+            UtilityHelper.DisplayAppointmentTable(
+                appointments);
+
+            int appointmentId =
+                UtilityHelper
+                .ReadValidInt(
+                    ConsoleConstants
+                    .EnterAppointmentId);
+
+            Console.WriteLine(
+                ConsoleConstants
+                .ConfirmAppointment);
+
+            Console.WriteLine(
+                ConsoleConstants
+                .CancelAppointment);
+
+            Console.WriteLine(
+                ConsoleConstants
+                .CompleteAppointment);
+
+            int choice =
+                UtilityHelper
+                .ReadValidInt(
+                    ConsoleConstants
+                    .EnterChoice);
+
+            switch (choice)
+            {
+                case 1:
+
+                    _appointmentService
+                        .ConfirmAppointment(
+                            appointmentId);
+
+                    Console.WriteLine(
+                        ConsoleConstants
+                        .AppointmentConfirmedSuccessfully);
+
+                    break;
+
+                case 2:
+
+                    string reason =
+                        UtilityHelper
+                        .ReadInput(
+                            ConsoleConstants
+                            .EnterCancellationReason);
+
+                    _appointmentService
+                        .CancelAppointment(
+                            appointmentId,
+                            reason);
+
+                    Console.WriteLine(
+                        ConsoleConstants
+                        .AppointmentCancelledSuccessfully);
+
+                    break;
+
+                case 3:
+
+                    _appointmentService
+                        .CompleteAppointment(
+                            appointmentId);
+
+                    Console.WriteLine(
+                        ConsoleConstants
+                        .AppointmentCompletedSuccessfully);
+
+                    break;
+
+                default:
+
+                    Console.WriteLine(
+                        ConsoleConstants
+                        .InvalidChoice);
+
+                    break;
+            }
+        }
+
+        // Update Appointment
+        public void UpdateAppointment()
+        {
+            int appointmentId =
+                UtilityHelper
+                .ReadValidInt(
+                    ConsoleConstants
+                    .EnterAppointmentId);
+
+            Appointment existingAppointment =
+                _appointmentService
+                .GetAppointmentById(
+                    appointmentId)!;
+
+            Console.WriteLine(
+                ConsoleConstants
+                .CurrentAppointmentDetails);
+
+            UtilityHelper.DisplayAppointmentTable(
+                new List<Appointment>
+                {
+                    existingAppointment
+                });
+
+            Appointment updatedAppointment = new()
+            {
+                AppointmentId =
+                    existingAppointment.AppointmentId,
+
+                Patient =
+                    existingAppointment.Patient,
+
+                Doctor =
+                    existingAppointment.Doctor,
+
+                ScheduledDate =
+                    UtilityHelper
+                    .ReadOptionalDate(
+                        ConsoleConstants.ScheduledDateLabel,
+                        existingAppointment.ScheduledDate),
+
+                TimeSlot =
+                    UtilityHelper
+                    .ReadOptionalTime(
+                        ConsoleConstants.TimeSlotLabel,
+                        existingAppointment.TimeSlot),
+
+                Status =
+                    UtilityHelper
+                    .ReadOptionalEnum<AppointmentStatus>(
+                        ConsoleConstants.AppointmentStatusLabel,
+                        existingAppointment.Status),
+
+                CancellationReason =
+                    UtilityHelper
+                    .ReadOptionalString(
+                        ConsoleConstants.CancellationReasonLabel,
+                        existingAppointment.CancellationReason
+                        ?? string.Empty)
+            };
+
+            _appointmentService
+                .UpdateAppointment(
+                    updatedAppointment);
+
+            Console.WriteLine(
+                ConsoleConstants
+                .AppointmentUpdatedSuccessfully);
+
+            Console.WriteLine(
+                ConsoleConstants
+                .UpdatedAppointmentDetails);
+
+            Appointment updatedAppointmentDetails =
+                _appointmentService
+                .GetAppointmentById(
+                    appointmentId)!;
+
+            UtilityHelper.DisplayAppointmentTable(
+                new List<Appointment>
+                {
+                    updatedAppointmentDetails
+                });
+        }
+
+        // Delete Appointment
+        public void DeleteAppointment()
+        {
+            int appointmentId =
+                UtilityHelper
+                .ReadValidInt(
+                    ConsoleConstants
+                    .EnterAppointmentId);
+
+            _appointmentService
+                .DeleteAppointmentById(
+                    appointmentId);
+
+            Console.WriteLine(
+                ConsoleConstants
+                .AppointmentDeletedSuccessfully);
+        }
+    }
+}

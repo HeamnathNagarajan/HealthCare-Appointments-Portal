@@ -1,6 +1,8 @@
-﻿using HealthCare_Appointments_Portal.Utilities;
-using HealthCare_Appointments_Portal.Enums;
+﻿using HealthCare_Appointments_Portal.Enums;
+using HealthCare_Appointments_Portal.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using HealthCare_Appointments_Portal.Utilities;
 
 namespace HealthCare_Appointments_Portal.Models;
 

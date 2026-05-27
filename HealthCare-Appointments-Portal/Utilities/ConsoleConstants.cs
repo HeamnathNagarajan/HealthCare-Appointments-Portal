@@ -1,5 +1,8 @@
-﻿namespace HealthCare_Appointments_Portal.Utilities
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace HealthCare_Appointments_Portal.Utilities
 {
+    [ExcludeFromCodeCoverage]
     public static class ConsoleConstants
     {
         // Application Title
@@ -42,7 +45,7 @@
 
         public const string
             Exit =
-            "9. Exit";
+            "10. Exit";
 
         // Input Messages
         public const string
@@ -518,6 +521,8 @@
             InsuranceIdLabel =
             "Insurance Id";
 
+        public const string NoPatientsFound = "No patients found.";
+
         // Doctor Update
         public const string
             DoctorNameLabel =
@@ -573,6 +578,88 @@
             VisitDateLabel =
             "Visit Date";
 
+
+        public const string
+            PatientManagementBack =
+            "6. Back";
+
+        public const string
+            DoctorManagementBack =
+            "6. Back";
+
+        public const string
+            AppointmentManagementBack =
+            "9. Back";
+
+        public const string
+            HealthRecordManagementBack =
+            "6. Back";
+
+        // EXCEPTION MESSAGES
+
+        public const string
+            OperationFailedFormat =
+            "Operation Failed: {0}";
+
+        public const string
+            RecordNotFoundFormat =
+            "Record Not Found: {0}";
+
+        public const string
+            DuplicatePatientFormat =
+            "Duplicate Patient: {0}";
+
+        public const string
+            DuplicateDoctorFormat =
+            "Duplicate Doctor: {0}";
+
+        public const string
+            PatientErrorFormat =
+            "Patient Error: {0}";
+
+        public const string
+            DoctorErrorFormat =
+            "Doctor Error: {0}";
+
+        public const string
+            AppointmentErrorFormat =
+            "Appointment Error: {0}";
+
+        public const string
+            AppointmentConflictFormat =
+            "Appointment Conflict: {0}";
+
+        public const string
+            DoctorUnavailableFormat =
+            "Doctor Unavailable: {0}";
+
+        public const string
+            PastDateErrorFormat =
+            "Past Date Error: {0}";
+
+        public const string
+            HealthRecordErrorFormat =
+            "Health Record Error: {0}";
+
+        public const string
+            UnexpectedErrorFormat =
+            "Unexpected Error: {0}";
+
+        public const string
+            AppointmentDeletionErrorFormat =
+            "Appointment Deletion Error: {0}";
+
+        public const string
+            DoctorDeletionErrorFormat =
+            "Doctor Deletion Error: {0}";
+
+        public const string
+            PastTimeSlotErrorFormat =
+            "Past Time Slot Error: {0}";
+
+        public const string
+            PatientDeletionErrorFormat =
+            "Patient Deletion Error: {0}";
 
     }
 }

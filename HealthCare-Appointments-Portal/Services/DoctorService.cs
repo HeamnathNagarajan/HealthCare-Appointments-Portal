@@ -1,4 +1,6 @@
-﻿using HealthCare_Appointments_Portal.Enums;
+﻿
+using HealthCare_Appointments_Portal.Utilities;
+using HealthCare_Appointments_Portal.Enums;
 using HealthCare_Appointments_Portal.Exceptions;
 using HealthCare_Appointments_Portal.Interfaces;
 using HealthCare_Appointments_Portal.Models;
@@ -11,12 +13,16 @@ namespace HealthCare_Appointments_Portal.Services
 
         private readonly IDoctorRepository _doctorRepository;
 
+        private readonly IAppointmentRepository _appointmentRepository;
+
         // Dependency Injection
         public DoctorService(
-            IDoctorRepository doctorRepository)
+            IDoctorRepository doctorRepository,
+            IAppointmentRepository appointmentRepository)
         {
 
             _doctorRepository = doctorRepository;
+            _appointmentRepository = appointmentRepository;
         }
 
         // Add New Doctor
@@ -55,6 +61,9 @@ namespace HealthCare_Appointments_Portal.Services
                 throw new DoctorNotFoundException();
             }
 
+            Console.WriteLine(
+                doctor.GetScheduleSummary());
+
             return doctor;
         }
 
@@ -81,7 +90,7 @@ namespace HealthCare_Appointments_Portal.Services
                 d.IsActive)
              .ToList();
 
-            if (!doctors.Any())
+            if (doctors.Count == 0)
             {
                 throw new DoctorNotFoundException();
             }
@@ -137,6 +146,38 @@ namespace HealthCare_Appointments_Portal.Services
             {
 
                 throw new DoctorNotFoundException();
+            }
+
+            List<Appointment> doctorAppointments =
+                _appointmentRepository
+                .GetAllAppointments()
+                .Where(a => a.Doctor.DoctorId == doctorId)
+                .ToList();
+
+            bool hasConfirmedAppointments =
+                doctorAppointments
+                .Any(a =>
+                a.Status ==
+                AppointmentStatus.Confirmed);
+
+            if (hasConfirmedAppointments)
+            {
+                throw new DoctorDeletionException();
+            }
+
+            // Cancel Pending Appointments
+            List<Appointment> pendingAppointments =
+                doctorAppointments
+                .Where(a =>
+                a.Status ==
+                AppointmentStatus.Pending)
+                .ToList();
+
+            foreach (Appointment appointment in pendingAppointments)
+            {
+
+                appointment.Cancel(Constants.DoctorRemovedFromSystem);
+                _appointmentRepository.UpdateAppointment(appointment);
             }
 
             _doctorRepository

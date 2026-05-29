@@ -1,0 +1,13 @@
+“
+∆C:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\obj\Debug\net10.0\HealthCare-Appointments-Portal-Tests.AssemblyInfo.csutf-8Õ
+¡C:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\obj\Debug\net10.0\.NETCoreApp,Version=v10.0.AssemblyAttributes.csutf-8‘
+»C:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\obj\Debug\net10.0\HealthCare-Appointments-Portal-Tests.GlobalUsings.g.csutf-8x
+mC:\Users\310203\.nuget\packages\microsoft.net.test.sdk\17.14.1\build\net8.0\Microsoft.NET.Test.Sdk.Program.csutf-8†
+ñC:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\PatientServiceTests.csutf-8£
+ôC:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\PatientRepositoryTests.csutf-8•
+õC:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\HealthRecordServiceTests.csutf-8®
+ûC:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\HealthRecordRepositoryTests.csutf-8ü
+ïC:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\DoctorServiceTests.csutf-8¢
+òC:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\DoctorRepositoryTests.csutf-8§
+öC:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\AppointmentServiceTests.csutf-8ß
+ùC:\Users\310203\source\repos\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal\HealthCare-Appointments-Portal-Tests\AppointmentRepositoryTests.csutf-8

@@ -1,0 +1,1107 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "5.3.0.0",
+        "fileVersion": "5.3.0-2.26219.105 (c23858a6d860abe3ca94f9ac630c3e61b2625664)",
+        "semanticVersion": "5.3.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "S1118",
+          "level": "warning",
+          "message": "Add a 'protected' constructor or the 'static' keyword to the class declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/Constants.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 18,
+                  "endLine": 3,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6580",
+          "level": "warning",
+          "message": "Use a format provider when parsing date and time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/UtilityHelper.cs",
+                "region": {
+                  "startLine": 87,
+                  "startColumn": 21,
+                  "endLine": 90,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6580",
+          "level": "warning",
+          "message": "Use a format provider when parsing date and time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/UtilityHelper.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 21,
+                  "endLine": 32,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6608",
+          "level": "warning",
+          "message": "Indexing at 0 should be used instead of the \"Enumerable\" extension method \"First\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/UtilityHelper.cs",
+                "region": {
+                  "startLine": 72,
+                  "startColumn": 29,
+                  "endLine": 72,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6608",
+          "level": "warning",
+          "message": "Indexing at 0 should be used instead of the \"Enumerable\" extension method \"First\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/UtilityHelper.cs",
+                "region": {
+                  "startLine": 146,
+                  "startColumn": 29,
+                  "endLine": 146,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Services/DoctorService.cs",
+                "region": {
+                  "startLine": 85,
+                  "startColumn": 18,
+                  "endLine": 85,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'updatedDoctor' to 'doctor' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Repositories/DoctorRepository.cs",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 41,
+                  "endLine": 46,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6580",
+          "level": "warning",
+          "message": "Use a format provider when parsing date and time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/UtilityHelper.cs",
+                "region": {
+                  "startLine": 447,
+                  "startColumn": 21,
+                  "endLine": 450,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6608",
+          "level": "warning",
+          "message": "Indexing at 0 should be used instead of the \"Enumerable\" extension method \"First\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/UtilityHelper.cs",
+                "region": {
+                  "startLine": 354,
+                  "startColumn": 29,
+                  "endLine": 354,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6580",
+          "level": "warning",
+          "message": "Use a format provider when parsing date and time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/UtilityHelper.cs",
+                "region": {
+                  "startLine": 484,
+                  "startColumn": 21,
+                  "endLine": 487,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6580",
+          "level": "warning",
+          "message": "Use a format provider when parsing date and time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/UtilityHelper.cs",
+                "region": {
+                  "startLine": 559,
+                  "startColumn": 21,
+                  "endLine": 562,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S6608",
+          "level": "warning",
+          "message": "Indexing at 0 should be used instead of the \"Enumerable\" extension method \"First\"",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Utilities/UtilityHelper.cs",
+                "region": {
+                  "startLine": 534,
+                  "startColumn": 29,
+                  "endLine": 534,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3776",
+          "level": "warning",
+          "message": "Refactor this method to reduce its Cognitive Complexity from 166 to the 15 allowed.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 24,
+                  "endLine": 15,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 80,
+                  "startColumn": 9,
+                  "endLine": 80,
+                  "endColumn": 14
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 122,
+                  "startColumn": 17,
+                  "endLine": 122,
+                  "endColumn": 23
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 210,
+                  "startColumn": 25,
+                  "endLine": 210,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 245,
+                  "startColumn": 25,
+                  "endLine": 245,
+                  "endColumn": 32
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 277,
+                  "startColumn": 25,
+                  "endLine": 277,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 290,
+                  "startColumn": 25,
+                  "endLine": 290,
+                  "endColumn": 32
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 365,
+                  "startColumn": 25,
+                  "endLine": 365,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 371,
+                  "startColumn": 25,
+                  "endLine": 371,
+                  "endColumn": 29
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 373,
+                  "startColumn": 29,
+                  "endLine": 373,
+                  "endColumn": 36
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 389,
+                  "startColumn": 25,
+                  "endLine": 389,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 402,
+                  "startColumn": 25,
+                  "endLine": 402,
+                  "endColumn": 32
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 433,
+                  "startColumn": 25,
+                  "endLine": 433,
+                  "endColumn": 31
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 496,
+                  "startColumn": 25,
+                  "endLine": 496,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 509,
+                  "startColumn": 25,
+                  "endLine": 509,
+                  "endColumn": 32
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 527,
+                  "startColumn": 25,
+                  "endLine": 527,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 587,
+                  "startColumn": 25,
+                  "endLine": 587,
+                  "endColumn": 27
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 593,
+                  "startColumn": 25,
+                  "endLine": 593,
+                  "endColumn": 29
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 595,
+                  "startColumn": 29,
+                  "endLine": 595,
+                  "endColumn": 36
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 609,
+                  "startColumn": 25,
+                  "endLine": 609,
+                  "endColumn": 30
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 634,
+                  "startColumn": 29,
+                  "endLine": 634,
+                  "endColumn": 35
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 662,
+                  "startColumn": 37,
+                  "endLine": 662,
+                  "endColumn": 43
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 688,
+                  "startColumn": 45,
+                  "endLine": 688,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 826,
+                  "startColumn": 37,
+                  "endLine": 826,
+                  "endColumn": 43
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 852,
+                  "startColumn": 45,
+                  "endLine": 852,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 872,
+                  "startColumn": 45,
+                  "endLine": 872,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 997,
+                  "startColumn": 37,
+                  "endLine": 997,
+                  "endColumn": 43
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1023,
+                  "startColumn": 45,
+                  "endLine": 1023,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1043,
+                  "startColumn": 45,
+                  "endLine": 1043,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1063,
+                  "startColumn": 45,
+                  "endLine": 1063,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1077,
+                  "startColumn": 45,
+                  "endLine": 1077,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1091,
+                  "startColumn": 45,
+                  "endLine": 1091,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1207,
+                  "startColumn": 37,
+                  "endLine": 1207,
+                  "endColumn": 43
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1233,
+                  "startColumn": 45,
+                  "endLine": 1233,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1253,
+                  "startColumn": 45,
+                  "endLine": 1253,
+                  "endColumn": 52
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1399,
+                  "startColumn": 13,
+                  "endLine": 1399,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1405,
+                  "startColumn": 13,
+                  "endLine": 1405,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1411,
+                  "startColumn": 13,
+                  "endLine": 1411,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1417,
+                  "startColumn": 13,
+                  "endLine": 1417,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1422,
+                  "startColumn": 13,
+                  "endLine": 1422,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1427,
+                  "startColumn": 13,
+                  "endLine": 1427,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1432,
+                  "startColumn": 13,
+                  "endLine": 1432,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1437,
+                  "startColumn": 13,
+                  "endLine": 1437,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1442,
+                  "startColumn": 13,
+                  "endLine": 1442,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1447,
+                  "startColumn": 13,
+                  "endLine": 1447,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1452,
+                  "startColumn": 13,
+                  "endLine": 1452,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1457,
+                  "startColumn": 13,
+                  "endLine": 1457,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1462,
+                  "startColumn": 13,
+                  "endLine": 1462,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1467,
+                  "startColumn": 13,
+                  "endLine": 1467,
+                  "endColumn": 18
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 1472,
+                  "startColumn": 13,
+                  "endLine": 1472,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "+1",
+              "1": "+2 (incl 1 for nesting)",
+              "10": "+3 (incl 2 for nesting)",
+              "11": "+3 (incl 2 for nesting)",
+              "12": "+3 (incl 2 for nesting)",
+              "13": "+3 (incl 2 for nesting)",
+              "14": "+3 (incl 2 for nesting)",
+              "15": "+3 (incl 2 for nesting)",
+              "16": "+1",
+              "17": "+4 (incl 3 for nesting)",
+              "18": "+3 (incl 2 for nesting)",
+              "19": "+4 (incl 3 for nesting)",
+              "2": "+3 (incl 2 for nesting)",
+              "20": "+5 (incl 4 for nesting)",
+              "21": "+6 (incl 5 for nesting)",
+              "22": "+5 (incl 4 for nesting)",
+              "23": "+6 (incl 5 for nesting)",
+              "24": "+6 (incl 5 for nesting)",
+              "25": "+5 (incl 4 for nesting)",
+              "26": "+6 (incl 5 for nesting)",
+              "27": "+6 (incl 5 for nesting)",
+              "28": "+6 (incl 5 for nesting)",
+              "29": "+6 (incl 5 for nesting)",
+              "3": "+3 (incl 2 for nesting)",
+              "30": "+6 (incl 5 for nesting)",
+              "31": "+5 (incl 4 for nesting)",
+              "32": "+6 (incl 5 for nesting)",
+              "33": "+6 (incl 5 for nesting)",
+              "34": "+2 (incl 1 for nesting)",
+              "35": "+2 (incl 1 for nesting)",
+              "36": "+2 (incl 1 for nesting)",
+              "37": "+2 (incl 1 for nesting)",
+              "38": "+2 (incl 1 for nesting)",
+              "39": "+2 (incl 1 for nesting)",
+              "4": "+3 (incl 2 for nesting)",
+              "40": "+2 (incl 1 for nesting)",
+              "41": "+2 (incl 1 for nesting)",
+              "42": "+2 (incl 1 for nesting)",
+              "43": "+2 (incl 1 for nesting)",
+              "44": "+2 (incl 1 for nesting)",
+              "45": "+2 (incl 1 for nesting)",
+              "46": "+2 (incl 1 for nesting)",
+              "47": "+2 (incl 1 for nesting)",
+              "48": "+2 (incl 1 for nesting)",
+              "5": "+3 (incl 2 for nesting)",
+              "6": "+3 (incl 2 for nesting)",
+              "7": "+1",
+              "8": "+4 (incl 3 for nesting)",
+              "9": "+3 (incl 2 for nesting)"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 277,
+                  "startColumn": 30,
+                  "endLine": 277,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 365,
+                  "startColumn": 30,
+                  "endLine": 365,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 389,
+                  "startColumn": 30,
+                  "endLine": 389,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 496,
+                  "startColumn": 30,
+                  "endLine": 496,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/310203/source/repos/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/HealthCare-Appointments-Portal/Program.cs",
+                "region": {
+                  "startLine": 587,
+                  "startColumn": 30,
+                  "endLine": 587,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        }
+      ],
+      "rules": {
+        "CA1860": {
+          "id": "CA1860",
+          "shortDescription": "Avoid using 'Enumerable.Any()' extension method",
+          "fullDescription": "Prefer using 'IsEmpty', 'Count' or 'Length' properties whichever available, rather than calling 'Enumerable.Any()'. The intent is clearer and it is more performant than using 'Enumerable.Any()' extension method.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1860",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "S1118": {
+          "id": "S1118",
+          "shortDescription": "Utility classes should not have public constructors",
+          "fullDescription": "Whenever there are portions of code that are duplicated and do not depend on the state of their container class, they can be centralized inside a \"utility class\". A utility class is a class that only has static members, hence it should not be instantiated.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1118",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3776": {
+          "id": "S3776",
+          "shortDescription": "Cognitive Complexity of methods should not be too high",
+          "fullDescription": "This rule raises an issue when the code cognitive complexity of a function is above a certain threshold.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3776",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S6580": {
+          "id": "S6580",
+          "shortDescription": "Use a format provider when parsing date and time",
+          "fullDescription": "When converting a string representation of a date and time to a DateTime object or any other temporal type with one of the available system parsing methods, you should always provide an IFormatProvider parameter.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6580",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S6608": {
+          "id": "S6608",
+          "shortDescription": "Prefer indexing instead of \"Enumerable\" methods on types implementing \"IList\"",
+          "fullDescription": "Indexes in C# provide direct access to an element at a specific position within an array or collection. When compared to Enumerable methods, indexing can be more efficient for certain scenarios, such as iterating over a large collection, due to avoiding the overhead of checking the underlying collection type before accessing it.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-6608",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S927": {
+          "id": "S927",
+          "shortDescription": "Parameter names should match base declaration and other partial definitions",
+          "fullDescription": "Parameters are part of the method signature and its identity.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-927",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

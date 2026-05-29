@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="HealthCare-Appointments-Portal-Tests/HealthCare-Appointments-Portal-Tests.csproj" Id="e33d771a-9e03-4d92-b9c8-ad898c5e1099" />
+  <Project Path="HealthCare-Appointments-Portal/HealthCare-Appointments-Portal.csproj" />
+</Solution>

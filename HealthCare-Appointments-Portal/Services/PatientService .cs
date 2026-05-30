@@ -6,83 +6,88 @@ using HealthCare_Appointment_Portal.Utilities;
 
 namespace HealthCare_Appointment_Portal.Services
 {
-
     public class PatientService : IPatientService
     {
+        private readonly
+            IPatientRepository
+            _patientRepository;
 
-        private readonly IPatientRepository _patientRepository;
-
-        private readonly IAppointmentRepository _appointmentRepository;
+        private readonly
+            IAppointmentRepository
+            _appointmentRepository;
 
         // Dependency Injection
         public PatientService(
             IPatientRepository patientRepository,
-            IAppointmentRepository appointmentRepository)
-        {
 
-            _patientRepository = patientRepository;
-            _appointmentRepository = appointmentRepository;
+            IAppointmentRepository
+            appointmentRepository)
+        {
+            _patientRepository =
+                patientRepository;
+
+            _appointmentRepository =
+                appointmentRepository;
         }
 
         // Add New Patient
-        public void AddPatient(Patient patient)
+        public void AddPatient(
+            Patient patient)
         {
-
             Patient? existingPatient =
                 _patientRepository
-                .GetAllPatients()
-                .FirstOrDefault(p =>
-                    p.Email == patient.Email);
+                .GetPatientByEmail(
+                    patient.Email);
 
             if (existingPatient != null)
             {
-
-                throw new DuplicatePatientException();
+                throw new
+                    DuplicatePatientException();
             }
 
-            _patientRepository.AddPatient(patient);
+            _patientRepository
+                .AddPatient(patient);
         }
 
         // Get Patient By Id
-        public Patient? GetPatientById(int patientId)
+        public Patient? GetPatientById(
+            int patientId)
         {
-
             Patient? patient =
                 _patientRepository
-                .GetPatientById(patientId);
+                .GetPatientById(
+                    patientId);
 
             if (patient == null)
             {
-
-                throw new PatientNotFoundException();
+                throw new
+                    PatientNotFoundException();
             }
 
             return patient;
         }
 
         // Get All Patients
-        public List<Patient> GetAllPatients()
+        public List<Patient>
+            GetAllPatients()
         {
-
             return _patientRepository
                 .GetAllPatients();
         }
 
         // Get Patient By Email
-        public Patient GetPatientByEmail(
+        public Patient? GetPatientByEmail(
             string email)
         {
             Patient? patient =
                 _patientRepository
-                .GetAllPatients()
-                .FirstOrDefault(p =>
-                    p.Email.Equals(
-                        email,
-                        StringComparison.OrdinalIgnoreCase));
+                .GetPatientByEmail(
+                    email);
 
             if (patient == null)
             {
-                throw new PatientNotFoundException();
+                throw new
+                    PatientNotFoundException();
             }
 
             return patient;
@@ -92,7 +97,6 @@ namespace HealthCare_Appointment_Portal.Services
         public void UpdatePatient(
             Patient updatedPatient)
         {
-
             Patient? existingPatient =
                 _patientRepository
                 .GetPatientById(
@@ -100,67 +104,76 @@ namespace HealthCare_Appointment_Portal.Services
 
             if (existingPatient == null)
             {
-
-                throw new PatientNotFoundException();
+                throw new
+                    PatientNotFoundException();
             }
 
             _patientRepository
-                .UpdatePatient(updatedPatient);
+                .UpdatePatient(
+                    updatedPatient);
         }
 
         // Delete Patient By Id
         public void DeletePatientById(
             int patientId)
         {
-
             Patient? patient =
                 _patientRepository
-                .GetPatientById(patientId);
+                .GetPatientById(
+                    patientId);
 
             if (patient == null)
             {
-
-                throw new PatientNotFoundException();
+                throw new
+                    PatientNotFoundException();
             }
 
-            List<Appointment> patientAppointments =
+            List<Appointment>
+                patientAppointments =
                 _appointmentRepository
-                .GetAllAppointments()
-                .Where(a =>
-                a.Patient.PatientId ==
-                patientId).
-                ToList();
+                .GetAppointmentsByPatient(
+                    patientId);
 
             // Check Confirmed Appointments
             bool hasConfirmedAppointments =
-                patientAppointments 
+                patientAppointments
                 .Any(a =>
-                a.Status ==
-                AppointmentStatus.Confirmed);
+                    a.Status ==
+                    AppointmentStatus
+                        .Confirmed);
 
-            if (hasConfirmedAppointments) 
+            if (hasConfirmedAppointments)
             {
-
-                throw new PatientDeletionException(); 
+                throw new
+                    PatientDeletionException();
             }
 
-            List<Appointment> pendingAppointments =
+            // Cancel Pending Appointments
+            List<Appointment>
+                pendingAppointments =
                 patientAppointments
                 .Where(a =>
-                a.Status == 
-                AppointmentStatus.Pending)
+                    a.Status ==
+                    AppointmentStatus
+                        .Pending)
                 .ToList();
 
-            foreach (Appointment appointment in pendingAppointments) 
+            foreach (
+                Appointment appointment
+                in pendingAppointments)
             {
+                appointment.Cancel(
+                    Constants
+                    .PatientRemovedFromSystem);
 
-                appointment.Cancel(Constants.PatientRemovedFromSystem);
-                _appointmentRepository.UpdateAppointment(appointment);
+                _appointmentRepository
+                    .UpdateAppointment(
+                        appointment);
             }
 
-
             _patientRepository
-                .DeletePatientById(patientId);
+                .DeletePatientById(
+                    patientId);
         }
     }
 }

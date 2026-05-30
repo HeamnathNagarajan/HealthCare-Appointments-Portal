@@ -1,50 +1,96 @@
 ﻿using HealthCare_Appointment_Portal.Data;
 using HealthCare_Appointment_Portal.Interfaces;
 using HealthCare_Appointment_Portal.Models;
+using HealthCare_Appointment_Portal.Enums;
 
 namespace HealthCare_Appointment_Portal.Repositories
 {
-
-    public class DoctorRepository : IDoctorRepository
+    public class DoctorRepository
+        : IDoctorRepository
     {
-
-        private readonly DataStore _dataStore;
+        private readonly
+            DataStore _dataStore;
 
         // Dependency Injection
-        public DoctorRepository(DataStore dataStore)
+        public DoctorRepository(
+            DataStore dataStore)
         {
-
             _dataStore = dataStore;
         }
 
         // Add New Doctor
-        public void AddDoctor(Doctor doctor)
+        public void AddDoctor(
+            Doctor doctor)
         {
-
-            _dataStore.Doctors.Add(doctor);
+            _dataStore.Doctors
+                .Add(doctor);
         }
 
         // Get Doctor By Id
-        public Doctor? GetDoctorById(int doctorId)
+        public Doctor? GetDoctorById(
+            int doctorId)
         {
-
             return _dataStore.Doctors
                 .FirstOrDefault(d =>
-                    d.DoctorId == doctorId);
+                    d.DoctorId ==
+                    doctorId);
         }
 
         // Get All Doctors
-        public List<Doctor> GetAllDoctors()
+        public List<Doctor>
+            GetAllDoctors()
         {
-
             return _dataStore.Doctors
                 .ToList();
         }
 
-        // Update Existing Doctor
-        public void UpdateDoctor(Doctor doctor)
+        // Get Doctor By Name And Specialisation
+        public Doctor?
+            GetDoctorByNameAndSpecialisation(
+                string fullName,
+                Specialisation specialisation)
         {
+            return _dataStore.Doctors
+                .FirstOrDefault(d =>
+                    d.FullName.Equals(
+                        fullName,
+                        StringComparison
+                            .OrdinalIgnoreCase)
+                    &&
+                    d.Specialisation ==
+                    specialisation);
+        }
 
+        // Get Doctors By Specialisation
+        public List<Doctor>
+            GetDoctorsBySpecialisation(
+                Specialisation specialisation)
+        {
+            return _dataStore.Doctors
+                .Where(d =>
+                    d.Specialisation ==
+                    specialisation)
+                .ToList();
+        }
+
+        // Get Available Doctors By Specialisation
+        public List<Doctor>
+            GetAvailableDoctorsBySpecialisation(
+                Specialisation specialisation)
+        {
+            return _dataStore.Doctors
+                .Where(d =>
+                    d.Specialisation ==
+                    specialisation
+                    &&
+                    d.IsActive)
+                .ToList();
+        }
+
+        // Update Existing Doctor
+        public void UpdateDoctor(
+            Doctor doctor)
+        {
             Doctor? existingDoctor =
                 _dataStore.Doctors
                 .FirstOrDefault(d =>
@@ -53,7 +99,6 @@ namespace HealthCare_Appointment_Portal.Repositories
 
             if (existingDoctor != null)
             {
-
                 existingDoctor.FullName =
                     string.IsNullOrWhiteSpace(
                         doctor.FullName)
@@ -61,19 +106,29 @@ namespace HealthCare_Appointment_Portal.Repositories
                     : doctor.FullName;
 
                 existingDoctor.Specialisation =
-                    doctor.Specialisation == default
-                    ? existingDoctor.Specialisation
+                    doctor.Specialisation
+                        == default
+                    ? existingDoctor
+                        .Specialisation
                     : doctor.Specialisation;
 
-                existingDoctor.YearsOfExperience =
-                    doctor.YearsOfExperience == 0
-                    ? existingDoctor.YearsOfExperience
-                    : doctor.YearsOfExperience;
+                existingDoctor
+                    .YearsOfExperience =
+                    doctor.YearsOfExperience
+                        == 0
+                    ? existingDoctor
+                        .YearsOfExperience
+                    : doctor
+                        .YearsOfExperience;
 
-                existingDoctor.ConsultationFee =
-                    doctor.ConsultationFee == 0
-                    ? existingDoctor.ConsultationFee
-                    : doctor.ConsultationFee;
+                existingDoctor
+                    .ConsultationFee =
+                    doctor.ConsultationFee
+                        == 0
+                    ? existingDoctor
+                        .ConsultationFee
+                    : doctor
+                        .ConsultationFee;
 
                 existingDoctor.IsActive =
                     doctor.IsActive;
@@ -81,18 +136,19 @@ namespace HealthCare_Appointment_Portal.Repositories
         }
 
         // Delete Doctor By Id
-        public void DeleteDoctorById(int doctorId)
+        public void DeleteDoctorById(
+            int doctorId)
         {
-
             Doctor? doctor =
                 _dataStore.Doctors
                 .FirstOrDefault(d =>
-                    d.DoctorId == doctorId);
+                    d.DoctorId ==
+                    doctorId);
 
             if (doctor != null)
             {
-
-                _dataStore.Doctors.Remove(doctor);
+                _dataStore.Doctors
+                    .Remove(doctor);
             }
         }
     }

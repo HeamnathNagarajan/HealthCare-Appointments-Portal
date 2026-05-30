@@ -117,6 +117,279 @@ namespace HealthCare_Appointment_Portal.Tests
                 result);
         }
 
+        // Record Exists
+        [Fact]
+        public void RecordExists_ExistingAppointment_ShouldReturnTrue()
+        {
+            HealthRecord record =
+                CreateHealthRecord();
+
+            record.AppointmentId = 1;
+
+            _dataStore.HealthRecords
+                .Add(record);
+
+            bool result =
+                _repository.RecordExists(1);
+
+            Assert.True(result);
+        }
+
+        // Record Does Not Exist
+        [Fact]
+        public void RecordExists_InvalidAppointment_ShouldReturnFalse()
+        {
+            bool result =
+                _repository.RecordExists(99);
+
+            Assert.False(result);
+        }
+
+        // Get Records By Patient
+        [Fact]
+        public void GetRecordsByPatient_ShouldReturnPatientRecords()
+        {
+            Patient patient1 =
+                CreateHealthRecord()
+                .Patient;
+
+            patient1.PatientId = 1;
+
+            Patient patient2 =
+                CreateHealthRecord()
+                .Patient;
+
+            patient2.PatientId = 2;
+
+            _dataStore.HealthRecords.AddRange(
+            [
+                new HealthRecord
+        {
+            RecordId = 1,
+            AppointmentId = 1,
+            Patient = patient1,
+            Doctor = CreateHealthRecord().Doctor,
+            VisitDate =
+                new DateOnly(2026,5,20),
+            Diagnosis = "A"
+        },
+
+        new HealthRecord
+        {
+            RecordId = 2,
+            AppointmentId = 2,
+            Patient = patient2,
+            Doctor = CreateHealthRecord().Doctor,
+            VisitDate =
+                new DateOnly(2026,5,21),
+            Diagnosis = "B"
+        }
+            ]);
+
+            List<HealthRecord> result =
+                _repository.GetRecordsByPatient(1);
+
+            Assert.Single(result);
+        }
+
+        // Get Records By Doctor
+        [Fact]
+        public void GetRecordsByDoctor_ShouldReturnDoctorRecords()
+        {
+            Doctor doctor1 =
+                CreateHealthRecord()
+                .Doctor;
+
+            doctor1.DoctorId = 1;
+
+            Doctor doctor2 =
+                CreateHealthRecord()
+                .Doctor;
+
+            doctor2.DoctorId = 2;
+
+            _dataStore.HealthRecords.AddRange(
+            [
+                new HealthRecord
+        {
+            RecordId = 1,
+            AppointmentId = 1,
+            Patient = CreateHealthRecord().Patient,
+            Doctor = doctor1,
+            VisitDate =
+                new DateOnly(2026,5,20)
+        },
+
+        new HealthRecord
+        {
+            RecordId = 2,
+            AppointmentId = 2,
+            Patient = CreateHealthRecord().Patient,
+            Doctor = doctor2,
+            VisitDate =
+                new DateOnly(2026,5,21)
+        }
+            ]);
+
+            List<HealthRecord> result =
+                _repository.GetRecordsByDoctor(1);
+
+            Assert.Single(result);
+        }
+
+        // Get Records By Doctor Empty
+        [Fact]
+        public void GetRecordsByDoctor_NoMatch_ShouldReturnEmpty()
+        {
+            List<HealthRecord> result =
+                _repository.GetRecordsByDoctor(999);
+
+            Assert.Empty(result);
+        }
+
+        // Get Recorded Appointment Ids
+        [Fact]
+        public void GetRecordedAppointmentIds_ShouldReturnIds()
+        {
+            _dataStore.HealthRecords.AddRange(
+            [
+                new HealthRecord
+        {
+            RecordId = 1,
+            AppointmentId = 10,
+            Patient = CreateHealthRecord().Patient,
+            Doctor = CreateHealthRecord().Doctor,
+            VisitDate = new DateOnly(2026, 5, 20),
+            Diagnosis = "A",
+            Prescription = "B",
+            Notes = "C"
+        },
+
+        new HealthRecord
+        {
+            RecordId = 2,
+            AppointmentId = 20,
+            Patient = CreateHealthRecord().Patient,
+            Doctor = CreateHealthRecord().Doctor,
+            VisitDate = new DateOnly(2026, 5, 21),
+            Diagnosis = "D",
+            Prescription = "E",
+            Notes = "F"
+        }
+            ]);
+
+            List<int> result =
+                _repository.GetRecordedAppointmentIds();
+
+            Assert.Equal(2, result.Count);
+
+            Assert.Contains(10, result);
+
+            Assert.Contains(20, result);
+        }
+
+        // Get Recorded Appointment Ids Empty
+        [Fact]
+        public void GetRecordedAppointmentIds_Empty_ShouldReturnEmpty()
+        {
+            List<int> result =
+                _repository.GetRecordedAppointmentIds();
+
+            Assert.Empty(result);
+        }
+
+        // Get Records By Patient Empty
+        [Fact]
+        public void GetRecordsByPatient_NoMatch_ShouldReturnEmpty()
+        {
+            List<HealthRecord> result =
+                _repository.GetRecordsByPatient(999);
+
+            Assert.Empty(result);
+        }
+
+
+        [Fact]
+        public void GetRecordsByPatient_ShouldReturnRecordsInDescendingVisitDateOrder()
+        {
+            Patient patient = CreateHealthRecord().Patient;
+            patient.PatientId = 1;
+
+            _dataStore.HealthRecords.AddRange(
+            [
+                new HealthRecord
+        {
+            RecordId = 1,
+            AppointmentId = 1,
+            Patient = patient,
+            Doctor = CreateHealthRecord().Doctor,
+            VisitDate = new DateOnly(2026, 5, 10)
+        },
+
+        new HealthRecord
+        {
+            RecordId = 2,
+            AppointmentId = 2,
+            Patient = patient,
+            Doctor = CreateHealthRecord().Doctor,
+            VisitDate = new DateOnly(2026, 5, 20)
+        }
+            ]);
+
+            List<HealthRecord> result =
+                _repository.GetRecordsByPatient(1);
+
+            Assert.Equal(2, result.Count);
+
+            Assert.Equal(
+                new DateOnly(2026, 5, 20),
+                result[0].VisitDate);
+
+            Assert.Equal(
+                new DateOnly(2026, 5, 10),
+                result[1].VisitDate);
+        }
+
+        [Fact]
+        public void GetRecordsByDoctor_ShouldReturnRecordsInDescendingVisitDateOrder()
+        {
+            Doctor doctor = CreateHealthRecord().Doctor;
+            doctor.DoctorId = 1;
+
+            _dataStore.HealthRecords.AddRange(
+            [
+                new HealthRecord
+        {
+            RecordId = 1,
+            AppointmentId = 1,
+            Patient = CreateHealthRecord().Patient,
+            Doctor = doctor,
+            VisitDate = new DateOnly(2026, 5, 10)
+        },
+
+        new HealthRecord
+        {
+            RecordId = 2,
+            AppointmentId = 2,
+            Patient = CreateHealthRecord().Patient,
+            Doctor = doctor,
+            VisitDate = new DateOnly(2026, 5, 20)
+        }
+            ]);
+
+            List<HealthRecord> result =
+                _repository.GetRecordsByDoctor(1);
+
+            Assert.Equal(2, result.Count);
+
+            Assert.Equal(
+                new DateOnly(2026, 5, 20),
+                result[0].VisitDate);
+
+            Assert.Equal(
+                new DateOnly(2026, 5, 10),
+                result[1].VisitDate);
+        }
         // Update Existing Record
         [Fact]
         public void UpdateRecord_ExistingRecord_ShouldUpdateDetails()
@@ -179,6 +452,38 @@ namespace HealthCare_Appointment_Portal.Tests
             Assert.Equal(
                 "Updated Notes",
                 result?.Notes);
+        }
+
+        [Fact]
+        public void UpdateRecord_DefaultVisitDate_ShouldKeepExistingVisitDate()
+        {
+            // Arrange
+            HealthRecord record = CreateHealthRecord();
+
+            _dataStore.HealthRecords.Add(record);
+
+            DateOnly originalDate = record.VisitDate;
+
+            HealthRecord updatedRecord = new()
+            {
+                RecordId = record.RecordId,
+                Patient = record.Patient,
+                Doctor = record.Doctor,
+                VisitDate = default
+            };
+
+            // Act
+            _repository.UpdateRecord(updatedRecord);
+
+            // Assert
+            HealthRecord? result =
+                _repository.GetRecordById(record.RecordId);
+
+            Assert.NotNull(result);
+
+            Assert.Equal(
+                originalDate,
+                result!.VisitDate);
         }
 
         // Partial Update Record

@@ -4,46 +4,59 @@ using HealthCare_Appointment_Portal.Models;
 
 namespace HealthCare_Appointment_Portal.Repositories
 {
-
     public class PatientRepository : IPatientRepository
     {
-
         private readonly DataStore _dataStore;
 
         // Dependency Injection
-        public PatientRepository(DataStore dataStore)
+        public PatientRepository(
+            DataStore dataStore)
         {
-
             _dataStore = dataStore;
         }
 
         // Add New Patient
-        public void AddPatient(Patient patient)
+        public void AddPatient(
+            Patient patient)
         {
-
-            _dataStore.Patients.Add(patient);
+            _dataStore.Patients
+                .Add(patient);
         }
 
         // Get Patient By Id
-        public Patient? GetPatientById(int patientId)
+        public Patient? GetPatientById(
+            int patientId)
         {
-
             return _dataStore.Patients
                 .FirstOrDefault(p =>
-                    p.PatientId == patientId);
+                    p.PatientId ==
+                    patientId);
         }
 
         // Get All Patients
-        public List<Patient> GetAllPatients()
+        public List<Patient>
+            GetAllPatients()
         {
+            return _dataStore.Patients
+                .ToList();
+        }
 
-            return _dataStore.Patients.ToList();
+        // Get Patient By Email
+        public Patient? GetPatientByEmail(
+            string email)
+        {
+            return _dataStore.Patients
+                .FirstOrDefault(p =>
+                    p.Email.Equals(
+                        email,
+                        StringComparison
+                            .OrdinalIgnoreCase));
         }
 
         // Update Existing Patient
-        public void UpdatePatient(Patient updatedPatient)
+        public void UpdatePatient(
+            Patient updatedPatient)
         {
-
             Patient? existingPatient =
                 _dataStore.Patients
                 .FirstOrDefault(p =>
@@ -52,7 +65,6 @@ namespace HealthCare_Appointment_Portal.Repositories
 
             if (existingPatient != null)
             {
-
                 existingPatient.FullName =
                     string.IsNullOrWhiteSpace(
                         updatedPatient.FullName)
@@ -60,12 +72,14 @@ namespace HealthCare_Appointment_Portal.Repositories
                     : updatedPatient.FullName;
 
                 existingPatient.DateOfBirth =
-                    updatedPatient.DateOfBirth == default
+                    updatedPatient.DateOfBirth
+                        == default
                     ? existingPatient.DateOfBirth
                     : updatedPatient.DateOfBirth;
 
                 existingPatient.Gender =
-                    updatedPatient.Gender == default
+                    updatedPatient.Gender
+                        == default
                     ? existingPatient.Gender
                     : updatedPatient.Gender;
 
@@ -90,18 +104,19 @@ namespace HealthCare_Appointment_Portal.Repositories
         }
 
         // Delete Patient By Id
-        public void DeletePatientById(int patientId)
+        public void DeletePatientById(
+            int patientId)
         {
-
             Patient? patient =
                 _dataStore.Patients
                 .FirstOrDefault(p =>
-                    p.PatientId == patientId);
+                    p.PatientId ==
+                    patientId);
 
             if (patient != null)
             {
-
-                _dataStore.Patients.Remove(patient);
+                _dataStore.Patients
+                    .Remove(patient);
             }
         }
     }

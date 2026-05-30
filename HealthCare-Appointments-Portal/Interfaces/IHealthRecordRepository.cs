@@ -2,18 +2,36 @@
 
 namespace HealthCare_Appointment_Portal.Interfaces
 {
-
     public interface IHealthRecordRepository
     {
+        void AddRecord(
+            HealthRecord record);
 
-        void AddRecord(HealthRecord record);
+        List<HealthRecord>
+            GetAllRecords();
 
-        List<HealthRecord> GetAllRecords();
+        HealthRecord?
+            GetRecordById(
+                int recordId);
 
-        HealthRecord? GetRecordById(int recordId);
+        bool RecordExists(
+            int appointmentId);
 
-        void UpdateRecord(HealthRecord updatedRecord);
+        List<HealthRecord>
+            GetRecordsByPatient(
+                int patientId);
 
-        void DeleteRecordById(int recordId);
+        List<HealthRecord>
+            GetRecordsByDoctor(
+                int doctorId);
+
+        List<int>
+            GetRecordedAppointmentIds();
+
+        void UpdateRecord(
+            HealthRecord updatedRecord);
+
+        void DeleteRecordById(
+            int recordId);
     }
 }

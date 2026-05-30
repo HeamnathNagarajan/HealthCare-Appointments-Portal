@@ -38,8 +38,8 @@ namespace HealthCare_Appointment_Portal.Services
         {
             Appointment? appointment =
                 _appointmentRepository
-                    .GetAppointmentById(
-                        record.AppointmentId);
+                .GetAppointmentById(
+                    record.AppointmentId);
 
             // Check Appointment Exists
             if (appointment == null)
@@ -54,16 +54,15 @@ namespace HealthCare_Appointment_Portal.Services
             {
                 throw new
                     InvalidAppointmentStatusException(
-                        Constants.CompletedHealthRecord);
+                        Constants
+                        .CompletedHealthRecord);
             }
 
             // Prevent Duplicate Record
             bool recordExists =
                 _healthRecordRepository
-                    .GetAllRecords()
-                    .Any(r =>
-                        r.AppointmentId ==
-                        record.AppointmentId);
+                .RecordExists(
+                    record.AppointmentId);
 
             if (recordExists)
             {
@@ -82,8 +81,8 @@ namespace HealthCare_Appointment_Portal.Services
         {
             HealthRecord? record =
                 _healthRecordRepository
-                    .GetRecordById(
-                        recordId);
+                .GetRecordById(
+                    recordId);
 
             if (record == null)
             {
@@ -108,13 +107,8 @@ namespace HealthCare_Appointment_Portal.Services
                 int patientId)
         {
             return _healthRecordRepository
-                .GetAllRecords()
-                .Where(r =>
-                    r.Patient.PatientId ==
-                    patientId)
-                .OrderByDescending(r =>
-                    r.VisitDate)
-                .ToList();
+                .GetRecordsByPatient(
+                    patientId);
         }
 
         // Get Records By Doctor
@@ -123,13 +117,8 @@ namespace HealthCare_Appointment_Portal.Services
                 int doctorId)
         {
             return _healthRecordRepository
-                .GetAllRecords()
-                .Where(r =>
-                    r.Doctor.DoctorId ==
-                    doctorId)
-                .OrderByDescending(r =>
-                    r.VisitDate)
-                .ToList();
+                .GetRecordsByDoctor(
+                    doctorId);
         }
 
         // Update Existing Record
@@ -138,8 +127,8 @@ namespace HealthCare_Appointment_Portal.Services
         {
             HealthRecord? existingRecord =
                 _healthRecordRepository
-                    .GetRecordById(
-                        updatedRecord.RecordId);
+                .GetRecordById(
+                    updatedRecord.RecordId);
 
             if (existingRecord == null)
             {
@@ -158,8 +147,8 @@ namespace HealthCare_Appointment_Portal.Services
         {
             HealthRecord? record =
                 _healthRecordRepository
-                    .GetRecordById(
-                        recordId);
+                .GetRecordById(
+                    recordId);
 
             if (record == null)
             {
@@ -198,21 +187,17 @@ namespace HealthCare_Appointment_Portal.Services
         public List<Appointment>
             GetCompletedAppointmentsWithoutHealthRecord()
         {
-            List<int> recordedAppointmentIds =
+            List<int>
+                recordedAppointmentIds =
                 _healthRecordRepository
-                    .GetAllRecords()
-                    .Select(r =>
-                        r.AppointmentId)
-                    .ToList();
+                .GetRecordedAppointmentIds();
 
             return _appointmentRepository
-                .GetAllAppointments()
+                .GetCompletedAppointments()
                 .Where(a =>
-                    a.Status ==
-                        AppointmentStatus.Completed &&
                     !recordedAppointmentIds
-                        .Contains(
-                            a.AppointmentId))
+                    .Contains(
+                        a.AppointmentId))
                 .ToList();
         }
     }

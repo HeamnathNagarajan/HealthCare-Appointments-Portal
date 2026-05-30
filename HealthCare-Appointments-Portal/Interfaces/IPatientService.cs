@@ -2,7 +2,6 @@
 
 namespace HealthCare_Appointment_Portal.Interfaces
 {
-
     public interface IPatientService
     {
         // Add New Patient

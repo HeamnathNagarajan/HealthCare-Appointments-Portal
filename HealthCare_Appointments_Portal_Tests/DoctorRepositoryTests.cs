@@ -99,6 +99,163 @@ namespace HealthCare_Appointment_Portal.Tests
                 result?.DoctorId);
         }
 
+        // Get Doctor By Name And Specialisation
+        [Fact]
+        public void GetDoctorByNameAndSpecialisation_ExistingDoctor_ShouldReturnDoctor()
+        {
+            Doctor doctor = new()
+            {
+                FullName = "Dr Ragu",
+                Specialisation = Specialisation.Cardiology,
+                YearsOfExperience = 5,
+                ConsultationFee = 1000,
+                IsActive = true
+            };
+
+            _dataStore.Doctors.Add(doctor);
+
+            Doctor? result =
+                _repository
+                .GetDoctorByNameAndSpecialisation(
+                    "Dr Ragu",
+                    Specialisation.Cardiology);
+
+            Assert.NotNull(result);
+
+            Assert.Equal(
+                doctor.FullName,
+                result?.FullName);
+        }
+
+        // Get Doctor By Name And Specialisation Ignore Case
+        [Fact]
+        public void GetDoctorByNameAndSpecialisation_CaseInsensitive_ShouldReturnDoctor()
+        {
+            Doctor doctor = new()
+            {
+                FullName = "Dr Ragu",
+                Specialisation = Specialisation.Cardiology,
+                YearsOfExperience = 5,
+                ConsultationFee = 1000,
+                IsActive = true
+            };
+
+            _dataStore.Doctors.Add(doctor);
+
+            Doctor? result =
+                _repository
+                .GetDoctorByNameAndSpecialisation(
+                    "DR RAGU",
+                    Specialisation.Cardiology);
+
+            Assert.NotNull(result);
+        }
+
+        // Get Doctor By Name And Specialisation Invalid
+        [Fact]
+        public void GetDoctorByNameAndSpecialisation_Invalid_ShouldReturnNull()
+        {
+            Doctor? result =
+                _repository
+                .GetDoctorByNameAndSpecialisation(
+                    "Unknown",
+                    Specialisation.Cardiology);
+
+            Assert.Null(result);
+        }
+
+        // Get Doctors By Specialisation
+        [Fact]
+        public void GetDoctorsBySpecialisation_ShouldReturnMatchingDoctors()
+        {
+            _dataStore.Doctors.AddRange(
+            [
+                new Doctor
+        {
+            FullName = "Doctor 1",
+            Specialisation = Specialisation.Cardiology,
+            YearsOfExperience = 5,
+            ConsultationFee = 1000,
+            IsActive = true
+        },
+
+        new Doctor
+        {
+            FullName = "Doctor 2",
+            Specialisation = Specialisation.Neurology,
+            YearsOfExperience = 5,
+            ConsultationFee = 1000,
+            IsActive = true
+        }
+            ]);
+
+            List<Doctor> result =
+                _repository
+                .GetDoctorsBySpecialisation(
+                    Specialisation.Cardiology);
+
+            Assert.Single(result);
+        }
+
+        // Get Doctors By Specialisation No Match
+        [Fact]
+        public void GetDoctorsBySpecialisation_NoMatch_ShouldReturnEmpty()
+        {
+            List<Doctor> result =
+                _repository
+                .GetDoctorsBySpecialisation(
+                    Specialisation.Cardiology);
+
+            Assert.Empty(result);
+        }
+
+        // Get Available Doctors By Specialisation
+        [Fact]
+        public void GetAvailableDoctorsBySpecialisation_ShouldReturnOnlyActiveDoctors()
+        {
+            _dataStore.Doctors.AddRange(
+            [
+                new Doctor
+        {
+            FullName = "Active Doctor",
+            Specialisation = Specialisation.Cardiology,
+            YearsOfExperience = 5,
+            ConsultationFee = 1000,
+            IsActive = true
+        },
+
+        new Doctor
+        {
+            FullName = "Inactive Doctor",
+            Specialisation = Specialisation.Cardiology,
+            YearsOfExperience = 5,
+            ConsultationFee = 1000,
+            IsActive = false
+        }
+            ]);
+
+            List<Doctor> result =
+                _repository
+                .GetAvailableDoctorsBySpecialisation(
+                    Specialisation.Cardiology);
+
+            Assert.Single(result);
+
+            Assert.True(result[0].IsActive);
+        }
+
+        // Get Available Doctors By Specialisation No Match
+        [Fact]
+        public void GetAvailableDoctorsBySpecialisation_NoMatch_ShouldReturnEmpty()
+        {
+            List<Doctor> result =
+                _repository
+                .GetAvailableDoctorsBySpecialisation(
+                    Specialisation.Cardiology);
+
+            Assert.Empty(result);
+        }
+
         // Get Doctor By Invalid Id
         [Fact]
         public void GetDoctorById_InvalidId_ShouldReturnNull()

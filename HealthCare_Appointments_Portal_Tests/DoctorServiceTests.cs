@@ -7,7 +7,7 @@ using Moq;
 
 namespace HealthCare_Appointment_Portal.Tests
 {
-    public class DoctorServiceTests
+    public partial class DoctorServiceTests
     {
         private readonly Mock<IDoctorRepository>
             _mockRepository;
@@ -20,9 +20,11 @@ namespace HealthCare_Appointment_Portal.Tests
 
         public DoctorServiceTests()
         {
-            _mockRepository = new();
+            _mockRepository =
+                new Mock<IDoctorRepository>();
 
-            _mockAppointmentRepository = new();
+            _mockAppointmentRepository =
+                new Mock<IAppointmentRepository>();
 
             _doctorService =
                 new DoctorService(
@@ -34,67 +36,25 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void AddDoctor_ValidDoctor_ShouldAddDoctor()
         {
-            Doctor doctor = CreateDoctor();
-
-            _mockRepository
-                .Setup(r => r.GetAllDoctors())
-                .Returns(new List<Doctor>());
-
-            _doctorService.AddDoctor(doctor);
-
-            _mockRepository.Verify(
-                r => r.AddDoctor(doctor),
-                Times.Once);
-        }
-
-        // Duplicate Doctor
-        [Fact]
-        public void AddDoctor_DuplicateDoctor_ShouldThrowException()
-        {
-            Doctor doctor = CreateDoctor();
-
-            List<Doctor> doctors =
-            [
-                doctor
-            ];
-
-            _mockRepository
-                .Setup(r => r.GetAllDoctors())
-                .Returns(doctors);
-
-            Assert.Throws<
-                DuplicateDoctorException>(() =>
-                    _doctorService.AddDoctor(
-                        doctor));
-        }
-
-        // Same Name Different Specialisation
-        [Fact]
-        public void AddDoctor_SameNameDifferentSpecialisation_ShouldAddDoctor()
-        {
-            Doctor existingDoctor =
+            Doctor doctor =
                 CreateDoctor();
 
-            Doctor newDoctor =
-                CreateDoctor();
-
-            newDoctor.Specialisation =
-                Specialisation.Neurology;
-
             _mockRepository
-                .Setup(r => r.GetAllDoctors())
-                .Returns(
-                [
-                    existingDoctor
-                ]);
+                .Setup(r =>
+                    r.GetDoctorByNameAndSpecialisation(
+                        doctor.FullName,
+                        doctor.Specialisation))
+                .Returns((Doctor?)null);
 
             _doctorService.AddDoctor(
-                newDoctor);
+                doctor);
 
             _mockRepository.Verify(
-                r => r.AddDoctor(newDoctor),
+                r => r.AddDoctor(
+                    doctor),
                 Times.Once);
         }
+
 
         // Get Doctor By Id Success
         [Fact]
@@ -105,13 +65,16 @@ namespace HealthCare_Appointment_Portal.Tests
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(1))
+                    r.GetDoctorById(
+                        doctor.DoctorId))
                 .Returns(doctor);
 
             Doctor? result =
-                _doctorService.GetDoctorById(1);
+                _doctorService.GetDoctorById(
+                    doctor.DoctorId);
 
-            Assert.NotNull(result);
+            Assert.NotNull(
+                result);
 
             Assert.Equal(
                 doctor.DoctorId,
@@ -130,7 +93,8 @@ namespace HealthCare_Appointment_Portal.Tests
 
             Assert.Throws<
                 DoctorNotFoundException>(() =>
-                    _doctorService.GetDoctorById(10));
+                    _doctorService.GetDoctorById(
+                        999));
         }
 
         // Get All Doctors
@@ -144,13 +108,16 @@ namespace HealthCare_Appointment_Portal.Tests
             ];
 
             _mockRepository
-                .Setup(r => r.GetAllDoctors())
+                .Setup(r =>
+                    r.GetAllDoctors())
                 .Returns(doctors);
 
             List<Doctor> result =
                 _doctorService.GetAllDoctors();
 
-            Assert.Equal(2, result.Count);
+            Assert.Equal(
+                2,
+                result.Count);
         }
 
         // Get Empty Doctors
@@ -158,33 +125,40 @@ namespace HealthCare_Appointment_Portal.Tests
         public void GetAllDoctors_Empty_ShouldReturnEmpty()
         {
             _mockRepository
-                .Setup(r => r.GetAllDoctors())
+                .Setup(r =>
+                    r.GetAllDoctors())
                 .Returns(new List<Doctor>());
 
             List<Doctor> result =
                 _doctorService.GetAllDoctors();
 
-            Assert.Empty(result);
+            Assert.Empty(
+                result);
         }
 
         // Get Doctors By Specialisation
         [Fact]
         public void GetDoctorsBySpecialisation_ShouldReturnDoctors()
         {
+            // Arrange
             List<Doctor> doctors =
             [
                 CreateDoctor()
             ];
 
             _mockRepository
-                .Setup(r => r.GetAllDoctors())
+                .Setup(r =>
+                    r.GetDoctorsBySpecialisation(
+                        Specialisation.Cardiology))
                 .Returns(doctors);
 
+            // Act
             List<Doctor> result =
                 _doctorService
                 .GetDoctorsBySpecialisation(
                     Specialisation.Cardiology);
 
+            // Assert
             Assert.Single(result);
         }
 
@@ -192,10 +166,14 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void GetDoctorsBySpecialisation_NoMatch_ShouldThrowException()
         {
+            // Arrange
             _mockRepository
-                .Setup(r => r.GetAllDoctors())
+                .Setup(r =>
+                    r.GetDoctorsBySpecialisation(
+                        Specialisation.Cardiology))
                 .Returns(new List<Doctor>());
 
+            // Act & Assert
             Assert.Throws<
                 DoctorNotFoundException>(() =>
                     _doctorService
@@ -203,33 +181,11 @@ namespace HealthCare_Appointment_Portal.Tests
                         Specialisation.Cardiology));
         }
 
-        // Inactive Doctor
-        [Fact]
-        public void GetDoctorsBySpecialisation_InactiveDoctor_ShouldThrowException()
-        {
-            Doctor doctor =
-                CreateDoctor();
-
-            doctor.IsActive = false;
-
-            _mockRepository
-                .Setup(r => r.GetAllDoctors())
-                .Returns(
-                [
-                    doctor
-                ]);
-
-            Assert.Throws<
-                DoctorNotFoundException>(() =>
-                    _doctorService
-                    .GetDoctorsBySpecialisation(
-                        Specialisation.Cardiology));
-        }
-
-        // Multiple Doctors
+        // Multiple Doctors Same Specialisation
         [Fact]
         public void GetDoctorsBySpecialisation_MultipleDoctors_ShouldReturnAll()
         {
+            // Arrange
             Doctor doctor1 =
                 CreateDoctor();
 
@@ -241,55 +197,64 @@ namespace HealthCare_Appointment_Portal.Tests
             List<Doctor> doctors =
             [
                 doctor1,
-                doctor2
+        doctor2
             ];
 
             _mockRepository
-                .Setup(r => r.GetAllDoctors())
+                .Setup(r =>
+                    r.GetDoctorsBySpecialisation(
+                        Specialisation.Cardiology))
                 .Returns(doctors);
 
+            // Act
             List<Doctor> result =
                 _doctorService
                 .GetDoctorsBySpecialisation(
                     Specialisation.Cardiology);
 
-            Assert.Equal(2, result.Count);
+            // Assert
+            Assert.Equal(
+                2,
+                result.Count);
         }
 
         // Get Available Doctors
         [Fact]
         public void GetAvailableDoctors_ShouldReturnActiveDoctors()
         {
+            // Arrange
             Doctor activeDoctor =
                 CreateDoctor();
 
-            Doctor inactiveDoctor =
-                CreateDoctor();
-
-            inactiveDoctor.IsActive = false;
-
             List<Doctor> doctors =
             [
-                activeDoctor,
-                inactiveDoctor
+                activeDoctor
             ];
 
             _mockRepository
-                .Setup(r => r.GetAllDoctors())
+                .Setup(r =>
+                    r.GetAvailableDoctorsBySpecialisation(
+                        Specialisation.Cardiology))
                 .Returns(doctors);
 
+            // Act
             List<Doctor> result =
                 _doctorService
                 .GetAvailableDoctorsBySpecialisation(
                     Specialisation.Cardiology);
 
+            // Assert
             Assert.Single(result);
+
+            Assert.True(
+                result[0].IsActive);
         }
 
         // Multiple Active Doctors
         [Fact]
         public void GetAvailableDoctors_MultipleActive_ShouldReturnAll()
         {
+            // Arrange
             Doctor doctor1 =
                 CreateDoctor();
 
@@ -298,39 +263,73 @@ namespace HealthCare_Appointment_Portal.Tests
 
             doctor2.DoctorId = 2;
 
-            _mockRepository
-                .Setup(r => r.GetAllDoctors())
-                .Returns(
-                [
-                    doctor1,
-                    doctor2
-                ]);
+            List<Doctor> doctors =
+            [
+                doctor1,
+        doctor2
+            ];
 
+            _mockRepository
+                .Setup(r =>
+                    r.GetAvailableDoctorsBySpecialisation(
+                        Specialisation.Cardiology))
+                .Returns(doctors);
+
+            // Act
             List<Doctor> result =
                 _doctorService
                 .GetAvailableDoctorsBySpecialisation(
                     Specialisation.Cardiology);
 
-            Assert.Equal(2, result.Count);
+            // Assert
+            Assert.Equal(
+                2,
+                result.Count);
+        }
+
+        // No Available Doctors
+        [Fact]
+        public void GetAvailableDoctors_NoDoctors_ShouldReturnEmpty()
+        {
+            // Arrange
+            _mockRepository
+                .Setup(r =>
+                    r.GetAvailableDoctorsBySpecialisation(
+                        Specialisation.Cardiology))
+                .Returns(new List<Doctor>());
+
+            // Act
+            List<Doctor> result =
+                _doctorService
+                .GetAvailableDoctorsBySpecialisation(
+                    Specialisation.Cardiology);
+
+            // Assert
+            Assert.Empty(result);
         }
 
         // Update Doctor Success
         [Fact]
         public void UpdateDoctor_ShouldUpdateDoctor()
         {
+            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(1))
+                    r.GetDoctorById(
+                        doctor.DoctorId))
                 .Returns(doctor);
 
+            // Act
             _doctorService.UpdateDoctor(
                 doctor);
 
+            // Assert
             _mockRepository.Verify(
-                r => r.UpdateDoctor(doctor),
+                r => r.UpdateDoctor(
+                    doctor),
                 Times.Once);
         }
 
@@ -338,17 +337,21 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void UpdateDoctor_InvalidDoctor_ShouldThrowException()
         {
+            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(1))
+                    r.GetDoctorById(
+                        doctor.DoctorId))
                 .Returns((Doctor?)null);
 
+            // Act & Assert
             Assert.Throws<
                 DoctorNotFoundException>(() =>
-                    _doctorService.UpdateDoctor(
+                    _doctorService
+                    .UpdateDoctor(
                         doctor));
         }
 
@@ -356,23 +359,30 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void DeleteDoctor_ShouldDeleteDoctor()
         {
+            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(1))
+                    r.GetDoctorById(
+                        doctor.DoctorId))
                 .Returns(doctor);
 
             _mockAppointmentRepository
                 .Setup(r =>
-                    r.GetAllAppointments())
+                    r.GetAppointmentsByDoctor(
+                        doctor.DoctorId))
                 .Returns(new List<Appointment>());
 
-            _doctorService.DeleteDoctorById(1);
+            // Act
+            _doctorService.DeleteDoctorById(
+                doctor.DoctorId);
 
+            // Assert
             _mockRepository.Verify(
-                r => r.DeleteDoctorById(1),
+                r => r.DeleteDoctorById(
+                    doctor.DoctorId),
                 Times.Once);
         }
 
@@ -380,21 +390,26 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void DeleteDoctor_InvalidId_ShouldThrowException()
         {
+            // Arrange
             _mockRepository
                 .Setup(r =>
                     r.GetDoctorById(
                         It.IsAny<int>()))
                 .Returns((Doctor?)null);
 
+            // Act & Assert
             Assert.Throws<
                 DoctorNotFoundException>(() =>
-                    _doctorService.DeleteDoctorById(99));
+                    _doctorService
+                    .DeleteDoctorById(
+                        999));
         }
 
         // Confirmed Appointment
         [Fact]
         public void DeleteDoctor_ConfirmedAppointment_ShouldThrowException()
         {
+            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
@@ -405,26 +420,32 @@ namespace HealthCare_Appointment_Portal.Tests
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(1))
+                    r.GetDoctorById(
+                        doctor.DoctorId))
                 .Returns(doctor);
 
             _mockAppointmentRepository
                 .Setup(r =>
-                    r.GetAllAppointments())
+                    r.GetAppointmentsByDoctor(
+                        doctor.DoctorId))
                 .Returns(
                 [
                     appointment
                 ]);
 
+            // Act & Assert
             Assert.Throws<
                 DoctorDeletionException>(() =>
-                    _doctorService.DeleteDoctorById(1));
+                    _doctorService
+                    .DeleteDoctorById(
+                        doctor.DoctorId));
         }
 
         // Pending Appointment
         [Fact]
         public void DeleteDoctor_PendingAppointment_ShouldCancelAndDelete()
         {
+            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
@@ -435,19 +456,24 @@ namespace HealthCare_Appointment_Portal.Tests
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(1))
+                    r.GetDoctorById(
+                        doctor.DoctorId))
                 .Returns(doctor);
 
             _mockAppointmentRepository
                 .Setup(r =>
-                    r.GetAllAppointments())
+                    r.GetAppointmentsByDoctor(
+                        doctor.DoctorId))
                 .Returns(
                 [
                     appointment
                 ]);
 
-            _doctorService.DeleteDoctorById(1);
+            // Act
+            _doctorService.DeleteDoctorById(
+                doctor.DoctorId);
 
+            // Assert
             Assert.Equal(
                 AppointmentStatus.Cancelled,
                 appointment.Status);
@@ -458,7 +484,8 @@ namespace HealthCare_Appointment_Portal.Tests
                 Times.Once);
 
             _mockRepository.Verify(
-                r => r.DeleteDoctorById(1),
+                r => r.DeleteDoctorById(
+                    doctor.DoctorId),
                 Times.Once);
         }
 
@@ -466,6 +493,7 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void DeleteDoctor_CompletedAppointment_ShouldDeleteDoctor()
         {
+            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
@@ -476,21 +504,27 @@ namespace HealthCare_Appointment_Portal.Tests
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(1))
+                    r.GetDoctorById(
+                        doctor.DoctorId))
                 .Returns(doctor);
 
             _mockAppointmentRepository
                 .Setup(r =>
-                    r.GetAllAppointments())
+                    r.GetAppointmentsByDoctor(
+                        doctor.DoctorId))
                 .Returns(
                 [
                     appointment
                 ]);
 
-            _doctorService.DeleteDoctorById(1);
+            // Act
+            _doctorService.DeleteDoctorById(
+                doctor.DoctorId);
 
+            // Assert
             _mockRepository.Verify(
-                r => r.DeleteDoctorById(1),
+                r => r.DeleteDoctorById(
+                    doctor.DoctorId),
                 Times.Once);
         }
 
@@ -498,6 +532,7 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void DeleteDoctor_CancelledAppointment_ShouldDeleteDoctor()
         {
+            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
@@ -508,21 +543,27 @@ namespace HealthCare_Appointment_Portal.Tests
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(1))
+                    r.GetDoctorById(
+                        doctor.DoctorId))
                 .Returns(doctor);
 
             _mockAppointmentRepository
                 .Setup(r =>
-                    r.GetAllAppointments())
+                    r.GetAppointmentsByDoctor(
+                        doctor.DoctorId))
                 .Returns(
                 [
                     appointment
                 ]);
 
-            _doctorService.DeleteDoctorById(1);
+            // Act
+            _doctorService.DeleteDoctorById(
+                doctor.DoctorId);
 
+            // Assert
             _mockRepository.Verify(
-                r => r.DeleteDoctorById(1),
+                r => r.DeleteDoctorById(
+                    doctor.DoctorId),
                 Times.Once);
         }
 
@@ -530,6 +571,7 @@ namespace HealthCare_Appointment_Portal.Tests
         [Fact]
         public void DeleteDoctor_MultiplePendingAppointments_ShouldUpdateAll()
         {
+            // Arrange
             Doctor doctor =
                 CreateDoctor();
 
@@ -545,20 +587,25 @@ namespace HealthCare_Appointment_Portal.Tests
 
             _mockRepository
                 .Setup(r =>
-                    r.GetDoctorById(1))
+                    r.GetDoctorById(
+                        doctor.DoctorId))
                 .Returns(doctor);
 
             _mockAppointmentRepository
                 .Setup(r =>
-                    r.GetAllAppointments())
+                    r.GetAppointmentsByDoctor(
+                        doctor.DoctorId))
                 .Returns(
                 [
                     appointment1,
-                    appointment2
+            appointment2
                 ]);
 
-            _doctorService.DeleteDoctorById(1);
+            // Act
+            _doctorService.DeleteDoctorById(
+                doctor.DoctorId);
 
+            // Assert
             _mockAppointmentRepository.Verify(
                 r => r.UpdateAppointment(
                     It.IsAny<Appointment>()),

@@ -6,58 +6,53 @@ using HealthCare_Appointment_Portal.Utilities;
 
 namespace HealthCare_Appointment_Portal.Services
 {
-
-    public class DoctorService : IDoctorService
+    public class DoctorService
+        : IDoctorService
     {
+        private readonly
+            IDoctorRepository
+            _doctorRepository;
 
-        private readonly IDoctorRepository _doctorRepository;
-
-        private readonly IAppointmentRepository _appointmentRepository;
+        private readonly
+            IAppointmentRepository
+            _appointmentRepository;
 
         // Dependency Injection
         public DoctorService(
             IDoctorRepository doctorRepository,
-            IAppointmentRepository appointmentRepository)
-        {
 
-            _doctorRepository = doctorRepository;
-            _appointmentRepository = appointmentRepository;
+            IAppointmentRepository
+            appointmentRepository)
+        {
+            _doctorRepository =
+                doctorRepository;
+
+            _appointmentRepository =
+                appointmentRepository;
         }
 
         // Add New Doctor
-        public void AddDoctor(Doctor doctor)
+        public void AddDoctor(
+            Doctor doctor)
         {
 
-            Doctor? existingDoctor =
-                _doctorRepository
-                .GetAllDoctors()
-                .FirstOrDefault(d =>
-                    d.FullName == doctor.FullName &&
-                    d.Specialisation ==
-                    doctor.Specialisation);
-
-            if (existingDoctor != null)
-            {
-
-                throw new DuplicateDoctorException();
-            }
-
-            _doctorRepository.AddDoctor(doctor);
+            _doctorRepository
+                .AddDoctor(doctor);
         }
 
         // Get Doctor By Id
         public Doctor? GetDoctorById(
             int doctorId)
         {
-
             Doctor? doctor =
                 _doctorRepository
-                .GetDoctorById(doctorId);
+                .GetDoctorById(
+                    doctorId);
 
             if (doctor == null)
             {
-
-                throw new DoctorNotFoundException();
+                throw new
+                    DoctorNotFoundException();
             }
 
             Console.WriteLine(
@@ -67,9 +62,9 @@ namespace HealthCare_Appointment_Portal.Services
         }
 
         // Get All Doctors
-        public List<Doctor> GetAllDoctors()
+        public List<Doctor>
+            GetAllDoctors()
         {
-
             return _doctorRepository
                 .GetAllDoctors();
         }
@@ -79,44 +74,34 @@ namespace HealthCare_Appointment_Portal.Services
             GetDoctorsBySpecialisation(
                 Specialisation specialisation)
         {
-
             List<Doctor> doctors =
                 _doctorRepository
-                .GetAllDoctors()
-                .Where(d =>
-                d.Specialisation ==
-                specialisation &&
-                d.IsActive)
-             .ToList();
+                .GetDoctorsBySpecialisation(
+                    specialisation);
 
             if (doctors.Count == 0)
             {
-                throw new DoctorNotFoundException();
+                throw new
+                    DoctorNotFoundException();
             }
 
             return doctors;
-
         }
 
         // Get Available Doctors By Specialisation
-        public List<Doctor> GetAvailableDoctorsBySpecialisation(
+        public List<Doctor>
+            GetAvailableDoctorsBySpecialisation(
                 Specialisation specialisation)
         {
-
             return _doctorRepository
-                .GetAllDoctors()
-                .Where(d =>
-                    d.Specialisation ==
-                    specialisation &&
-                    d.IsActive)
-                .ToList();
+                .GetAvailableDoctorsBySpecialisation(
+                    specialisation);
         }
 
         // Update Existing Doctor
         public void UpdateDoctor(
             Doctor updatedDoctor)
         {
-
             Doctor? existingDoctor =
                 _doctorRepository
                 .GetDoctorById(
@@ -124,63 +109,75 @@ namespace HealthCare_Appointment_Portal.Services
 
             if (existingDoctor == null)
             {
-
-                throw new DoctorNotFoundException();
+                throw new
+                    DoctorNotFoundException();
             }
 
             _doctorRepository
-                .UpdateDoctor(updatedDoctor);
+                .UpdateDoctor(
+                    updatedDoctor);
         }
 
         // Delete Doctor By Id
         public void DeleteDoctorById(
             int doctorId)
         {
-
             Doctor? doctor =
                 _doctorRepository
-                .GetDoctorById(doctorId);
+                .GetDoctorById(
+                    doctorId);
 
             if (doctor == null)
             {
-
-                throw new DoctorNotFoundException();
+                throw new
+                    DoctorNotFoundException();
             }
 
-            List<Appointment> doctorAppointments =
+            List<Appointment>
+                doctorAppointments =
                 _appointmentRepository
-                .GetAllAppointments()
-                .Where(a => a.Doctor.DoctorId == doctorId)
-                .ToList();
+                .GetAppointmentsByDoctor(
+                    doctorId);
 
-            bool hasConfirmedAppointments = 
+            bool hasConfirmedAppointments =
                 doctorAppointments
-                .Any(a => 
-                a.Status ==
-                AppointmentStatus.Confirmed);
+                .Any(a =>
+                    a.Status ==
+                    AppointmentStatus
+                        .Confirmed);
 
             if (hasConfirmedAppointments)
-            { 
-                throw new DoctorDeletionException();
+            {
+                throw new
+                    DoctorDeletionException();
             }
 
             // Cancel Pending Appointments
-            List<Appointment> pendingAppointments = 
-                doctorAppointments 
-                .Where(a => 
-                a.Status == 
-                AppointmentStatus.Pending)
+            List<Appointment>
+                pendingAppointments =
+                doctorAppointments
+                .Where(a =>
+                    a.Status ==
+                    AppointmentStatus
+                        .Pending)
                 .ToList();
 
-            foreach (Appointment appointment in pendingAppointments)
+            foreach (
+                Appointment appointment
+                in pendingAppointments)
             {
+                appointment.Cancel(
+                    Constants
+                    .DoctorRemovedFromSystem);
 
-                appointment.Cancel(Constants.DoctorRemovedFromSystem);
-                _appointmentRepository.UpdateAppointment(appointment);
+                _appointmentRepository
+                    .UpdateAppointment(
+                        appointment);
             }
 
             _doctorRepository
-                .DeleteDoctorById(doctorId);
+                .DeleteDoctorById(
+                    doctorId);
         }
     }
 }

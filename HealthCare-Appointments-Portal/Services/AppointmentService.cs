@@ -6,32 +6,37 @@ using HealthCare_Appointment_Portal.Utilities;
 
 namespace HealthCare_Appointment_Portal.Services
 {
-    public class AppointmentService : IAppointmentService
+    public class AppointmentService
+        : IAppointmentService
     {
-
-        private readonly IAppointmentRepository
+        private readonly
+            IAppointmentRepository
             _appointmentRepository;
 
         // Dependency Injection
-        public AppointmentService(IAppointmentRepository
+        public AppointmentService(
+            IAppointmentRepository
             appointmentRepository)
         {
-
             _appointmentRepository =
                 appointmentRepository;
         }
 
         // Book New Appointment
-        public Appointment BookAppointment(
-            Patient patient,
-            Doctor doctor,
-            Specialisation specialisation,
-            DateOnly date,
-            TimeOnly slot)
+        public Appointment
+            BookAppointment(
+                Patient patient,
+                Doctor doctor,
+                Specialisation specialisation,
+                DateOnly date,
+                TimeOnly slot)
         {
-
-            if (doctor.Specialisation != specialisation) { 
-                throw new InvalidDoctorSpecialisationException(); }
+            if (doctor.Specialisation !=
+                specialisation)
+            {
+                throw new
+                    InvalidDoctorSpecialisationException();
+            }
 
             DateOnly currentDate =
                 DateOnly.FromDateTime(
@@ -44,72 +49,80 @@ namespace HealthCare_Appointment_Portal.Services
             // Past Date Check
             if (date < currentDate)
             {
-                throw new PastDateException();
+                throw new
+                    PastDateException();
             }
 
             // Maximum Advance Booking Date
-            DateOnly maxBookingDate = 
+            DateOnly maxBookingDate =
                 currentDate.AddMonths(6);
 
-            if (date > maxBookingDate) { 
-                throw new AdvanceBookingLimitException();
+            if (date > maxBookingDate)
+            {
+                throw new
+                    AdvanceBookingLimitException();
             }
 
             // Same Day Past Time Check
-            if (date == currentDate &&
-                 slot < currentTime)
+            if (date == currentDate
+                &&
+                slot < currentTime)
             {
-                throw new PastTimeSlotException();
+                throw new
+                    PastTimeSlotException();
             }
 
             if (!doctor.IsAvailable(date))
             {
-
-                throw new DoctorUnavailableException();
+                throw new
+                    DoctorUnavailableException();
             }
 
-            Appointment? existingAppointment =
+            Appointment?
+                existingAppointment =
                 _appointmentRepository
-                .GetAllAppointments()
-                .FirstOrDefault(a =>
-                    a.Doctor.DoctorId ==
-                    doctor.DoctorId &&
-                    a.ScheduledDate == date &&
-                    a.TimeSlot == slot &&
-                    a.Status !=
-                    AppointmentStatus.Cancelled);
+                .GetConflictingAppointment(
+                    doctor.DoctorId,
+                    date,
+                    slot);
 
             if (existingAppointment != null)
             {
-
-                throw new AppointmentConflictException();
+                throw new
+                    AppointmentConflictException();
             }
 
             Appointment appointment =
                 new Appointment
                 {
-
                     Patient = patient,
+
                     Doctor = doctor,
+
                     ScheduledDate = date,
+
                     TimeSlot = slot,
+
                     Status =
-                        AppointmentStatus.Pending
+                        AppointmentStatus
+                            .Pending
                 };
 
-            doctor.Appointments.Add(appointment);
+            doctor.Appointments
+                .Add(appointment);
 
             _appointmentRepository
-                .AddAppointment(appointment);
+                .AddAppointment(
+                    appointment);
 
             return appointment;
         }
 
         // Get Appointment By Id
-        public Appointment? GetAppointmentById(
-            int appointmentId)
+        public Appointment?
+            GetAppointmentById(
+                int appointmentId)
         {
-
             Appointment? appointment =
                 _appointmentRepository
                 .GetAppointmentById(
@@ -117,8 +130,8 @@ namespace HealthCare_Appointment_Portal.Services
 
             if (appointment == null)
             {
-
-                throw new AppointmentNotFoundException();
+                throw new
+                    AppointmentNotFoundException();
             }
 
             return appointment;
@@ -128,7 +141,6 @@ namespace HealthCare_Appointment_Portal.Services
         public List<Appointment>
             GetAllAppointments()
         {
-
             return _appointmentRepository
                 .GetAllAppointments();
         }
@@ -138,15 +150,9 @@ namespace HealthCare_Appointment_Portal.Services
             GetAppointmentsByPatient(
                 int patientId)
         {
-
             return _appointmentRepository
-                .GetAllAppointments()
-                .Where(a =>
-                    a.Patient.PatientId ==
-                    patientId)
-                .OrderBy(a =>
-                    a.ScheduledDate)
-                .ToList();
+                .GetAppointmentsByPatient(
+                    patientId);
         }
 
         // Get Appointments By Doctor
@@ -154,54 +160,31 @@ namespace HealthCare_Appointment_Portal.Services
             GetAppointmentsByDoctor(
                 int doctorId)
         {
-
             return _appointmentRepository
-                .GetAllAppointments()
-                .Where(a =>
-                    a.Doctor.DoctorId ==
-                    doctorId)
-                .OrderBy(a =>
-                    a.ScheduledDate)
-                .ToList();
+                .GetAppointmentsByDoctor(
+                    doctorId);
         }
 
         // Get Upcoming Appointments
         public List<Appointment>
             GetUpcomingAppointments()
         {
-
-            DateOnly today =
-                DateOnly.FromDateTime(
-                    DateTime.Now);
-
             return _appointmentRepository
-                .GetAllAppointments()
-                .Where(a =>
-                    a.ScheduledDate >= today &&
-                    a.Status ==
-                    AppointmentStatus.Confirmed)
-                .OrderBy(a =>
-                    a.ScheduledDate)
-                .ToList();
+                .GetUpcomingAppointments();
         }
 
         // Get Completed Appointments
-        public List<Appointment> GetCompletedAppointments()
+        public List<Appointment>
+            GetCompletedAppointments()
         {
-
             return _appointmentRepository
-                .GetAllAppointments()
-                .Where(a =>
-                    a.Status ==
-                    AppointmentStatus.Completed)
-                .ToList();
+                .GetCompletedAppointments();
         }
 
         // Confirm Appointment
         public void ConfirmAppointment(
             int appointmentId)
         {
-
             Appointment? appointment =
                 _appointmentRepository
                 .GetAppointmentById(
@@ -209,15 +192,17 @@ namespace HealthCare_Appointment_Portal.Services
 
             if (appointment == null)
             {
-
-                throw new AppointmentNotFoundException();
+                throw new
+                    AppointmentNotFoundException();
             }
 
             // Allow only Pending appointments
-            if (appointment.Status != AppointmentStatus.Pending)
+            if (appointment.Status !=
+                AppointmentStatus.Pending)
             {
-                throw new InvalidAppointmentStatusException(
-                    Constants
+                throw new
+                    InvalidAppointmentStatusException(
+                        Constants
                         .ConfirmOnlyPending);
             }
 
@@ -240,7 +225,6 @@ namespace HealthCare_Appointment_Portal.Services
             int appointmentId,
             string reason)
         {
-
             Appointment? appointment =
                 _appointmentRepository
                 .GetAppointmentById(
@@ -248,16 +232,21 @@ namespace HealthCare_Appointment_Portal.Services
 
             if (appointment == null)
             {
-
-                throw new AppointmentNotFoundException();
+                throw new
+                    AppointmentNotFoundException();
             }
 
-            // Allow only Pending or Confirmed appointments
-            if (appointment.Status != AppointmentStatus.Pending &&
-                appointment.Status != AppointmentStatus.Confirmed)
+            // Allow only Pending
+            // or Confirmed appointments
+            if (appointment.Status !=
+                AppointmentStatus.Pending
+                &&
+                appointment.Status !=
+                AppointmentStatus.Confirmed)
             {
-                throw new InvalidAppointmentStatusException(
-                    Constants
+                throw new
+                    InvalidAppointmentStatusException(
+                        Constants
                         .CancelOnlyPendingOrConfirmed);
             }
 
@@ -272,7 +261,6 @@ namespace HealthCare_Appointment_Portal.Services
         public void CompleteAppointment(
             int appointmentId)
         {
-
             Appointment? appointment =
                 _appointmentRepository
                 .GetAppointmentById(
@@ -280,15 +268,17 @@ namespace HealthCare_Appointment_Portal.Services
 
             if (appointment == null)
             {
-
-                throw new AppointmentNotFoundException();
+                throw new
+                    AppointmentNotFoundException();
             }
 
             // Allow only Confirmed appointments
-            if (appointment.Status != AppointmentStatus.Confirmed)
+            if (appointment.Status !=
+                AppointmentStatus.Confirmed)
             {
-                throw new InvalidAppointmentStatusException(
-                    Constants
+                throw new
+                    InvalidAppointmentStatusException(
+                        Constants
                         .CompleteOnlyConfirmed);
             }
 
@@ -299,12 +289,10 @@ namespace HealthCare_Appointment_Portal.Services
                     appointment);
         }
 
-
         // Update Existing Appointment
         public void UpdateAppointment(
             Appointment updatedAppointment)
         {
-
             Appointment? appointment =
                 _appointmentRepository
                 .GetAppointmentById(
@@ -313,8 +301,8 @@ namespace HealthCare_Appointment_Portal.Services
 
             if (appointment == null)
             {
-
-                throw new AppointmentNotFoundException();
+                throw new
+                    AppointmentNotFoundException();
             }
 
             _appointmentRepository
@@ -326,7 +314,6 @@ namespace HealthCare_Appointment_Portal.Services
         public void DeleteAppointmentById(
             int appointmentId)
         {
-
             Appointment? appointment =
                 _appointmentRepository
                 .GetAppointmentById(
@@ -334,19 +321,22 @@ namespace HealthCare_Appointment_Portal.Services
 
             if (appointment == null)
             {
-
-                throw new AppointmentNotFoundException();
+                throw new
+                    AppointmentNotFoundException();
             }
 
             // Prevent Delete
-            if (appointment.Status == 
-                AppointmentStatus.Pending ||
-                appointment.Status == AppointmentStatus.Confirmed)
+            if (appointment.Status ==
+                AppointmentStatus.Pending
+                ||
+                appointment.Status ==
+                AppointmentStatus.Confirmed)
             {
-                throw new AppointmentDeletionException();
+                throw new
+                    AppointmentDeletionException();
             }
 
-                _appointmentRepository
+            _appointmentRepository
                 .DeleteAppointmentById(
                     appointmentId);
         }

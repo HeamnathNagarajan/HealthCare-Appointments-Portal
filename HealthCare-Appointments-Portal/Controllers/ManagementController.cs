@@ -219,16 +219,6 @@ namespace HealthCare_Appointment_Portal.Controllers
 
                     break;
 
-                case DuplicateDoctorException duplicateDoctorException:
-
-                    Console.WriteLine(
-                        string.Format(
-                            ConsoleConstants
-                            .DuplicateDoctorFormat,
-                            duplicateDoctorException.Message));
-
-                    break;
-
                 case PatientNotFoundException patientNotFoundException:
 
                     Console.WriteLine(

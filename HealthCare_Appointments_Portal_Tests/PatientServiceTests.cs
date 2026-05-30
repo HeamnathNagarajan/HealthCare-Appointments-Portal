@@ -42,16 +42,18 @@ namespace HealthCare_Appointment_Portal.Tests
 
             _mockRepository
                 .Setup(r =>
-                    r.GetAllPatients())
-                .Returns(new List<Patient>());
+                    r.GetPatientByEmail(
+                        patient.Email))
+                .Returns((Patient?)null);
 
             // Act
             _patientService.AddPatient(
                 patient);
 
             // Assert
-            _mockRepository.Verify(r =>
-                r.AddPatient(patient),
+            _mockRepository.Verify(
+                r => r.AddPatient(
+                    patient),
                 Times.Once);
         }
 
@@ -63,15 +65,11 @@ namespace HealthCare_Appointment_Portal.Tests
             Patient patient =
                 CreatePatient();
 
-            List<Patient> patients =
-            [
-                patient
-            ];
-
             _mockRepository
                 .Setup(r =>
-                    r.GetAllPatients())
-                .Returns(patients);
+                    r.GetPatientByEmail(
+                        patient.Email))
+                .Returns(patient);
 
             // Act & Assert
             Assert.Throws<
@@ -123,7 +121,7 @@ namespace HealthCare_Appointment_Portal.Tests
             Assert.Throws<
                 PatientNotFoundException>(() =>
                     _patientService.GetPatientById(
-                       322));
+                        999));
         }
 
         // Get All Patients
@@ -179,15 +177,11 @@ namespace HealthCare_Appointment_Portal.Tests
             Patient patient =
                 CreatePatient();
 
-            List<Patient> patients =
-            [
-                patient
-            ];
-
             _mockRepository
                 .Setup(r =>
-                    r.GetAllPatients())
-                .Returns(patients);
+                    r.GetPatientByEmail(
+                        patient.Email))
+                .Returns(patient);
 
             // Act
             Patient? result =
@@ -196,8 +190,7 @@ namespace HealthCare_Appointment_Portal.Tests
                     patient.Email);
 
             // Assert
-            Assert.NotNull(
-                result);
+            Assert.NotNull(result);
 
             Assert.Equal(
                 patient.Email,
@@ -211,8 +204,9 @@ namespace HealthCare_Appointment_Portal.Tests
             // Arrange
             _mockRepository
                 .Setup(r =>
-                    r.GetAllPatients())
-                .Returns(new List<Patient>());
+                    r.GetPatientByEmail(
+                        It.IsAny<string>()))
+                .Returns((Patient?)null);
 
             // Act & Assert
             Assert.Throws<
@@ -237,12 +231,14 @@ namespace HealthCare_Appointment_Portal.Tests
                 .Returns(patient);
 
             // Act
-            _patientService.UpdatePatient(
-                patient);
+            _patientService
+                .UpdatePatient(
+                    patient);
 
             // Assert
-            _mockRepository.Verify(r =>
-                r.UpdatePatient(patient),
+            _mockRepository.Verify(
+                r => r.UpdatePatient(
+                    patient),
                 Times.Once);
         }
 
@@ -263,40 +259,9 @@ namespace HealthCare_Appointment_Portal.Tests
             // Act & Assert
             Assert.Throws<
                 PatientNotFoundException>(() =>
-                    _patientService.UpdatePatient(
+                    _patientService
+                    .UpdatePatient(
                         patient));
-        }
-
-        // Delete Existing Patient
-        [Fact]
-        public void DeletePatientById_ExistingId_ShouldDeletePatient()
-        {
-            // Arrange
-            Patient patient =
-                CreatePatient();
-
-            patient.PatientId = 1;
-
-            _mockRepository
-                .Setup(r =>
-                    r.GetPatientById(
-                        patient.PatientId))
-                .Returns(patient);
-
-            _mockAppointmentRepository
-                .Setup(r =>
-                    r.GetAllAppointments())
-                .Returns(new List<Appointment>());
-
-            // Act
-            _patientService.DeletePatientById(
-                patient.PatientId);
-
-            // Assert
-            _mockRepository.Verify(r =>
-                r.DeletePatientById(
-                    patient.PatientId),
-                Times.Once);
         }
 
         // Delete Invalid Patient
@@ -313,8 +278,41 @@ namespace HealthCare_Appointment_Portal.Tests
             // Act & Assert
             Assert.Throws<
                 PatientNotFoundException>(() =>
-                    _patientService.DeletePatientById(
-                        322));
+                    _patientService
+                    .DeletePatientById(
+                        999));
+        }
+
+        // Delete Patient With No Appointments
+        [Fact]
+        public void DeletePatientById_NoAppointments_ShouldDeletePatient()
+        {
+            // Arrange
+            Patient patient =
+                CreatePatient();
+
+            _mockRepository
+                .Setup(r =>
+                    r.GetPatientById(
+                        patient.PatientId))
+                .Returns(patient);
+
+            _mockAppointmentRepository
+                .Setup(r =>
+                    r.GetAppointmentsByPatient(
+                        patient.PatientId))
+                .Returns(new List<Appointment>());
+
+            // Act
+            _patientService
+                .DeletePatientById(
+                    patient.PatientId);
+
+            // Assert
+            _mockRepository.Verify(
+                r => r.DeletePatientById(
+                    patient.PatientId),
+                Times.Once);
         }
 
         // Delete Patient With Confirmed Appointment
@@ -325,26 +323,15 @@ namespace HealthCare_Appointment_Portal.Tests
             Patient patient =
                 CreatePatient();
 
-            patient.PatientId = 1;
-
-            Appointment appointment = new()
-            {
-                AppointmentId = 1,
-
-                Patient = patient,
-
-                Doctor = CreateDoctor(),
-
-                ScheduledDate =
-                    DateOnly.FromDateTime(
-                        DateTime.Now.AddDays(1)),
-
-                TimeSlot =
-                    new TimeOnly(10, 0),
-
-                Status =
-                    AppointmentStatus.Confirmed
-            };
+            Appointment appointment =
+                new Appointment
+                {
+                    Patient = patient,
+                    Doctor = CreateDoctor(),
+                    Status =
+                        AppointmentStatus
+                            .Confirmed
+                };
 
             _mockRepository
                 .Setup(r =>
@@ -354,11 +341,9 @@ namespace HealthCare_Appointment_Portal.Tests
 
             _mockAppointmentRepository
                 .Setup(r =>
-                    r.GetAllAppointments())
-                .Returns(
-                [
-                    appointment
-                ]);
+                    r.GetAppointmentsByPatient(
+                        patient.PatientId))
+                .Returns([appointment]);
 
             // Act & Assert
             Assert.Throws<
@@ -376,26 +361,15 @@ namespace HealthCare_Appointment_Portal.Tests
             Patient patient =
                 CreatePatient();
 
-            patient.PatientId = 1;
-
-            Appointment appointment = new()
-            {
-                AppointmentId = 1,
-
-                Patient = patient,
-
-                Doctor = CreateDoctor(),
-
-                ScheduledDate =
-                    DateOnly.FromDateTime(
-                        DateTime.Now.AddDays(1)),
-
-                TimeSlot =
-                    new TimeOnly(10, 0),
-
-                Status =
-                    AppointmentStatus.Pending
-            };
+            Appointment appointment =
+                new Appointment
+                {
+                    Patient = patient,
+                    Doctor = CreateDoctor(),
+                    Status =
+                        AppointmentStatus
+                            .Pending
+                };
 
             _mockRepository
                 .Setup(r =>
@@ -405,11 +379,9 @@ namespace HealthCare_Appointment_Portal.Tests
 
             _mockAppointmentRepository
                 .Setup(r =>
-                    r.GetAllAppointments())
-                .Returns(
-                [
-                    appointment
-                ]);
+                    r.GetAppointmentsByPatient(
+                        patient.PatientId))
+                .Returns([appointment]);
 
             // Act
             _patientService
@@ -439,11 +411,9 @@ namespace HealthCare_Appointment_Portal.Tests
         {
             return new Patient
             {
-                PatientId =
-                    1,
+                PatientId = 1,
 
-                FullName =
-                    "Ragu",
+                FullName = "Ragu",
 
                 DateOfBirth =
                     new DateOnly(
@@ -463,29 +433,24 @@ namespace HealthCare_Appointment_Portal.Tests
                 InsuranceId =
                     "INS101"
             };
-        }
 
-        // Helper Method
+        }
         private static Doctor CreateDoctor()
         {
             return new Doctor
             {
                 DoctorId = 1,
 
-                FullName =
-                    "Dr Ragu",
+                FullName = "Dr Ragu",
 
                 Specialisation =
                     Specialisation.Cardiology,
 
-                YearsOfExperience =
-                    5,
+                YearsOfExperience = 5,
 
-                ConsultationFee =
-                    1000,
+                ConsultationFee = 1000,
 
-                IsActive =
-                    true
+                IsActive = true
             };
         }
     }
